@@ -133,14 +133,6 @@ public class Menue implements Serializable {
 	public boolean getVegetarian(){
 		return vegetarian;
 	}
-
-// zu erledigen	
-	public void alterMenue(Object o){
-		// soll in Event rein und wie umgesetzt werden damit die passende Methode genutzt
-	}
 	
-	public void deleteMenue(){
-		//mit Transaktionen
-	}
 	
 }//End Class

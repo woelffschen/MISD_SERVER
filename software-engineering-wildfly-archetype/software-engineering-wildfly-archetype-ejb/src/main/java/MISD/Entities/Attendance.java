@@ -6,9 +6,10 @@ import java.util.ArrayList;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.print.attribute.standard.DateTimeAtCreation;
 
-@Entity
+@Entity @IdClass(Attendance.class)
 public class Attendance implements Serializable{
 
 	
@@ -20,12 +21,13 @@ public class Attendance implements Serializable{
 	Attendance(){};
 	
 	//Attribute-Declaration
+	@Id
 	Event eventId;
+	@Id
 	User userId;
 	DateTimeAtCreation updateAt;
 	String status;
-	
-	int e =eventId.eventId;
+	int e= eventId.eventId;
 	int u= userId.userId;
 	
 	
@@ -45,6 +47,7 @@ public class Attendance implements Serializable{
 	public void setRejectAttendance(User u, Event e){
 		status = "rejected";
 	}
+	
 	//get status
 	public String getStatus(User u, Event e){
 		return status;

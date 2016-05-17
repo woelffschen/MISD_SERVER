@@ -36,6 +36,7 @@ public class Event implements Serializable {
 	DateTimeAtCreation eventDateTime;
 	@Column(nullable =true)
 	String comments;
+	Menue m;
 	//eventStatus(enum);
 
 	//Enums müssen noch implementiert werden!!!!!!!!!!!!!!!!!!!!!
@@ -136,8 +137,28 @@ public class Event implements Serializable {
 		return comments;
 	}
 	
+		// alter Menue
+		public void alterMenue(boolean f, boolean g, boolean l,String n, boolean s, boolean v, boolean veg){
+			m.getMenueById();
+			m.setFructose(f);
+			m.setGluten(g);
+			m.setLactose(l);
+			m.setName(n);
+			m.setSorbit(s);
+			m.setVagan(v);
+			m.setVegetarian(veg);
+		}
 		
-		
+		//create Menue
+		public void createMenue(boolean f, boolean g, boolean l,String n, boolean s, boolean v, boolean veg){
+			m.setFructose(f);
+			m.setGluten(g);
+			m.setLactose(l);
+			m.setName(n);
+			m.setSorbit(s);
+			m.setVagan(v);
+			m.setVegetarian(veg);
+		}
 	
 	
 
