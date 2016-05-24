@@ -1,4 +1,6 @@
-package MISD.Entities;
+// created by Sylvia & Daniel
+
+package entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,9 +17,7 @@ public class Attendance implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
-	//created by Sylvia/ Daniel
-	
-	//PArameterloser Konstruktor 
+	//Parameterloser Konstruktor 
 	Attendance(){};
 	
 	//Attribute-Declaration

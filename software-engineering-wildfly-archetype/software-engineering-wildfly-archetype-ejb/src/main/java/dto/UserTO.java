@@ -1,54 +1,39 @@
-package MISD.Entities;
+// created by Sylvia & Daniel
 
-import java.io.Serializable;
+package dto;
 
-import javax.ejb.Stateless;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import dto.DataTransferObject;
+import entities.Attendance;
+import entities.User;
 
-
-@Entity  
-public class User implements Serializable {
-	//created by Sylvia/ Daniel
+public class UserTO extends DataTransferObject {
 	
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 3440740273700082798L;
 	
 	//Attribute-Declaration 
-	@Id @GeneratedValue
-	int userId;
+	private int userId;
 	//userpicture;
 	//titlepicture;
-	@Column(nullable =false)
-	String lastname;
-	@Column(nullable =false)
-	String firstname;
-	@Column(nullable =false)
-	String street;
-	@Column(nullable =false)
-	int postalCode;
-	@Column(nullable =false)
-	String city;
-	@Column(nullable =false)
-	int age;
+	private String lastname;
+	private String firstname;
+	private String street;
+	private int postalCode;
+	private String city;
+	private int age;
 	//true=woman false =man
-	@Column(nullable =false)
-	boolean gender;
-	char m = 'm';
-	char f = 'f';
-	String telephoneNumber;
-	boolean alcDrinks;
+	private boolean gender;
+	private char m = 'm';
+	private char f = 'f';
+	private String telephoneNumber;
+	private boolean alcDrinks;
 	
 	Attendance status;
 	
-	//Enums bearbeiten
-	
 	//Parameterloser Konstruktor 
-	public User(){};
+	public UserTO(){};
 	
 	
-	public User(String ln, String fn, String str, int plz, String c, int a, String tel, boolean alc){
+	public UserTO(String ln, String fn, String str, int plz, String c, int a, String tel, boolean alc){
 
 
 		lastname= ln;

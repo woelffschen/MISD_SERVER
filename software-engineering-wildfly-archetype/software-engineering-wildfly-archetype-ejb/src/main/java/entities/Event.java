@@ -1,4 +1,6 @@
-package MISD.Entities;
+// created by Sylvia & Daniel
+
+package entities;
 
 import java.io.Serializable;
 
@@ -11,8 +13,7 @@ import javax.print.attribute.standard.DateTimeAtCreation;
 
 @Entity
 public class Event implements Serializable {
-	//created by Sylvia/ Daniel
-	
+
 	private static final long serialVersionUID = 1L;
 	
 	//Attribute-Declaration 
@@ -39,7 +40,8 @@ public class Event implements Serializable {
 	Menue m;
 	//eventStatus(enum);
 
-	//Enums müssen noch implementiert werden!!!!!!!!!!!!!!!!!!!!!
+	//Parameterloser Konstruktor 
+	public Event(){};
 
 	
 	public Event(Menue m, int min, int max, String street, int plz, String city, DateTimeAtCreation dateTime,String com){
@@ -68,9 +70,6 @@ public class Event implements Serializable {
 		
 	}
 	
-	public void filterRadius(){
-		
-	}
 //get Id	
 	public int getId(int userId){
 		return eventId;

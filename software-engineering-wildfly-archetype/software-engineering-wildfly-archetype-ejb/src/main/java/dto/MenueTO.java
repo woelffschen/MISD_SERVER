@@ -1,43 +1,29 @@
-package MISD.Entities;
+// created by Sylvia & Daniel
 
-import java.io.Serializable;
+package dto;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import dto.DataTransferObject;
 
-@Entity
-public class Menue implements Serializable {
-	//created by Sylvia/ Daniel
+public class MenueTO extends DataTransferObject {
 	
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 3440740273700082798L;
 
 	//Attribute-Declaration 
-	@Column(nullable =false)
-	String meal;
-	@Id @GeneratedValue
-	int menueId;
-	@Column(nullable =false)
-	boolean lactoseFree;
-	@Column(nullable =false)
-	boolean glutenFree;
-	@Column(nullable =false)
-	boolean fructoseFree;
-	@Column(nullable =false)
-	boolean sorbitFree;
-	@Column(nullable =false)
-	boolean vegan;
-	@Column(nullable =false)
-	boolean vegetarian;
+	private String meal;
+	private int menueId;
+	private boolean lactoseFree;
+	private boolean glutenFree;
+	private boolean fructoseFree;
+	private boolean sorbitFree;
+	private boolean vegan;
+	private boolean vegetarian;
 //-------------------------------------------------------------------------------	
 
 	
 	//Parameterloser Konstruktor 
-	public Menue(){};
+	public MenueTO(){};
 	
-	public Menue(String name, boolean lactose, boolean gluten, boolean fructose, boolean sorbit, boolean vega, boolean vegee){
+	public MenueTO(String name, boolean lactose, boolean gluten, boolean fructose, boolean sorbit, boolean vega, boolean vegee){
 	
 	meal=name;
 	lactoseFree= lactose;
