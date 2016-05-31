@@ -17,8 +17,6 @@ public class Attendance implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
-	//Parameterloser Konstruktor 
-	Attendance(){};
 	
 	//Attribute-Declaration
 	@Id
@@ -26,32 +24,40 @@ public class Attendance implements Serializable{
 	@Id
 	User userId;
 	DateTimeAtCreation updateAt;
-	String status;
+	int status;
 	int e= eventId.eventId;
 	int u= userId.userId;
 	
+	//Parameterloser Konstruktor 
+		public Attendance(){};
+		
 	
 	// set status
 	public void setCancelAttendance(User u, Event e){
-		status = "cancelled";
+		status = 1;
 	}
 	
 	public void setConfirmAttendance(User u, Event e){
-		status = "confirmed";
+		status = 2;
 	}
 
 	public void setRequestAttendance(User u, Event e){
-		status = "requested";
+		status = 3;
 	}
 	
 	public void setRejectAttendance(User u, Event e){
-		status = "rejected";
+		status = 4;
 	}
 	
 	//get status
-	public String getStatus(User u, Event e){
+	public int getStatus(User u, Event e){
 		return status;
 	}
 	
+	//set status
+		public void setStatus(int i){
+		 status=i;
+		}
+		
 	
 }//End Class

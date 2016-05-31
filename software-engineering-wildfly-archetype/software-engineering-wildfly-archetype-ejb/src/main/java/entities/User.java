@@ -2,6 +2,7 @@
 
 package entities;
 
+import java.awt.Image;
 import java.io.Serializable;
 
 import javax.ejb.Stateless;
@@ -19,8 +20,8 @@ public class User implements Serializable {
 	//Attribute-Declaration 
 	@Id @GeneratedValue
 	int userId;
-	//userpicture;
-	//titlepicture;
+	@Column(nullable =true)
+	Image userPic;
 	@Column(nullable =false)
 	String lastname;
 	@Column(nullable =false)
@@ -33,11 +34,8 @@ public class User implements Serializable {
 	String city;
 	@Column(nullable =false)
 	int age;
-	//true=woman false =man
 	@Column(nullable =false)
-	boolean gender;
-	char m = 'm';
-	char f = 'f';
+	char gender;
 	String telephoneNumber;
 	boolean alcDrinks;
 	
@@ -47,7 +45,7 @@ public class User implements Serializable {
 	public User(){};
 	
 	
-	public User(String ln, String fn, String str, int plz, String c, int a, String tel, boolean alc){
+	public User(String ln, String fn, String str, int plz, String c, int a, String tel, boolean alc, Image u, char g){
 
 
 		lastname= ln;
@@ -58,42 +56,22 @@ public class User implements Serializable {
 		age = a;
 		telephoneNumber= tel;
 		alcDrinks= alc;
+		userPic=u;
+		gender=g;
 		
-	}
-	
-	public void deleteUser(){
-		
-	}
-	
-	public User getPublicUserData(){
-		
-		return null;
 	}
 
-	public void logInUser(){
-		
-	}
 	
-	public void logOutUser(){
-		
-	}
-	
-	public void registerUser(){
-		
-	}
 	
 	// get and set gender
-	public void setGender(boolean n){
+	public void setGender(char n){
 		gender = n;
 		}
 	
 	public char getGender(){
-		if(gender){
-		return f;}
-		else{
-		return m;
+		return gender;
 		}
-	}
+	
 	
 	//// get and set lastname
 	public void setLastname(String l){
@@ -166,6 +144,11 @@ public class User implements Serializable {
 	
 	public boolean getAlcDrinks(){
 		return alcDrinks;
+	}
+	
+	//get User
+	public int getUserById(){
+		return userId;
 	}
 		
 }//End Class

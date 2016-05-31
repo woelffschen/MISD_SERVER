@@ -1,11 +1,12 @@
 // created by Sylvia & Daniel
 
-package interfaces;
+package OnlineService;
 
 import javax.ejb.Local;
+import javax.jws.WebService;
 
-@Local
-public interface EventInterface {
+@WebService
+public class EventInterface {
 	public Event createEvent(int eventId);
 	public Event alterEvent(int eventId);
 	public Event deleteEvent(int eventId);

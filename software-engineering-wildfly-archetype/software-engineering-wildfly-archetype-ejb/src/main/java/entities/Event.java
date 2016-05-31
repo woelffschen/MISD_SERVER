@@ -3,12 +3,16 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import javax.ejb.Stateless;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.print.attribute.standard.DateTimeAtCreation;
 
 @Entity
@@ -20,31 +24,35 @@ public class Event implements Serializable {
 	@Id @GeneratedValue
 	int eventId;
 	@Column(nullable =false)
+	@OneToOne
 	Menue menue;
 	@Column(nullable =false)
 	int minAge;
 	@Column(nullable =false)
 	int maxAge;
-	//gender(enum[f,m,b])
+	@Column(nullable =false)
+	char gender;
 	@Column(nullable =false)
 	String eventStreet;
 	@Column(nullable =false)
 	int eventPostalCode;
 	@Column(nullable =false)
 	String eventCity;
-	//User eventOwner;
 	@Column(nullable =false)
 	DateTimeAtCreation eventDateTime;
 	@Column(nullable =true)
 	String comments;
-	Menue m;
-	//eventStatus(enum);
+	Attendance attendanceObject;
+	User eventOwner;
 
+	private Map<Event,Attendance> attendanceList;
+	
+	
 	//Parameterloser Konstruktor 
 	public Event(){};
 
 	
-	public Event(Menue m, int min, int max, String street, int plz, String city, DateTimeAtCreation dateTime,String com){
+	public Event(Menue m, int min, int max, String street, int plz, String city, DateTimeAtCreation dateTime,String com, User eO,char g){
 		
 		//mit Transaktion
 		menue= m;
@@ -55,6 +63,8 @@ public class Event implements Serializable {
 		eventCity= city;	
 		eventDateTime= dateTime;
 		comments= com;
+		eventOwner = eO;
+		gender=g;
 		
 	}//End Constructor
 	
@@ -69,6 +79,16 @@ public class Event implements Serializable {
 	public void filterCity(){
 		
 	}
+	
+	//set EventOwner	
+		public void setEventOwner(User eO){
+			eventOwner = eO;
+		}
+
+	//get EventOwner	
+		public User getEventOwner(){
+			return eventOwner;
+		}
 	
 //get Id	
 	public int getId(int userId){
@@ -136,29 +156,14 @@ public class Event implements Serializable {
 		return comments;
 	}
 	
-		// alter Menue
-		public void alterMenue(boolean f, boolean g, boolean l,String n, boolean s, boolean v, boolean veg){
-			m.getMenueById();
-			m.setFructose(f);
-			m.setGluten(g);
-			m.setLactose(l);
-			m.setName(n);
-			m.setSorbit(s);
-			m.setVagan(v);
-			m.setVegetarian(veg);
-		}
 		
-		//create Menue
-		public void createMenue(boolean f, boolean g, boolean l,String n, boolean s, boolean v, boolean veg){
-			m.setFructose(f);
-			m.setGluten(g);
-			m.setLactose(l);
-			m.setName(n);
-			m.setSorbit(s);
-			m.setVagan(v);
-			m.setVegetarian(veg);
+		
+		public byte getStatus(User u, Event e){
+			return attendanceObject.status;
 		}
 	
-	
+	    public List<Attendance> getAttendanceList(int eventId){
+	    	return new ArrayList<Attendance>(attendanceList.values());
+	    }
 
 }// end Event

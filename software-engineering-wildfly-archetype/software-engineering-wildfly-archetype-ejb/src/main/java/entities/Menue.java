@@ -2,12 +2,14 @@
 
 package entities;
 
+import java.awt.Image;
 import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Menue implements Serializable {
@@ -17,6 +19,7 @@ public class Menue implements Serializable {
 	//Attribute-Declaration 
 	@Column(nullable =false)
 	String meal;
+	
 	@Id @GeneratedValue
 	int menueId;
 	@Column(nullable =false)
@@ -31,13 +34,17 @@ public class Menue implements Serializable {
 	boolean vegan;
 	@Column(nullable =false)
 	boolean vegetarian;
+	@Column(nullable =true)
+	Image titlePic;
+	@OneToOne(mappedBy="Event")
+	Event event;
 //-------------------------------------------------------------------------------	
 
 	
 	//Parameterloser Konstruktor 
 	public Menue(){};
 	
-	public Menue(String name, boolean lactose, boolean gluten, boolean fructose, boolean sorbit, boolean vega, boolean vegee){
+	public Menue(String name, boolean lactose, boolean gluten, boolean fructose, boolean sorbit, boolean vega, boolean vegee, Image t){
 	
 	meal=name;
 	lactoseFree= lactose;
@@ -46,6 +53,7 @@ public class Menue implements Serializable {
 	sorbitFree= sorbit;
 	vegan= vega;
 	vegetarian= vegee;
+	titlePic = t;
 		
 	}//End Constructor
 	

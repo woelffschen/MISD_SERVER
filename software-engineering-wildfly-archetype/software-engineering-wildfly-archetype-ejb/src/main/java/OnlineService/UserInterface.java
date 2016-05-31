@@ -1,11 +1,14 @@
 // created by Daniel & Sylvia
 
-package interfaces;
+package OnlineService;
 
 import javax.ejb.Local;
+import javax.jws.WebService;
 
-@Local
-public interface UserInterface {
+import entities.User;
+
+@WebService
+public class UserInterface {
 	public User getPublicUserData(int userId);
 	public User registerUser(int userId);
 	public User logInUser(int userId);
