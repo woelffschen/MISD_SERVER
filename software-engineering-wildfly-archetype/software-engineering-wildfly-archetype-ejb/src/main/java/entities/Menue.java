@@ -142,5 +142,14 @@ public class Menue implements Serializable {
 		return vegetarian;
 	}
 	
+	// get and set userPic
+	public void setTitlePic(Image t){
+			titlePic = t;
+			}
+		
+	public Image getTitlePic(){
+			return titlePic;
+			}
+	
 	
 }//End Class

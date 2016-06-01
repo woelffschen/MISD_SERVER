@@ -2,6 +2,8 @@
 
 package dto;
 
+import java.awt.Image;
+
 import dto.DataTransferObject;
 
 public class MenueTO extends DataTransferObject {
@@ -17,14 +19,16 @@ public class MenueTO extends DataTransferObject {
 	private boolean sorbitFree;
 	private boolean vegan;
 	private boolean vegetarian;
+	private Image titlePic;
 //-------------------------------------------------------------------------------	
 
 	
 	//Parameterloser Konstruktor 
 	public MenueTO(){};
 	
-	public MenueTO(String name, boolean lactose, boolean gluten, boolean fructose, boolean sorbit, boolean vega, boolean vegee){
+	public MenueTO(String name, boolean lactose, boolean gluten, boolean fructose, boolean sorbit, boolean vega, boolean vegee, Image t){
 	
+	super();
 	meal=name;
 	lactoseFree= lactose;
 	glutenFree= gluten; 
@@ -32,6 +36,7 @@ public class MenueTO extends DataTransferObject {
 	sorbitFree= sorbit;
 	vegan= vega;
 	vegetarian= vegee;
+	titlePic = t;
 		
 	}//End Constructor
 	
@@ -119,6 +124,15 @@ public class MenueTO extends DataTransferObject {
 	public boolean getVegetarian(){
 		return vegetarian;
 	}
+	
+	// get and set userPic
+	public void setTitlePic(Image t){
+				titlePic = t;
+				}
+			
+	public Image getTitlePic(){
+				return titlePic;
+				}
 	
 	
 }//End Class

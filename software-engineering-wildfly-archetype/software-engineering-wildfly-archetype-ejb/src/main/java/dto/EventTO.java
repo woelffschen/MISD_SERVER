@@ -3,9 +3,9 @@
 package dto;
 
 import javax.print.attribute.standard.DateTimeAtCreation;
-
 import dto.DataTransferObject;
 import entities.Menue;
+import entities.User;
 
 public class EventTO extends DataTransferObject {
 	
@@ -16,44 +16,56 @@ public class EventTO extends DataTransferObject {
 	private Menue menue;
 	private int minAge;
 	private int maxAge;
+	private char gender;
 	private String eventStreet;
 	private int eventPostalCode;
 	private String eventCity;
-	//User eventOwner;
+	private User eventOwner;
 	private DateTimeAtCreation eventDateTime;
 	private String comments;
 	private Menue m;
-	//eventStatus(enum);
+	
 
 	//Parameterloser Konstruktor 
 	public EventTO(){};
 
 	
-	public EventTO(Menue m, int min, int max, String street, int plz, String city, DateTimeAtCreation dateTime,String com){
+	public EventTO(Menue m, int min, int max,char g, String street, int plz, String city, DateTimeAtCreation dateTime,String com, User eO){
 		
-		//mit Transaktion
+		super();
 		menue= m;
 		minAge= min;
 		maxAge= max;
+		gender= g;
 		eventStreet= street;
 		eventPostalCode= plz;
 		eventCity= city;	
 		eventDateTime= dateTime;
 		comments= com;
+		eventOwner=eO;
 		
 	}//End Constructor
-	
-	public void alterEvent(){
-		
+
+//set gender	
+	public void setGender(char g){
+		gender= g;;
+	}
+
+
+//get gender	
+	public char getGender(){
+		return gender;
 	}
 	
-	public void deleteEvent(){
-		
-	}
-	
-	public void filterCity(){
-		
-	}
+//set EventOwner	
+			public void setEventOwner(User eO){
+				eventOwner = eO;
+			}
+
+//get EventOwner	
+			public User getEventOwner(){
+				return eventOwner;
+			}
 	
 //get Id	
 	public int getId(int userId){

@@ -2,9 +2,10 @@
 
 package dto;
 
+import java.awt.Image;
+
 import dto.DataTransferObject;
 import entities.Attendance;
-import entities.User;
 
 public class UserTO extends DataTransferObject {
 	
@@ -12,18 +13,14 @@ public class UserTO extends DataTransferObject {
 	
 	//Attribute-Declaration 
 	private int userId;
-	//userpicture;
-	//titlepicture;
+	private Image userPic;
 	private String lastname;
 	private String firstname;
 	private String street;
 	private int postalCode;
 	private String city;
 	private int age;
-	//true=woman false =man
-	private boolean gender;
-	private char m = 'm';
-	private char f = 'f';
+	private char gender;
 	private String telephoneNumber;
 	private boolean alcDrinks;
 	
@@ -33,52 +30,29 @@ public class UserTO extends DataTransferObject {
 	public UserTO(){};
 	
 	
-	public UserTO(String ln, String fn, String str, int plz, String c, int a, String tel, boolean alc){
+	public UserTO(String ln, String fn, String str, int plz, String c, int a,char g,Image u, String tel, boolean alc){
 
-
+		super();
 		lastname= ln;
 		firstname= fn;
 		street= str;
 		postalCode= plz;
 		city= c;
 		age = a;
+		gender=g;
 		telephoneNumber= tel;
 		alcDrinks= alc;
-		
-	}
-	
-	public void deleteUser(){
-		
-	}
-	
-	public User getPublicUserData(){
-		
-		return null;
-	}
-
-	public void logInUser(){
-		
-	}
-	
-	public void logOutUser(){
-		
-	}
-	
-	public void registerUser(){
+		userPic =u;
 		
 	}
 	
 	// get and set gender
-	public void setGender(boolean n){
+	public void setGender(char n){
 		gender = n;
 		}
 	
 	public char getGender(){
-		if(gender){
-		return f;}
-		else{
-		return m;
-		}
+		return gender;
 	}
 	
 	//// get and set lastname
@@ -154,4 +128,13 @@ public class UserTO extends DataTransferObject {
 		return alcDrinks;
 	}
 		
+	// get and set userPic
+	public void setUserPic(Image u){
+			userPic = u;
+			}
+		
+	public Image getUserPic(){
+			return userPic;
+			}
+	
 }//End Class

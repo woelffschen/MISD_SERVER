@@ -4,8 +4,6 @@ package entities;
 
 import java.awt.Image;
 import java.io.Serializable;
-
-import javax.ejb.Stateless;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -61,8 +59,6 @@ public class User implements Serializable {
 		
 	}
 
-	
-	
 	// get and set gender
 	public void setGender(char n){
 		gender = n;
@@ -150,5 +146,14 @@ public class User implements Serializable {
 	public int getUserById(){
 		return userId;
 	}
+	
+	// get and set userPic
+	public void setUserPic(Image u){
+			userPic = u;
+			}
+		
+	public Image getUserPic(){
+			return userPic;
+			}
 		
 }//End Class

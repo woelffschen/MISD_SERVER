@@ -22,6 +22,7 @@ public class AttendanceDAO implements AttendanceDAOLocal {
 	public int cancelAttendance(Event event, User user) {
 		Event e = em.find(Event.class, event);
 		if(e.getEventOwner() != user ){
+			em.merge(e);
 			return 1;
 			}
 		return 0;    //Exception muss noch eingefügt werden unzwar bei allen;
@@ -32,7 +33,7 @@ public class AttendanceDAO implements AttendanceDAOLocal {
 		Event e = em.find(Event.class, event);
 		if(e.getEventOwner() != user ){
 			Attendance a = new Attendance();
-			em.persist(a);
+			em.merge(a);
 		}
 		return 3;
 	}
@@ -45,7 +46,7 @@ public class AttendanceDAO implements AttendanceDAOLocal {
 		if(e.getEventOwner() == user ){
 		Attendance a = em.find(Attendance.class, userAendern);
 		a.setStatus(2);
-		em.persist(a);
+		em.merge(a);
 	}
 		
 	}
@@ -57,7 +58,7 @@ public class AttendanceDAO implements AttendanceDAOLocal {
 		if(e.getEventOwner() == user ){
 		Attendance a = em.find(Attendance.class, userAendern);
 		a.setStatus(4);
-		em.persist(a);
+		em.merge(a);
 	}
 		
 	}

@@ -4,7 +4,6 @@ package dto;
 
 import javax.persistence.Id;
 import javax.print.attribute.standard.DateTimeAtCreation;
-
 import dto.DataTransferObject;
 import entities.Event;
 import entities.User;
@@ -17,7 +16,7 @@ public class AttendanceTO extends DataTransferObject {
 	private Event eventId;
 	private User userId;
 	private DateTimeAtCreation updateAt;
-	private String status;
+	private int status;
 	private int e= eventId.eventId;
 	private int u= userId.userId;
 	
@@ -27,25 +26,29 @@ public class AttendanceTO extends DataTransferObject {
 	
 	// set status
 	public void setCancelAttendance(User u, Event e){
-		status = "cancelled";
+		status= 1;
 	}
 	
 	public void setConfirmAttendance(User u, Event e){
-		status = "confirmed";
+		status = 2;
 	}
 
 	public void setRequestAttendance(User u, Event e){
-		status = "requested";
+		status = 3;
 	}
 	
 	public void setRejectAttendance(User u, Event e){
-		status = "rejected";
+		status = 4;
 	}
 	
 	//get status
-	public String getStatus(User u, Event e){
+	public int getStatus(User u, Event e){
 		return status;
 	}
 	
+	//set status
+			public void setStatus(int i){
+			 status=i;
+			}
 	
 }//End Class

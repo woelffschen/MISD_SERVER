@@ -6,8 +6,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import javax.ejb.Stateless;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -68,17 +66,18 @@ public class Event implements Serializable {
 		
 	}//End Constructor
 	
-	public void alterEvent(){
-		
-	}
 	
-	public void deleteEvent(){
+	//set gender	
+			public void setGender(char g){
+				gender= g;;
+			}
 		
-	}
 	
-	public void filterCity(){
+	//get gender	
+			public char getGender(){
+				return gender;
+			}
 		
-	}
 	
 	//set EventOwner	
 		public void setEventOwner(User eO){
@@ -156,13 +155,13 @@ public class Event implements Serializable {
 		return comments;
 	}
 	
+	
 		
-		
-		public byte getStatus(User u, Event e){
+	public int getStatus(User u, Event e){
 			return attendanceObject.status;
 		}
 	
-	    public List<Attendance> getAttendanceList(int eventId){
+    public List<Attendance> getAttendanceList(int eventId){
 	    	return new ArrayList<Attendance>(attendanceList.values());
 	    }
 
