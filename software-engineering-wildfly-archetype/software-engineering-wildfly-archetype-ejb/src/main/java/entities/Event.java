@@ -1,4 +1,4 @@
-// created by Sylvia & Daniel
+// @Author Sylvia & Daniel
 
 package entities;
 
@@ -17,152 +17,140 @@ import javax.print.attribute.standard.DateTimeAtCreation;
 public class Event implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	//Attribute-Declaration 
-	@Id @GeneratedValue
+
+	@Id
+	@GeneratedValue
 	int eventId;
-	@Column(nullable =false)
+	@Column(nullable = false)
 	@OneToOne
 	Menue menue;
-	@Column(nullable =false)
+	@Column(nullable = false)
 	int minAge;
-	@Column(nullable =false)
+	@Column(nullable = false)
 	int maxAge;
-	@Column(nullable =false)
+	@Column(nullable = false)
 	char gender;
-	@Column(nullable =false)
+	@Column(nullable = false)
 	String eventStreet;
-	@Column(nullable =false)
+	@Column(nullable = false)
 	int eventPostalCode;
-	@Column(nullable =false)
+	@Column(nullable = false)
 	String eventCity;
-	@Column(nullable =false)
+	@Column(nullable = false)
 	DateTimeAtCreation eventDateTime;
-	@Column(nullable =true)
+	@Column(nullable = true)
 	String comments;
 	Attendance attendanceObject;
 	User eventOwner;
 
-	private Map<Event,Attendance> attendanceList;
-	
-	
-	//Parameterloser Konstruktor 
-	public Event(){};
+	private Map<Event, Attendance> attendanceList;
 
-	
-	public Event(Menue m, int min, int max, String street, int plz, String city, DateTimeAtCreation dateTime,String com, User eO,char g){
-		
-		//mit Transaktion
-		menue= m;
-		minAge= min;
-		maxAge= max;
-		eventStreet= street;
-		eventPostalCode= plz;
-		eventCity= city;	
-		eventDateTime= dateTime;
-		comments= com;
+	public Event() {
+	};
+
+	public Event(Menue m, int min, int max, String street, int plz, String city, DateTimeAtCreation dateTime,
+			String com, User eO, char g) {
+
+		// mit Transaktion
+		menue = m;
+		minAge = min;
+		maxAge = max;
+		eventStreet = street;
+		eventPostalCode = plz;
+		eventCity = city;
+		eventDateTime = dateTime;
+		comments = com;
 		eventOwner = eO;
-		gender=g;
-		
-	}//End Constructor
-	
-	
-	//set gender	
-			public void setGender(char g){
-				gender= g;;
-			}
-		
-	
-	//get gender	
-			public char getGender(){
-				return gender;
-			}
-		
-	
-	//set EventOwner	
-		public void setEventOwner(User eO){
-			eventOwner = eO;
-		}
+		gender = g;
 
-	//get EventOwner	
-		public User getEventOwner(){
-			return eventOwner;
-		}
-	
-//get Id	
-	public int getId(int userId){
+	}
+
+	public int getEventId() {
 		return eventId;
 	}
 
-//get Menue	
-	public int getMenueById(){
-		return menue.getMenueById();
+	public int getMenueId(int m) {
+		return menue.getMenueId();
 	}
-// get and set minAge	
-	public void setMinAge(int i){
-		minAge=i;
+
+	public void setMinAge(int i) {
+		minAge = i;
 	}
-	
-	public int getMinAge(){
+
+	public int getMinAge() {
 		return minAge;
 	}
-// get and set maxAge
-	public void setMaxAge(int i){
-		maxAge=i;
+
+	public void setMaxAge(int i) {
+		maxAge = i;
 	}
-	
-	public int getMaxAge(){
+
+	public int getMaxAge() {
 		return maxAge;
 	}
-// get and set eventStreet	
-	public void setEventStreet(String i){
-		eventStreet=i;
+
+	public void setEventStreet(String i) {
+		eventStreet = i;
 	}
-	
-	public String getEventStreet(){
+
+	public String getEventStreet() {
 		return eventStreet;
 	}
-// get and set eventPostalCode	
-	public void setEventPostalCode(int i){
-		eventPostalCode=i;
+
+	public void setEventPostalCode(int i) {
+		eventPostalCode = i;
 	}
-	
-	public int geteventPostalCode(){
+
+	public int getEventPostalCode() {
 		return eventPostalCode;
 	}
-// get and set eventCity	
-	public void setEventCity(String i){
-		eventCity=i;
+
+	public void setEventCity(String i) {
+		eventCity = i;
 	}
-	
-	public String getEventCity(){
+
+	public String getEventCity() {
 		return eventCity;
 	}
-// get and set eventDateTime	
-	public void setEventDateTime(DateTimeAtCreation i){
-		eventDateTime=i;
+
+	public void setEventDateTime(DateTimeAtCreation i) {
+		eventDateTime = i;
 	}
-	
-	public DateTimeAtCreation getEventDateTime(){
+
+	public DateTimeAtCreation getEventDateTime() {
 		return eventDateTime;
 	}
-// get and set comments	
-	public void setComments(String i){
-		comments=i;
+
+	public void setComments(String i) {
+		comments = i;
 	}
-	
-	public String getComments(){
+
+	public String getComments() {
 		return comments;
 	}
-	
-	
-		
-	public int getStatus(User u, Event e){
-			return attendanceObject.status;
-		}
-	
-    public List<Attendance> getAttendanceList(int eventId){
-	    	return new ArrayList<Attendance>(attendanceList.values());
-	    }
 
-}// end Event
+	public void setEventOwner(User eO) {
+		eventOwner = eO;
+	}
+
+	public User getEventOwner() {
+		return eventOwner;
+	}
+
+	public void setGender(char g) {
+		gender = g;
+	}
+
+	public char getGender() {
+		return gender;
+	}
+
+	public Map<Event, Attendance> getAttendanceList() {
+		return attendanceList;
+	}
+
+	public void setAttendanceList(Map<Event, Attendance> attendanceList) {
+		this.attendanceList = attendanceList;
+	}
+
+}

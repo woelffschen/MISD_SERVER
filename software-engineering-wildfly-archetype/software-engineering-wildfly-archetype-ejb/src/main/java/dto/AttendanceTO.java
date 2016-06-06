@@ -1,54 +1,71 @@
-// created by Sylvia & Daniel
+// @Author Sylvia & Daniel
 
 package dto;
 
-import javax.persistence.Id;
 import javax.print.attribute.standard.DateTimeAtCreation;
 import dto.DataTransferObject;
-import entities.Event;
-import entities.User;
 
 public class AttendanceTO extends DataTransferObject {
-	
+
 	private static final long serialVersionUID = 3440740273700082798L;
-	
-	//Attribute-Declaration
-	private Event eventId;
-	private User userId;
+
+	private int attendanceId;
+	private int eventId;
+	private int userId;
 	private DateTimeAtCreation updateAt;
 	private int status;
-	private int e= eventId.eventId;
-	private int u= userId.userId;
-	
-	//Parameterloser Konstruktor 
-	AttendanceTO(){};
-	
-	
-	// set status
-	public void setCancelAttendance(User u, Event e){
-		status= 1;
-	}
-	
-	public void setConfirmAttendance(User u, Event e){
-		status = 2;
+
+	public AttendanceTO() {
+	};
+
+	public AttendanceTO(int attendanceId, int eventId, int userId, DateTimeAtCreation updateAt, int status) {
+		super();
+		this.attendanceId = attendanceId;
+		this.eventId = eventId;
+		this.userId = userId;
+		this.updateAt = updateAt;
+		this.status = status;
+
+	};
+
+	public int getAttendanceId() {
+		return attendanceId;
 	}
 
-	public void setRequestAttendance(User u, Event e){
-		status = 3;
+	public void setAttendanceId(int i) {
+		this.attendanceId = i;
 	}
-	
-	public void setRejectAttendance(User u, Event e){
-		status = 4;
+
+	public int getEventId() {
+		return eventId;
 	}
-	
-	//get status
-	public int getStatus(User u, Event e){
+
+	public void setEventId(int eventId) {
+		this.eventId = eventId;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public DateTimeAtCreation getUpdateAt() {
+		return updateAt;
+	}
+
+	public void setUpdateAt(DateTimeAtCreation updateAt) {
+		this.updateAt = updateAt;
+	}
+
+	public int getStatus() {
 		return status;
 	}
-	
-	//set status
-			public void setStatus(int i){
-			 status=i;
-			}
-	
-}//End Class
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+}

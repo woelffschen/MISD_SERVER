@@ -1,3 +1,5 @@
+// @Author Sylvia
+
 package dao;
 
 import javax.annotation.PostConstruct;
@@ -7,7 +9,13 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.print.attribute.standard.DateTimeAtCreation;
+
 import org.jboss.logging.Logger;
+
+import entities.Attendance;
+import entities.Event;
+import entities.Menue;
 import entities.User;
 
 /**
@@ -18,56 +26,72 @@ import entities.User;
 public class DataBuilder {
 
 	private static final Logger logger = Logger.getLogger(DataBuilder.class);
-	
+
 	@PersistenceContext
 	EntityManager em;
-	
+
 	@EJB
 	EventDAOLocal edao;
-	
+
 	@EJB
 	AttendanceDAOLocal adao;
-	
+
 	@EJB
 	UserDAOLocal udao;
-	
+
 	@Resource
-	private int username1, username2;
+	private User user1, user2;
+
 	@Resource
-	String password1, password2;
+	private String lastname1, firstname1, street1, city1, telephone1, comment1, name, lastname2, firstname2, street2,
+			telephone2, city2;
+
+	@Resource
+	private Event event1;
+
+	@Resource
+	private Menue menue1;
+
+	@Resource
+	private Attendance attendance1;
+
+	@Resource
+	private DateTimeAtCreation date1;
 
 	@PostConstruct
 	private void createTestData() {
 
-		//erzeuge ein paar Beispieldaten zu Kunden und Konten, falls sie noch nicht in der DB vorhanden sind.
-		User customer1 = udao.getUserById(username1);
-		if (customer1 == null) {
-			//Kunde noch nicht vorhanden, also mit 2 neuen Konten anlegen:
-			customer1 = new Customer(username1, password1);
-			em.persist(customer1);
-			Account account1 = new Account(customer1);
-			em.persist(account1);
-			Account account2 = new Account(customer1);
-			em.persist(account2);
-			logger.info("Neu angelegt:" + customer1);
-			logger.info("Neu angelegt: " + account1);
-			logger.info("Neu angelegt: " + account2);			
+		// erzeugt Beispieldaten für einen User und ein Event inklusive Menue,
+		// falls diese noch nicht in der DB vorhanden sind.
+		User user1 = udao.getPublicUserData(user1);
+		if (user1 == null) {
+			// User noch nicht vorhanden, dann User mit neuem Event inklusive
+			// Menue anlegen:
+			user1 = new User(lastname1, firstname1, street1, 12345, city1, 29, telephone1, true, null, 'm');
+			em.persist(user1);
+			menue1 = new Menue(name, true, true, true, false, false, false, null);
+			em.persist(menue1);
+			event1 = new Event(menue1, 20, 25, street1, 12345, city1, date1, comment1, user1, 'm');
+			em.persist(event1);
+			logger.info("Neu angelegt: " + user1);
+			logger.info("Neu angelegt: " + menue1);
+			logger.info("Neu angelegt: " + event1);
 		}
 
-		Customer customer2 = dao.findCustomerByName(username2);
-		if (customer2 == null) {
-			//Kunde noch nicht vorhanden, also mit 2 neuen Konten anlegen:
-			customer2 = new Customer(username2, password2);
-			em.persist(customer2);
-			Account account1 = new Account(customer2);
-			em.persist(account1);
-			Account account2 = new Account(customer2);
-			em.persist(account2);
-			logger.info("Neu angelegt:" + customer2);
-			logger.info("Neu angelegt: " + account1);
-			logger.info("Neu angelegt: " + account2);			
+		// erzeugt Beispieldaten für einen User der als ein Attendance an einem
+		// Event teilnehmen möchte.
+		User user2 = udao.getPublicUserData(user2);
+		if (user2 == null) {
+			// User noch nicht vorhanden, dann User anlegen und bei einem
+			// vorhandenen Event Teilnahme anfragen:
+			user2 = new User(lastname2, firstname2, street2, 56789, city2, 35, telephone2, true, null, 'm');
+			em.persist(user2);
+			edao.filterCity(event1);
+			attendance1 = new Attendance();
+			em.persist(attendance1);
+			logger.info("Neu angelegt: " + user2);
+			logger.info("Neu angelegt: " + attendance1);
 		}
 	}
-
 
 }
