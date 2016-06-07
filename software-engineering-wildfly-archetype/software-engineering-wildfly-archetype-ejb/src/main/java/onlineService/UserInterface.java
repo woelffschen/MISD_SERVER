@@ -2,17 +2,12 @@
 
 package onlineService;
 
-import java.awt.Image;
-
-import javax.annotation.Resource;
 import javax.ejb.EJB;
-import javax.ejb.EJBContext;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
 
 import dao.UserDAOLocal;
 import dto.DTOAssembler;
-import dto.PublicUserResponse;
 import dto.UserLoginResponse;
 import dto.UserResponse;
 import entities.Session;
@@ -27,9 +22,6 @@ public class UserInterface {
 
 	@EJB
 	private DTOAssembler dtoAssembler;
-
-	@Resource
-	private EJBContext ejbContext;
 
 	private Session getSession(int sessionId) throws NoSessionException {
 		Session session = udao.findSessionById(sessionId);
@@ -48,7 +40,7 @@ public class UserInterface {
 	}
 
 	public UserResponse registerUser(String lastname, String firstname, String street, int postalCode, String city,
-			int age, String telephoneNumber, boolean alcDrinks, Image userPic, char gender)
+			int age, String telephoneNumber, boolean alcDrinks, byte[] userPic, char gender)
 			throws NoSessionException, NotAllowedException {
 		UserResponse response = new UserResponse();
 		try {
@@ -87,27 +79,22 @@ public class UserInterface {
 		return response;
 	}
 
-	// public PublicUserResponse getPublicUserData(int userId) {
-	// User response = new User();
-	// PublicUserResponse r = new PublicUserResponse();
-	// try {
-	// User user = getUser(userId);
-	// if (user != null) {
-	// //udao.getPublicUserData(user);
-	// response = udao.getPublicUserData(user);
-	// r = (PublicUserResponse) response;
-	//
-	//
-	// //getPublicUserTO();
-	// }
-	//
-	//
-	// } catch (NotAllowedException n) {
-	// response.setReturnCode(n.getErrorCode());
-	// response.setMessage(n.getMessage());
-	// }
-	// return response;
-	// }
+//	 public PublicUserResponse getPublicUserData(int userId) {
+//	 PublicUserResponse response = new PublicUserResponse();
+//	 try {
+//	 User user = getUser(userId);
+//	 if (user != null) {
+//	 udao.getPublicUserData();
+//	
+//	 }
+//	
+//	
+//	 } catch (NotAllowedException n) {
+//	 response.setReturnCode(n.getErrorCode());
+//	 response.setMessage(n.getMessage());
+//	 }
+//	 return response;
+//	 }
 
 	public UserResponse deleteUser(int userId) throws NoSessionException, NotAllowedException {
 		UserResponse response = new UserResponse();

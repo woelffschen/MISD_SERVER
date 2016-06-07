@@ -2,9 +2,7 @@
 
 package onlineService;
 
-import javax.annotation.Resource;
 import javax.ejb.EJB;
-import javax.ejb.EJBContext;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
 
@@ -34,9 +32,6 @@ public class AttendanceInterface {
 	@EJB
 	private DTOAssembler dtoa;
 
-	@Resource
-	private EJBContext ejbContext;
-
 	private Session getSession(int sessionId) throws NoSessionException {
 		Session session = udao.findSessionById(sessionId);
 		if (session == null)
@@ -49,11 +44,12 @@ public class AttendanceInterface {
 			throws NotAllowedException, EventOwnerException, ParticipantException {
 		Attendance attendance = adao.findAttendanceById(attendanceId);
 		Event event = edao.findEventById(eventId);
+		// TODO: Zum Vergleichen => EQUALS benutzen; Identität!=Gleichheit
 		if (attendance == null)
 			throw new NotAllowedException("This action is not allowed!");
-		if (attendance.getUserId() == event.getEventOwner())
+		if (attendance.getUser().equals(event.getEventOwner()))
 			throw new ParticipantException("This action is only allowed for Participants");
-		if (attendance.getUserId() != event.getEventOwner())
+		if (!attendance.getUser().equals(event.getEventOwner()))
 			throw new EventOwnerException("This action is only allowed for Event Owner");
 		else
 			return attendance;

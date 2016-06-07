@@ -2,8 +2,7 @@
 
 package dto;
 
-import javax.print.attribute.standard.DateTimeAtCreation;
-import dto.DataTransferObject;
+import java.time.LocalDateTime;
 
 public class AttendanceTO extends DataTransferObject {
 
@@ -12,13 +11,13 @@ public class AttendanceTO extends DataTransferObject {
 	private int attendanceId;
 	private int eventId;
 	private int userId;
-	private DateTimeAtCreation updateAt;
+	private LocalDateTime updateAt;
 	private int status;
 
 	public AttendanceTO() {
 	};
 
-	public AttendanceTO(int attendanceId, int eventId, int userId, DateTimeAtCreation updateAt, int status) {
+	public AttendanceTO(int attendanceId, int eventId, int userId, LocalDateTime updateAt, int status) {
 		super();
 		this.attendanceId = attendanceId;
 		this.eventId = eventId;
@@ -52,11 +51,11 @@ public class AttendanceTO extends DataTransferObject {
 		this.userId = userId;
 	}
 
-	public DateTimeAtCreation getUpdateAt() {
+	public LocalDateTime getUpdateAt() {
 		return updateAt;
 	}
 
-	public void setUpdateAt(DateTimeAtCreation updateAt) {
+	public void setUpdateAt(LocalDateTime updateAt) {
 		this.updateAt = updateAt;
 	}
 

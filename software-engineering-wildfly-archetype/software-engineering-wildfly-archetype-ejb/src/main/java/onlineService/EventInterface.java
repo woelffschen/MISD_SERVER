@@ -2,11 +2,10 @@
 
 package onlineService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.ejb.EJB;
-import javax.ejb.EJBContext;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
 import javax.print.attribute.standard.DateTimeAtCreation;
@@ -14,11 +13,9 @@ import javax.print.attribute.standard.DateTimeAtCreation;
 import dao.AttendanceDAOLocal;
 import dao.EventDAOLocal;
 import dao.UserDAOLocal;
-import dto.AttendanceResponse;
 import dto.EventFilterCityListResponse;
 import dto.EventResponse;
 import dto.EventTO;
-import entities.Attendance;
 import entities.Event;
 import entities.Menue;
 import entities.Session;
@@ -26,7 +23,6 @@ import entities.User;
 
 @WebService
 @Stateless
-
 public class EventInterface {
 
 	@EJB
@@ -38,8 +34,6 @@ public class EventInterface {
 	@EJB
 	private UserDAOLocal udao;
 
-	@Resource
-	private EJBContext ejbContext;
 
 	private Session getSession(int sessionId) throws NoSessionException {
 		Session session = udao.findSessionById(sessionId);
@@ -82,7 +76,7 @@ public class EventInterface {
 	}
 
 	public EventResponse createEvent(int sessionId, int userId, Menue menue, int min, int max, String street, int plz,
-			String city, DateTimeAtCreation dateTime, String comments, User user, char gender)
+			String city, LocalDateTime dateTime, String comments, User user, char gender)
 			throws NoSessionException, NotAllowedException {
 		EventResponse response = new EventResponse();
 		try {

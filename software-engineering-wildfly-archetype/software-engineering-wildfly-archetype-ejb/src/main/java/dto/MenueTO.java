@@ -2,10 +2,6 @@
 
 package dto;
 
-import java.awt.Image;
-
-import dto.DataTransferObject;
-
 public class MenueTO extends DataTransferObject {
 
 	private static final long serialVersionUID = 3440740273700082798L;
@@ -17,14 +13,14 @@ public class MenueTO extends DataTransferObject {
 	private boolean fructoseFree;
 	private boolean sorbitFree;
 	private boolean vegan;
-	private boolean vegetarian;
-	private Image titlePic;
+	private boolean vegetarian;	
+	private byte[] titlePic;
 
 	public MenueTO() {
 	};
 
 	public MenueTO(int menueId, String name, boolean lactose, boolean gluten, boolean fructose, boolean sorbit,
-			boolean vega, boolean vegee, Image t) {
+			boolean vega, boolean vegee, byte[] t) {
 
 		super();
 		this.menueId = menueId;
@@ -132,11 +128,11 @@ public class MenueTO extends DataTransferObject {
 		return vegetarian;
 	}
 
-	public void setTitlePic(Image t) {
+	public void setTitlePic(byte[] t) {
 		titlePic = t;
 	}
 
-	public Image getTitlePic() {
+	public byte[] getTitlePic() {
 		return titlePic;
 	}
 

@@ -1,15 +1,11 @@
 package dto;
 
-import java.awt.Image;
-
-import dto.DataTransferObject;
-
 public class PublicUserTO extends DataTransferObject {
 
 	private static final long serialVersionUID = 3440740273700082798L;
 
 	private int userId;
-	private Image userPic;
+	private byte[] userPic;
 	private String lastname;
 	private String firstname;
 	private String city;
@@ -20,7 +16,7 @@ public class PublicUserTO extends DataTransferObject {
 	public PublicUserTO() {
 	};
 
-	public PublicUserTO(int userId, String ln, String fn, String c, int a, char g, Image u, boolean alc) {
+	public PublicUserTO(int userId, String ln, String fn, String c, int a, char g, byte[] u, boolean alc) {
 
 		super();
 		this.userId = userId;
@@ -92,11 +88,11 @@ public class PublicUserTO extends DataTransferObject {
 		return alcDrinks;
 	}
 
-	public void setUserPic(Image u) {
+	public void setUserPic(byte[] u) {
 		userPic = u;
 	}
 
-	public Image getUserPic() {
+	public byte[] getUserPic() {
 		return userPic;
 	}
 

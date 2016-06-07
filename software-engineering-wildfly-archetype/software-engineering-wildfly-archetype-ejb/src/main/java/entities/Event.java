@@ -3,15 +3,15 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDateTime;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.print.attribute.standard.DateTimeAtCreation;
 
 @Entity
 public class Event implements Serializable {
@@ -21,9 +21,10 @@ public class Event implements Serializable {
 	@Id
 	@GeneratedValue
 	int eventId;
-	@Column(nullable = false)
+	
 	@OneToOne
 	Menue menue;
+	
 	@Column(nullable = false)
 	int minAge;
 	@Column(nullable = false)
@@ -37,18 +38,20 @@ public class Event implements Serializable {
 	@Column(nullable = false)
 	String eventCity;
 	@Column(nullable = false)
-	DateTimeAtCreation eventDateTime;
+	LocalDateTime eventDateTime;
 	@Column(nullable = true)
 	String comments;
+	
 	Attendance attendanceObject;
+	
 	User eventOwner;
-
-	private Map<Event, Attendance> attendanceList;
+	@OneToMany(mappedBy="event")
+	private Set<Attendance> attendanceList;
 
 	public Event() {
 	};
 
-	public Event(Menue m, int min, int max, String street, int plz, String city, DateTimeAtCreation dateTime,
+	public Event(Menue m, int min, int max, String street, int plz, String city, LocalDateTime dateTime,
 			String com, User eO, char g) {
 
 		// mit Transaktion
@@ -113,12 +116,13 @@ public class Event implements Serializable {
 		return eventCity;
 	}
 
-	public void setEventDateTime(DateTimeAtCreation i) {
-		eventDateTime = i;
+	
+	public LocalDateTime getEventDateTime() {
+		return eventDateTime;
 	}
 
-	public DateTimeAtCreation getEventDateTime() {
-		return eventDateTime;
+	public void setEventDateTime(LocalDateTime eventDateTime) {
+		this.eventDateTime = eventDateTime;
 	}
 
 	public void setComments(String i) {
@@ -145,11 +149,11 @@ public class Event implements Serializable {
 		return gender;
 	}
 
-	public Map<Event, Attendance> getAttendanceList() {
+	public Set<Attendance> getAttendanceList() {
 		return attendanceList;
 	}
 
-	public void setAttendanceList(Map<Event, Attendance> attendanceList) {
+	public void setAttendanceList(Set<Attendance> attendanceList) {
 		this.attendanceList = attendanceList;
 	}
 

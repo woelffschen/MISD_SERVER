@@ -3,10 +3,13 @@
 package entities;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.print.attribute.standard.DateTimeAtCreation;
 
 @Entity
@@ -16,23 +19,17 @@ public class Attendance implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue
-	int attendanceId;
+	@ManyToOne
+	Event event;
 	@Id
-	Event eventId;
-	@Id
-	User userId;
-	DateTimeAtCreation updateAt;
+	@ManyToOne
+	User user;
+	
+	LocalDateTime updateAt;
+	
 	int status;
-	int e = eventId.eventId;
-	int u = userId.userId;
-
+	
 	public Attendance() {
-	};
-
-	public Attendance(User u, Event e) {
-		u = userId;
-		e = eventId;
 	}
 
 	public void setCancelAttendance(User u, Event e) {
@@ -59,21 +56,31 @@ public class Attendance implements Serializable {
 		status = i;
 	}
 
-	public int getAttendanceId() {
-		return attendanceId;
+
+	public Event getEvent() {
+		return event;
 	}
 
-	public User getUserId() {
-		return userId;
+	public void setEvent(Event event) {
+		this.event = event;
 	}
 
-	public Event getEventId() {
-		return eventId;
-
+	public User getUser() {
+		return user;
 	}
 
-	public DateTimeAtCreation getUpdateAt() {
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public LocalDateTime getUpdateAt() {
 		return updateAt;
 	}
+
+	public void setUpdateAt(LocalDateTime updateAt) {
+		this.updateAt = updateAt;
+	}
+
+	
 
 }

@@ -2,17 +2,21 @@
 
 package dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.print.attribute.standard.DateTimeAtCreation;
 
 import entities.Event;
 import entities.Menue;
 import entities.User;
 
+/**
+ * @author user
+ *
+ */
 @Stateless
 public class EventDAO implements EventDAOLocal {
 
@@ -20,7 +24,7 @@ public class EventDAO implements EventDAOLocal {
 	EntityManager em;
 
 	@Override
-	public void createEvent(Menue m, int min, int max, String street, int plz, String city, DateTimeAtCreation dateTime,
+	public void createEvent(Menue m, int min, int max, String street, int plz, String city, LocalDateTime dateTime,
 			String com, User eO, char g) {
 		Event e = new Event(m, min, max, street, plz, city, dateTime, com, eO, g);
 		em.persist(e);
@@ -29,7 +33,7 @@ public class EventDAO implements EventDAOLocal {
 
 	@Override
 	public void alterEvent(Event e, Menue m, int min, int max, String street, int plz, String city,
-			DateTimeAtCreation dateTime, String com, User eO, char g) {
+			LocalDateTime dateTime, String com, User eO, char g) {
 		em.find(Event.class, e);
 		e.setComments(com);
 		e.setEventCity(city);
@@ -50,10 +54,11 @@ public class EventDAO implements EventDAOLocal {
 		}
 	}
 
+	// TODO: Change return type to List<Event>
 	@Override
 	public Event filterCity(Event city) {
-		List results = em.createQuery("SELECT * FROM Event e WHERE e.city LIKE :cityName")
-				.setParameter("cityname", city).getResultList();
+		List results = em.createQuery("SELECT * FROM Event e WHERE e.eventCity LIKE :cityName")
+				.setParameter("cityName", city.getEventCity()).getResultList();
 		if (results.size() >= 1) {
 			return (Event) results.get(0);
 		} else {

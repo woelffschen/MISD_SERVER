@@ -2,7 +2,6 @@
 
 package entities;
 
-import java.awt.Image;
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -35,15 +34,15 @@ public class Menue implements Serializable {
 	@Column(nullable = false)
 	boolean vegetarian;
 	@Column(nullable = true)
-	Image titlePic;
-	@OneToOne(mappedBy = "Event")
+	byte[] titlePic;
+	@OneToOne(mappedBy = "menue")
 	Event event;
 
 	public Menue() {
 	};
 
 	public Menue(String name, boolean lactose, boolean gluten, boolean fructose, boolean sorbit, boolean vega,
-			boolean vegee, Image t) {
+			boolean vegee, byte[] t) {
 
 		meal = name;
 		lactoseFree = lactose;
@@ -146,11 +145,11 @@ public class Menue implements Serializable {
 	}
 
 	// get and set userPic
-	public void setTitlePic(Image t) {
+	public void setTitlePic(byte[] t) {
 		titlePic = t;
 	}
 
-	public Image getTitlePic() {
+	public byte[] getTitlePic() {
 		return titlePic;
 	}
 

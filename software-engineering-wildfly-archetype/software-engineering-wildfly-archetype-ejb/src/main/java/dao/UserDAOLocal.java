@@ -2,8 +2,6 @@
 
 package dao;
 
-import java.awt.Image;
-
 import javax.ejb.Local;
 
 import entities.Session;
@@ -15,7 +13,7 @@ public interface UserDAOLocal {
 	public User getPublicUserData(User userId);
 
 	public User registerUser(String lastname, String firstname, String street, int postalCode, String city, int age,
-			String telephoneNumber, boolean alcDrinks, Image userPic, char gender);
+			String telephoneNumber, boolean alcDrinks, byte[] userPic, char gender);
 
 	public int loginUser(User userId);
 

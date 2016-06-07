@@ -2,6 +2,7 @@
 
 package dao;
 
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -10,10 +11,11 @@ import entities.Event;
 import entities.User;
 
 @Stateless
+@Local(AttendanceDAOLocal.class)
 public class AttendanceDAO implements AttendanceDAOLocal {
 
 	@PersistenceContext
-	EntityManager em;
+	private EntityManager em;
 
 	// EventParticipant
 	@Override

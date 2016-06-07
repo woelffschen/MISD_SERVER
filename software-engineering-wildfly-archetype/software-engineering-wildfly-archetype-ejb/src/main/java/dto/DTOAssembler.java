@@ -19,7 +19,7 @@ public class DTOAssembler {
 
 	public AttendanceTO makeDTO(Attendance attendance, Event event, User user) {
 		AttendanceTO dto = new AttendanceTO();
-		dto.setAttendanceId(attendance.getAttendanceId());
+		//dto.setAttendanceId(attendance.GET);
 		dto.setEventId(event.getEventId());
 		dto.setUserId(user.getUserId());
 		dto.setUpdateAt(attendance.getUpdateAt());

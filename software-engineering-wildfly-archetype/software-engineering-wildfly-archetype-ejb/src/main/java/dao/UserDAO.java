@@ -2,7 +2,6 @@
 
 package dao;
 
-import java.awt.Image;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -33,7 +32,7 @@ public class UserDAO implements UserDAOLocal {
 
 	@Override
 	public User registerUser(String lastname, String firstname, String street, int postalCode, String city, int age,
-			String telephoneNumber, boolean alcDrinks, Image userPic, char gender) {
+			String telephoneNumber, boolean alcDrinks, byte[] userPic, char gender) {
 		User user = new User();
 		em.persist(user);
 		return user;
