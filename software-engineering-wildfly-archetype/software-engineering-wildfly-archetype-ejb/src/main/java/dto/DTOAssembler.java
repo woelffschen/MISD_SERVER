@@ -76,4 +76,19 @@ public class DTOAssembler {
 
 	}
 
+	
+	public PublicUserTO makeDTO1(User user1) {
+		PublicUserTO dto = new PublicUserTO();
+		dto.setUserId(user1.getUserId());
+		dto.setLastname(user1.getLastname());
+		dto.setFirstname(user1.getFirstname());
+		dto.setCity(user1.getCity());
+		dto.setAge(user1.getAge());
+		dto.setAlcDrinks(user1.getAlcDrinks());
+		dto.setUserPic(user1.getUserPic());
+		dto.setGender(user1.getGender());
+		return dto;
+
+	}
+	
 }

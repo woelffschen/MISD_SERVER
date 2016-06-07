@@ -54,7 +54,7 @@ public class EventDAO implements EventDAOLocal {
 	public Event filterCity(Event city) {
 		List results = em.createQuery("SELECT * FROM Event e WHERE e.city LIKE :cityName")
 				.setParameter("cityname", city).getResultList();
-		if (results.size() == 1) {
+		if (results.size() >= 1) {
 			return (Event) results.get(0);
 		} else {
 			return null;

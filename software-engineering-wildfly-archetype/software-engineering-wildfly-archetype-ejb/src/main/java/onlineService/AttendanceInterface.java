@@ -79,7 +79,7 @@ public class AttendanceInterface {
 			throws NoSessionException, NotAllowedException, EventOwnerException, ParticipantException {
 		AttendanceResponse response = new AttendanceResponse();
 		try {
-			Session session = getSession(this.udao.findSessionById(sessionId));
+			Session session = getSession(sessionId);
 			Attendance attendance = getAttendance(attendanceId, eventId);
 			Event event = getEvent(eventId);
 
@@ -116,7 +116,7 @@ public class AttendanceInterface {
 		AttendanceResponse response = new AttendanceResponse();
 		try {
 			Session session = getSession(sessionId);
-			Attendance attendance = getAttendance(attendanceId, eventId, userId);
+			Attendance attendance = getAttendance(attendanceId, eventId);
 			Event event = getEvent(eventId);
 
 			if (attendance != null) {
@@ -129,12 +129,12 @@ public class AttendanceInterface {
 		return response;
 	}
 
-	public AttendanceResponse rejectAttendance(int sessionId, int attendanceId, int eventId, int userId)
+	public AttendanceResponse rejectAttendance(int sessionId, int attendanceId, int eventId)
 			throws NoSessionException, NotAllowedException, EventOwnerException, ParticipantException {
 		AttendanceResponse response = new AttendanceResponse();
 		try {
 			Session session = getSession(sessionId);
-			Attendance attendance = getAttendance(attendanceId, eventId, userId);
+			Attendance attendance = getAttendance(attendanceId, eventId);
 			Event event = getEvent(eventId);
 
 			if (attendance != null) {

@@ -2,6 +2,8 @@
 
 package onlineService;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.EJBContext;
@@ -13,7 +15,9 @@ import dao.AttendanceDAOLocal;
 import dao.EventDAOLocal;
 import dao.UserDAOLocal;
 import dto.AttendanceResponse;
+import dto.EventFilterCityListResponse;
 import dto.EventResponse;
+import dto.EventTO;
 import entities.Attendance;
 import entities.Event;
 import entities.Menue;
@@ -51,6 +55,14 @@ public class EventInterface {
 			throw new NotAllowedException("Diese Aktion ist nicht erlaubt!");
 		else
 			return event;
+	}
+
+	private List<EventTO> getEventList(int eventId, Event city) throws NotAllowedException {
+		Event eventList = edao.filterCity(city);
+		if (eventList == null)
+			throw new NotAllowedException("Diese Aktion ist nicht erlaubt!");
+		else
+			return (List<EventTO>) eventList;
 	}
 
 	private Menue getMenue(int menueId) throws NotAllowedException {
@@ -126,15 +138,27 @@ public class EventInterface {
 			if (event != null && user == event.getEventOwner()) {
 				edao.deleteEvent(event, user);
 			}
-			
+		} catch (NotAllowedException n) {
+			response.setReturnCode(n.getErrorCode());
+			response.setMessage(n.getMessage());
 		}
-
-		
-		return 0;
+		return null;
 	}
 
-	public Event filterCity(Event city) {
-		return null;
+	public List<EventTO> filterCity(int sessionId, int eventId, Event city)
+			throws NotAllowedException, NoSessionException {
+		EventFilterCityListResponse response = new EventFilterCityListResponse();
+		try {
+			Session session = getSession(sessionId);
+			List<EventTO> eventList = getEventList(eventId, city);
+		}
+
+		catch (NotAllowedException n) {
+			response.setReturnCode(n.getErrorCode());
+			response.setMessage(n.getMessage());
+		}
+
+		return (List<EventTO>) response;
 	}
 
 }

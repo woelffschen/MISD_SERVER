@@ -1,13 +1,10 @@
-// @Author Sylvia & Daniel
-
 package dto;
 
 import java.awt.Image;
 
 import dto.DataTransferObject;
-import entities.User;
 
-public class UserTO extends DataTransferObject {
+public class PublicUserTO extends DataTransferObject {
 
 	private static final long serialVersionUID = 3440740273700082798L;
 
@@ -15,30 +12,23 @@ public class UserTO extends DataTransferObject {
 	private Image userPic;
 	private String lastname;
 	private String firstname;
-	private String street;
-	private int postalCode;
 	private String city;
 	private int age;
 	private char gender;
-	private String telephoneNumber;
 	private boolean alcDrinks;
 
-	public UserTO() {
+	public PublicUserTO() {
 	};
 
-	public UserTO(int userId, String ln, String fn, String str, int plz, String c, int a, char g, Image u, String tel,
-			boolean alc) {
+	public PublicUserTO(int userId, String ln, String fn, String c, int a, char g, Image u, boolean alc) {
 
 		super();
 		this.userId = userId;
 		lastname = ln;
 		firstname = fn;
-		street = str;
-		postalCode = plz;
 		city = c;
 		age = a;
 		gender = g;
-		telephoneNumber = tel;
 		alcDrinks = alc;
 		userPic = u;
 
@@ -69,22 +59,6 @@ public class UserTO extends DataTransferObject {
 		return firstname;
 	}
 
-	public void setStreet(String s) {
-		street = s;
-	}
-
-	public String getStreet() {
-		return street;
-	}
-
-	public void setPostalCode(int p) {
-		postalCode = p;
-	}
-
-	public int getPostalCode() {
-		return postalCode;
-	}
-
 	public void setCity(String c) {
 		city = c;
 	}
@@ -110,14 +84,6 @@ public class UserTO extends DataTransferObject {
 		return gender;
 	}
 
-	public void setTelephoneNumber(String t) {
-		telephoneNumber = t;
-	}
-
-	public String getTelephoneNumber() {
-		return telephoneNumber;
-	}
-
 	public void setAlcDrinks(boolean a) {
 		alcDrinks = a;
 	}
@@ -134,18 +100,4 @@ public class UserTO extends DataTransferObject {
 		return userPic;
 	}
 
-//	public User getPublicUserData() {
-//		return user.getUserId();
-//		return lastname;
-//		return firstname;
-//		return city;
-//		return age;
-//		return gender;
-//		return telephoneNumber;
-//		return alcDrinks;
-//		return userPic;
-//		
-//	}
-// strg shift c alles aus oder einkommentieren
-	
 }

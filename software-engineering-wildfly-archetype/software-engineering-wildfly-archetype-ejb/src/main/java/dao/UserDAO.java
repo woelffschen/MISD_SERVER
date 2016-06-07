@@ -39,14 +39,12 @@ public class UserDAO implements UserDAOLocal {
 		return user;
 	}
 
-	// login
 	public int loginUser(User userId) {
 		Session newSession = new Session(userId);
 		em.persist(newSession);
 		return newSession.getSessionId();
 	}
 
-	// logout
 	public void logoutUser(int id) {
 		Session session = em.find(Session.class, id);
 		if (session != null) {
@@ -54,13 +52,11 @@ public class UserDAO implements UserDAOLocal {
 		}
 	}
 
-	// delete User
 	@Override
 	public void deleteUser(int userId) {
 		em.remove(userId);
 	}
 
-	// find Session by Id
 	@Override
 	public Session findSessionById(int sessionId) {
 		return em.find(Session.class, sessionId);
