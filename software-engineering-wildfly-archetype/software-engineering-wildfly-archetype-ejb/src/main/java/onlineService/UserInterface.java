@@ -39,10 +39,10 @@ public class UserInterface {
 			return user;
 	}
 
-	public UserResponse registerUser(String lastname, String firstname, String street, int postalCode, String city,
+	public UserLoginResponse registerUser(String lastname, String firstname, String street, int postalCode, String city,
 			int age, String telephoneNumber, boolean alcDrinks, byte[] userPic, char gender)
 			throws NoSessionException, NotAllowedException {
-		UserResponse response = new UserResponse();
+		UserLoginResponse response = new UserLoginResponse();
 		try {
 			User user = udao.registerUser(lastname, firstname, street, postalCode, city, age, telephoneNumber,
 					alcDrinks, userPic, gender);

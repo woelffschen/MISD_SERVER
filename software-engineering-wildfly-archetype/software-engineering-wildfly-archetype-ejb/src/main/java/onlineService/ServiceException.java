@@ -1,6 +1,8 @@
 package onlineService;
 
-public class ServiceException extends Exception {
+import java.io.Serializable;
+
+public class ServiceException extends Exception implements Serializable {
 
 	private static final long serialVersionUID = -1658425297634781761L;
 
