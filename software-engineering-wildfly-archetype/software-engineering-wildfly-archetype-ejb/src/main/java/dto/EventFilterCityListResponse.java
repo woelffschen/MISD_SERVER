@@ -11,12 +11,12 @@ public class EventFilterCityListResponse extends ReturnCodeResponse {
 	public EventFilterCityListResponse() {
 	};
 
-	public List<EventTO> getEventList() {
-		return eventList;
-	}
-
-	public void setEventList(List<EventTO> eventList) {
-		this.eventList = eventList;
-	}
+//	public List<EventTO> getEventList() {
+//		return eventList;
+//	}
+//
+//	public void setEventList(List<EventTO> eventList) {
+//		this.eventList = eventList;
+//	}
 
 }

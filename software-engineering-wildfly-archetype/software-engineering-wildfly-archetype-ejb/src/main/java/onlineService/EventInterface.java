@@ -51,13 +51,13 @@ public class EventInterface {
 			return event;
 	}
 
-	private List<EventTO> getEventList(int eventId, Event city) throws NotAllowedException {
-		Event eventList = edao.filterCity(city);
-		if (eventList == null)
-			throw new NotAllowedException("Diese Aktion ist nicht erlaubt!");
-		else
-			return (List<EventTO>) eventList;
-	}
+//	private List<Event> getEventList(String city) throws NotAllowedException {
+//		List<Event> eventList = edao.filterCity(city);
+//		if (eventList == null)
+//			throw new NotAllowedException("Diese Aktion ist nicht erlaubt!");
+//		else
+//			return (List<Event>) eventList;
+//	}
 
 	private Menue getMenue(int menueId) throws NotAllowedException {
 		Menue menue = edao.findMenueById(menueId);
@@ -76,14 +76,14 @@ public class EventInterface {
 	}
 
 	public EventResponse createEvent(int sessionId, int userId, Menue menue, int min, int max, String street, int plz,
-			String city, LocalDateTime dateTime, String comments, User user, char gender)
+			String city, LocalDateTime dateTime, String comments, char gender)
 			throws NoSessionException, NotAllowedException {
 		EventResponse response = new EventResponse();
 		try {
 			Session session = getSession(sessionId);
 			User user1 = getUser(userId);
 			if (session != null && user1 != null) {
-				Event event = new Event(menue, min, max, street, plz, city, dateTime, comments, user, gender);
+				Event event = new Event(menue, min, max, street, plz, city, dateTime, comments, gender);
 			}
 		} catch (NotAllowedException n) {
 			response.setReturnCode(n.getErrorCode());
@@ -139,20 +139,20 @@ public class EventInterface {
 		return null;
 	}
 
-	public List<EventTO> filterCity(int sessionId, int eventId, Event city)
-			throws NotAllowedException, NoSessionException {
-		EventFilterCityListResponse response = new EventFilterCityListResponse();
-		try {
-			Session session = getSession(sessionId);
-			List<EventTO> eventList = getEventList(eventId, city);
-		}
-
-		catch (NotAllowedException n) {
-			response.setReturnCode(n.getErrorCode());
-			response.setMessage(n.getMessage());
-		}
-
-		return (List<EventTO>) response;
-	}
+//	public EventFilterCityListResponse filterCity(int sessionId, String city)
+//			throws NotAllowedException, NoSessionException {
+//		EventFilterCityListResponse response = new EventFilterCityListResponse();
+//		try {
+//			Session session = getSession(sessionId);
+//			List<Event> eventList = getEventList(city);
+//		}
+//
+//		catch (NotAllowedException n) {
+//			response.setReturnCode(n.getErrorCode());
+//			response.setMessage(n.getMessage());
+//		}
+//
+//		return (EventFilterCityListResponse) response;
+//	}
 
 }

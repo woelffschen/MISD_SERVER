@@ -43,7 +43,7 @@ public class UserTO extends DataTransferObject {
 		this.userId = userId;
 	}
 
-	public int getUserId(int userId) {
+	public int getUserId() {
 		return userId;
 	}
 

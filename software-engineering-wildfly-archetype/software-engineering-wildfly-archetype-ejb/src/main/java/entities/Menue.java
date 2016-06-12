@@ -38,11 +38,10 @@ public class Menue implements Serializable {
 	@OneToOne(mappedBy = "menue")
 	Event event;
 
-	public Menue() {
-	};
+	public Menue() {};
 
 	public Menue(String name, boolean lactose, boolean gluten, boolean fructose, boolean sorbit, boolean vega,
-			boolean vegee, byte[] t) {
+			boolean vegee) {
 
 		meal = name;
 		lactoseFree = lactose;
@@ -51,7 +50,7 @@ public class Menue implements Serializable {
 		sorbitFree = sorbit;
 		vegan = vega;
 		vegetarian = vegee;
-		titlePic = t;
+		//titlePic = t;
 
 	}
 

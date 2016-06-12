@@ -39,29 +39,33 @@ public class User implements Serializable {
 	boolean alcDrinks;
 	@OneToMany(mappedBy="user")
 	private Set<Attendance> status;
+	private User user;
 
 	public User() {
 	};
-
-	public User(String ln, String fn, String str, int plz, String c, int a, String tel, boolean alc, byte[] u, char g) {
-
-		lastname = ln;
-		firstname = fn;
-		street = str;
-		postalCode = plz;
-		city = c;
-		age = a;
-		telephoneNumber = tel;
-		alcDrinks = alc;
-		userPic = u;
-		gender = g;
-
+	
+	public User(String lastname, String firstname, String street, int postalCode, String city, int age, char gender, String telephoneNumber, boolean alcDrinks) {
+		super();
+		this.lastname = lastname;
+		this.firstname = firstname;
+		this.street = street;
+		this.postalCode = postalCode;
+		this.city = city;
+		this.age = age;
+		this.gender = gender;
+		this.telephoneNumber = telephoneNumber;
+		this.alcDrinks = alcDrinks;
 	}
+
 
 	public int getUserId() {
 		return userId;
 	}
 
+	public User getUserById(int userId) {
+		return user;
+	}
+	
 	public void setLastname(String l) {
 		lastname = l;
 

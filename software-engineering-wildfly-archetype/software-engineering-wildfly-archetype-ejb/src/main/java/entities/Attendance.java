@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
@@ -17,32 +18,44 @@ public class Attendance implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue
+	int attendanceId;
+	@Id
 	@ManyToOne
 	Event event;
 	@Id
 	@ManyToOne
 	User user;
-	
+
 	LocalDateTime updateAt;
-	
+
 	int status;
-	
+
 	public Attendance() {
 	}
 
-	public void setCancelAttendance(User u, Event e) {
+	public Attendance(int eventId, int userId) {
+		eventId = event.getEventId();
+		userId = user.getUserId();
+	}
+
+	public int getAttendanceId() {
+		return attendanceId;
+	}
+
+	public void setCancelAttendance(int attendanceId) {
 		status = 1;
 	}
 
-	public void setConfirmAttendance(User u, Event e) {
+	public void setConfirmAttendance(int attendanceId) {
 		status = 2;
 	}
 
-	public void setRequestAttendance(User u, Event e) {
+	public void setRequestAttendance(int attendanceId) {
 		status = 3;
 	}
 
-	public void setRejectAttendance(User u, Event e) {
+	public void setRejectAttendance(int attendanceId) {
 		status = 4;
 	}
 
@@ -52,23 +65,6 @@ public class Attendance implements Serializable {
 
 	public void setStatus(int i) {
 		status = i;
-	}
-
-
-	public Event getEvent() {
-		return event;
-	}
-
-	public void setEvent(Event event) {
-		this.event = event;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	public LocalDateTime getUpdateAt() {
@@ -109,7 +105,5 @@ public class Attendance implements Serializable {
 			return false;
 		return true;
 	}
-
-	
 
 }

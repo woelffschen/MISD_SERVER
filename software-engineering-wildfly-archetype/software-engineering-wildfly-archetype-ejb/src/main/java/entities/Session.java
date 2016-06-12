@@ -16,15 +16,16 @@ public class Session {
 	@ManyToOne
 	private User user;
 	private Date creationTime;
+	private int userId;
 
 	public Session() {
 	}
 
-	public Session(User user) {
-		this.user = user;
+	public Session(int userId) {
+		this.userId = userId;
 		this.creationTime = new Date();
 	}
-
+	
 	public int getSessionId() {
 		return id;
 	}

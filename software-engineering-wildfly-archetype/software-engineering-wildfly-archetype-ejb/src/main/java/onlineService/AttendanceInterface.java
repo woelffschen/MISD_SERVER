@@ -47,10 +47,13 @@ public class AttendanceInterface {
 		// TODO: Zum Vergleichen => EQUALS benutzen; Identität!=Gleichheit
 		if (attendance == null)
 			throw new NotAllowedException("This action is not allowed!");
-		if (attendance.getUser().equals(event.getEventOwner()))
+//		if (attendance.getUser().equals(event.getEventOwner()))
+		if (attendance.getAttendanceId() == event.getEventOwner().getUserId())
 			throw new ParticipantException("This action is only allowed for Participants");
-		if (!attendance.getUser().equals(event.getEventOwner()))
+//		if (!attendance.getUser().equals(event.getEventOwner()))
+			if (attendance.getAttendanceId() != event.getEventOwner().getUserId())	
 			throw new EventOwnerException("This action is only allowed for Event Owner");
+	
 		else
 			return attendance;
 	}

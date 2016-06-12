@@ -13,7 +13,7 @@ import entities.User;
 
 @Stateless
 public class UserDAO implements UserDAOLocal {
-
+	
 	@PersistenceContext
 	EntityManager em;
 
@@ -34,18 +34,30 @@ public class UserDAO implements UserDAOLocal {
 	public User registerUser(String lastname, String firstname, String street, int postalCode, String city, int age,
 			String telephoneNumber, boolean alcDrinks, byte[] userPic, char gender) {
 		User user = new User();
+		user.setLastname(lastname);
+		user.setFirstname(firstname);
+		user.setStreet(street);
+		user.setPostalCode(postalCode);
+		user.setCity(city);
+		user.setAge(age);
+		user.setTelephoneNumber(telephoneNumber);
+		user.setAlcDrinks(alcDrinks);
+		user.setUserPic(userPic);
+		user.setGender(gender);
 		em.persist(user);
 		return user;
 	}
 
-	public int loginUser(User userId) {
+	@Override
+	public int loginUser(int userId) {
 		Session newSession = new Session(userId);
 		em.persist(newSession);
 		return newSession.getSessionId();
 	}
 
-	public void logoutUser(int id) {
-		Session session = em.find(Session.class, id);
+	@Override
+	public void logoutUser(int sessionId) {
+			Session session = findSessionById(sessionId);
 		if (session != null) {
 			em.remove(session);
 		}

@@ -42,9 +42,9 @@ public class Event implements Serializable {
 	@Column(nullable = true)
 	String comments;
 	
+	User eventOwner;
 	Attendance attendanceObject;
 	
-	User eventOwner;
 	@OneToMany(mappedBy="event")
 	private Set<Attendance> attendanceList;
 
@@ -52,7 +52,7 @@ public class Event implements Serializable {
 	};
 
 	public Event(Menue m, int min, int max, String street, int plz, String city, LocalDateTime dateTime,
-			String com, User eO, char g) {
+			String com, char g) {
 
 		// mit Transaktion
 		menue = m;
@@ -63,11 +63,12 @@ public class Event implements Serializable {
 		eventCity = city;
 		eventDateTime = dateTime;
 		comments = com;
-		eventOwner = eO;
 		gender = g;
+		attendanceObject = new Attendance(eventId, eventOwner.getUserId());		
 
 	}
-
+	
+	
 	public int getEventId() {
 		return eventId;
 	}
@@ -132,7 +133,7 @@ public class Event implements Serializable {
 	public String getComments() {
 		return comments;
 	}
-
+	
 	public void setEventOwner(User eO) {
 		eventOwner = eO;
 	}

@@ -47,8 +47,10 @@ public class UserInterface {
 			User user = udao.registerUser(lastname, firstname, street, postalCode, city, age, telephoneNumber,
 					alcDrinks, userPic, gender);
 			if (user != null) {
-				int sessionId = udao.loginUser(user);
-				Session session = getSession(sessionId);
+				int sessionId = udao.loginUser(user.getUserId());
+				getSession(sessionId);
+				response.setSessionId(sessionId);
+				response.setUser(dtoAssembler.makeDTO(user));
 			}
 		} catch (NoSessionException n) {
 			response.setReturnCode(n.getErrorCode());
@@ -57,12 +59,13 @@ public class UserInterface {
 		return response;
 	}
 
-	public UserLoginResponse login(int userId) throws NoSessionException, NotAllowedException {
+	public UserLoginResponse loginUser(int userId) throws NoSessionException, NotAllowedException {
 		UserLoginResponse response = new UserLoginResponse();
 		try {
 			User user = getUser(userId);
 			if (user != null) {
-				int sessionId = udao.loginUser(user);
+				int sessionId = udao.loginUser(userId);
+				getSession(sessionId);
 				response.setSessionId(sessionId);
 				response.setUser(dtoAssembler.makeDTO(user));
 			}
@@ -99,7 +102,7 @@ public class UserInterface {
 	public UserResponse deleteUser(int userId) throws NoSessionException, NotAllowedException {
 		UserResponse response = new UserResponse();
 		try {
-			User user = getUser(userId);
+			getUser(userId);
 			udao.deleteUser(userId);
 
 		} catch (NotAllowedException n) {

@@ -5,6 +5,7 @@ package dao;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,6 +19,7 @@ import entities.User;
  *
  */
 @Stateless
+@Local(EventDAOLocal.class)
 public class EventDAO implements EventDAOLocal {
 
 	@PersistenceContext
@@ -25,20 +27,19 @@ public class EventDAO implements EventDAOLocal {
 
 	@Override
 	public void createEvent(Menue m, int min, int max, String street, int plz, String city, LocalDateTime dateTime,
-			String com, User eO, char g) {
-		Event e = new Event(m, min, max, street, plz, city, dateTime, com, eO, g);
+			String com, char g) {
+		Event e = new Event(m, min, max, street, plz, city, dateTime, com, g);
 		em.persist(e);
 
 	}
 
 	@Override
 	public void alterEvent(Event e, Menue m, int min, int max, String street, int plz, String city,
-			LocalDateTime dateTime, String com, User eO, char g) {
+			LocalDateTime dateTime, String com, char g) {
 		em.find(Event.class, e);
 		e.setComments(com);
 		e.setEventCity(city);
 		e.setEventDateTime(dateTime);
-		e.setEventOwner(eO);
 		e.setEventPostalCode(plz);
 		e.setEventStreet(street);
 		e.setMaxAge(max);
@@ -54,17 +55,17 @@ public class EventDAO implements EventDAOLocal {
 		}
 	}
 
-	// TODO: Change return type to List<Event>
-	@Override
-	public Event filterCity(Event city) {
-		List results = em.createQuery("SELECT * FROM Event e WHERE e.eventCity LIKE :cityName")
-				.setParameter("cityName", city.getEventCity()).getResultList();
-		if (results.size() >= 1) {
-			return (Event) results.get(0);
-		} else {
-			return null;
-		}
-	}
+//	TODO: Change return type to List<Event>
+//	@Override
+//	public List<Event> filterCity(String city) {
+//	  List<Event> results = em.createQuery("SELECT * FROM Event WHERE eventCity LIKE :cityName")
+//				.setParameter(":cityName", city).getResultList();
+//		if (results.size() >= 1) {
+//			return (results);
+//		} else {
+//			return null;
+//		}
+//	}
 
 	@Override
 	public Event findEventById(int eventId) {

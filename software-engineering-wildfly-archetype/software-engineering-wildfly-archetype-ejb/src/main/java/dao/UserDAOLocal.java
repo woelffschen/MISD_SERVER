@@ -15,9 +15,9 @@ public interface UserDAOLocal {
 	public User registerUser(String lastname, String firstname, String street, int postalCode, String city, int age,
 			String telephoneNumber, boolean alcDrinks, byte[] userPic, char gender);
 
-	public int loginUser(User userId);
+	public int loginUser(int userId);
 
-	public void logoutUser(int userId);
+	public void logoutUser(int sessionId);
 
 	public void deleteUser(int userId);
 

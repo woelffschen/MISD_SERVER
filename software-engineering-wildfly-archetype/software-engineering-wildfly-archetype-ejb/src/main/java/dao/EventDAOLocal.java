@@ -3,6 +3,7 @@
 package dao;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.ejb.Local;
 
@@ -14,14 +15,14 @@ import entities.User;
 public interface EventDAOLocal {
 
 	public void createEvent(Menue m, int min, int max, String street, int plz, String city, LocalDateTime dateTime,
-			String com, User eO, char g);
+			String com, char g);
 
 	public void alterEvent(Event e, Menue m, int min, int max, String street, int plz, String city,
-			LocalDateTime dateTime, String com, User eO, char g);
+			LocalDateTime dateTime, String com, char g);
 
 	public void deleteEvent(Event e, User user);
 
-	public Event filterCity(Event city);
+//	public List<Event> filterCity(String city);
 
 	public Event findEventById(int eventId);
 

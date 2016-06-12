@@ -1,7 +1,83 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <ejb-jar xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://java.sun.com/xml/ns/javaee"
-         xmlns:ejb="http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd"
-         version="3.1">
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:ejb="http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd"
+	version="3.1">
+
+	<enterprise-beans>
+		<session>
+			<ejb-name>DataBuilder</ejb-name>
+			<ejb-class>dao.DataBuilder</ejb-class>
+			<env-entry>
+				<env-entry-name>dao.DataBuilder/lastname1</env-entry-name>
+				<env-entry-type>java.lang.String</env-entry-type>
+				<env-entry-value>lastname1</env-entry-value>
+			</env-entry>
+			<env-entry>
+				<env-entry-name>dao.DataBuilder/lastname2</env-entry-name>
+				<env-entry-type>java.lang.String</env-entry-type>
+				<env-entry-value>lastname2</env-entry-value>
+			</env-entry>
+			<env-entry>
+				<env-entry-name>dao.DataBuilder/firstname1</env-entry-name>
+				<env-entry-type>java.lang.String</env-entry-type>
+				<env-entry-value>firstname1</env-entry-value>
+			</env-entry>
+			<env-entry>
+				<env-entry-name>dao.DataBuilder/firstname2</env-entry-name>
+				<env-entry-type>java.lang.String</env-entry-type>
+				<env-entry-value>firstname2</env-entry-value>
+			</env-entry>
+			<env-entry>
+				<env-entry-name>dao.DataBuilder/street1</env-entry-name>
+				<env-entry-type>java.lang.String</env-entry-type>
+				<env-entry-value>street1</env-entry-value>
+			</env-entry>
+			<env-entry>
+				<env-entry-name>dao.DataBuilder/street2</env-entry-name>
+				<env-entry-type>java.lang.String</env-entry-type>
+				<env-entry-value>street2</env-entry-value>
+			</env-entry>
+			<env-entry>
+				<env-entry-name>dao.DataBuilder/city1</env-entry-name>
+				<env-entry-type>java.lang.String</env-entry-type>
+				<env-entry-value>city1</env-entry-value>
+			</env-entry>
+			<env-entry>
+				<env-entry-name>dao.DataBuilder/city2</env-entry-name>
+				<env-entry-type>java.lang.String</env-entry-type>
+				<env-entry-value>city2</env-entry-value>
+			</env-entry>
+			<env-entry>
+				<env-entry-name>dao.DataBuilder/telephone1</env-entry-name>
+				<env-entry-type>java.lang.String</env-entry-type>
+				<env-entry-value>telephone1</env-entry-value>
+			</env-entry>
+			<env-entry>
+				<env-entry-name>dao.DataBuilder/telephone2</env-entry-name>
+				<env-entry-type>java.lang.String</env-entry-type>
+				<env-entry-value>telephone2</env-entry-value>
+			</env-entry>
+			<env-entry>
+				<env-entry-name>dao.DataBuilder/comment1</env-entry-name>
+				<env-entry-type>java.lang.String</env-entry-type>
+				<env-entry-value>comment1</env-entry-value>
+			</env-entry>
+			<env-entry>
+				<env-entry-name>dao.DataBuilder/name</env-entry-name>
+				<env-entry-type>java.lang.String</env-entry-type>
+				<env-entry-value>name</env-entry-value>
+			</env-entry>
+			<env-entry>
+				<env-entry-name>dao.DataBuilder/comment2</env-entry-name>
+				<env-entry-type>java.lang.String</env-entry-type>
+				<env-entry-value>comment2</env-entry-value>
+			</env-entry>
+<!-- 			<env-entry> -->
+<!-- 				<env-entry-name>dao.DataBuilder/date1</env-entry-name> -->
+<!-- 				<env-entry-type>java.lang.LocalDateTime</env-entry-type> -->
+<!-- 				<env-entry-value>date1</env-entry-value> -->
+<!-- 			</env-entry> -->
+		</session>
+	</enterprise-beans>
 </ejb-jar>
