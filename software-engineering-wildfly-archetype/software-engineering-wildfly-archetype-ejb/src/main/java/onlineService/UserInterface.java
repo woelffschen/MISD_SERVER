@@ -40,26 +40,28 @@ public class UserInterface {
 	}
 
 	public UserLoginResponse registerUser(String lastname, String firstname, String street, int postalCode, String city,
-			int age, String telephoneNumber, char gender)
-			throws NoSessionException, NotAllowedException {
+			int age, String telephoneNumber, char gender) {
 		UserLoginResponse response = new UserLoginResponse();
 		try {
-			User user = udao.registerUser(lastname, firstname, street, postalCode, city, age, telephoneNumber,
-					gender);
+			User user = udao.registerUser(lastname, firstname, street, postalCode, city, age, telephoneNumber, gender);
 			if (user != null) {
-				int sessionId = udao.loginUser(user.getUserId());
+				User user1 = getUser(user.getUserId());
+				int sessionId = udao.loginUser(user1.getUserId());
 				getSession(sessionId);
 				response.setSessionId(sessionId);
-				response.setUser(dtoAssembler.makeDTO(user));
+				response.setUser(dtoAssembler.makeDTO(user1));
 			}
-		} catch (NoSessionException n) {
+		} catch (NotAllowedException n) {
 			response.setReturnCode(n.getErrorCode());
 			response.setMessage(n.getMessage());
+		} catch (NoSessionException e) {
+			response.setReturnCode(e.getErrorCode());
+			response.setMessage(e.getMessage());
 		}
 		return response;
 	}
 
-	public UserLoginResponse loginUser(int userId) throws NoSessionException, NotAllowedException {
+	public UserLoginResponse loginUser(int userId) {
 		UserLoginResponse response = new UserLoginResponse();
 		try {
 			User user = getUser(userId);
@@ -72,43 +74,49 @@ public class UserInterface {
 		} catch (NotAllowedException n) {
 			response.setReturnCode(n.getErrorCode());
 			response.setMessage(n.getMessage());
+		} catch (NoSessionException e) {
+			response.setReturnCode(e.getErrorCode());
+			response.setMessage(e.getMessage());
 		}
 		return response;
 	}
 
-	public UserResponse logout(int sessionId) {
+	public void logout(int sessionId) {
 		udao.logoutUser(sessionId);
-		UserResponse response = new UserResponse();
-		return response;
 	}
 
-//	 public PublicUserResponse getPublicUserData(int userId) {
-//	 PublicUserResponse response = new PublicUserResponse();
-//	 try {
-//	 User user = getUser(userId);
-//	 if (user != null) {
-//	 udao.getPublicUserData();
-//	
-//	 }
-//	
-//	
-//	 } catch (NotAllowedException n) {
-//	 response.setReturnCode(n.getErrorCode());
-//	 response.setMessage(n.getMessage());
-//	 }
-//	 return response;
-//	 }
+	// public PublicUserResponse getPublicUserData(int userId) {
+	// PublicUserResponse response = new PublicUserResponse();
+	// try {
+	// User user = getUser(userId);
+	// if (user != null) {
+	// udao.getPublicUserData();
+	//
+	// }
+	//
+	//
+	// } catch (NotAllowedException n) {
+	// response.setReturnCode(n.getErrorCode());
+	// response.setMessage(n.getMessage());
+	// }
+	// return response;
+	// }
 
-	public UserResponse deleteUser(int userId) throws NoSessionException, NotAllowedException {
+	public UserResponse deleteUser(int userId, int sessionId) {
 		UserResponse response = new UserResponse();
 		try {
 			getUser(userId);
+			getSession(sessionId);
 			udao.deleteUser(userId);
 
 		} catch (NotAllowedException n) {
 			response.setReturnCode(n.getErrorCode());
 			response.setMessage(n.getMessage());
+		} catch (NoSessionException e) {
+			response.setReturnCode(e.getErrorCode());
+			response.setMessage(e.getMessage());
 		}
+
 		return response;
 	}
 

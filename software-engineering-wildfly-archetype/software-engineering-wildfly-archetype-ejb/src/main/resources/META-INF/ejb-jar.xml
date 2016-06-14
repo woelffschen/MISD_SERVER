@@ -73,11 +73,6 @@
 				<env-entry-type>java.lang.String</env-entry-type>
 				<env-entry-value>comment2</env-entry-value>
 			</env-entry>
-<!-- 			<env-entry> -->
-<!-- 				<env-entry-name>dao.DataBuilder/date1</env-entry-name> -->
-<!-- 				<env-entry-type>java.lang.LocalDateTime</env-entry-type> -->
-<!-- 				<env-entry-value>date1</env-entry-value> -->
-<!-- 			</env-entry> -->
 		</session>
 	</enterprise-beans>
 </ejb-jar>

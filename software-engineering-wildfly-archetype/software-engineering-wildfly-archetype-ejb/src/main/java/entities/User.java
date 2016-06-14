@@ -37,7 +37,8 @@ public class User implements Serializable {
 	String telephoneNumber;
 	@OneToMany(mappedBy="user")
 	private Set<Attendance> status;
-	private User user;
+	
+//	private User user;
 
 	public User() {
 	};
@@ -59,9 +60,6 @@ public class User implements Serializable {
 		return userId;
 	}
 
-	public User getUserById(int userId) {
-		return user;
-	}
 	
 	public void setLastname(String l) {
 		lastname = l;

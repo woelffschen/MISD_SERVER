@@ -48,9 +48,9 @@ public class AttendanceInterface {
 			throw new NotAllowedException("This action is not allowed!");
 		if (attendance.getAttendanceId() == event.getEventId())
 			throw new ParticipantException("This action is only allowed for Participants");
-			if (attendance.getAttendanceId() != event.getEventId())	
+		if (attendance.getAttendanceId() != event.getEventId())
 			throw new EventOwnerException("This action is only allowed for Event Owner");
-	
+
 		else
 			return attendance;
 	}
@@ -62,7 +62,7 @@ public class AttendanceInterface {
 		else
 			return event;
 	}
-	
+
 	private User getUser(int userId) throws NotAllowedException {
 		User user = udao.findUserById(userId);
 		if (user == null)
@@ -71,8 +71,7 @@ public class AttendanceInterface {
 			return user;
 	}
 
-	public AttendanceResponse cancelAttendance(int sessionId, int attendanceId, int eventId)
-			throws NoSessionException, NotAllowedException, EventOwnerException, ParticipantException {
+	public AttendanceResponse cancelAttendance(int sessionId, int attendanceId, int eventId) {
 		AttendanceResponse response = new AttendanceResponse();
 		try {
 			Session session = getSession(sessionId);
@@ -85,30 +84,51 @@ public class AttendanceInterface {
 		} catch (NotAllowedException n) {
 			response.setReturnCode(n.getErrorCode());
 			response.setMessage(n.getMessage());
+
+		} catch (NoSessionException n) {
+			response.setReturnCode(n.getErrorCode());
+			response.setMessage(n.getMessage());
+		} catch (EventOwnerException n) {
+			response.setReturnCode(n.getErrorCode());
+			response.setMessage(n.getMessage());
+
+		} catch (ParticipantException n) {
+			response.setReturnCode(n.getErrorCode());
+			response.setMessage(n.getMessage());
 		}
 		return response;
 	}
 
-	public AttendanceResponse requestAttendance(int sessionId, int eventId, int userId)
-			throws NoSessionException, NotAllowedException, EventOwnerException, ParticipantException {
+	public AttendanceResponse requestAttendance(int sessionId, int eventId, int userId) {
 		AttendanceResponse response = new AttendanceResponse();
 		try {
 			Session session = getSession(sessionId);
 			Event event = getEvent(eventId);
 			User user = getUser(userId);
 			if (event != null) {
-				Attendance attendance = new Attendance();				
+				Attendance attendance = new Attendance();
 				attendance.setStatus(attendance.getStatus());
+				getAttendance(eventId, userId);
 			}
 		} catch (NotAllowedException n) {
+			response.setReturnCode(n.getErrorCode());
+			response.setMessage(n.getMessage());
+
+		} catch (NoSessionException n) {
+			response.setReturnCode(n.getErrorCode());
+			response.setMessage(n.getMessage());
+		} catch (EventOwnerException n) {
+			response.setReturnCode(n.getErrorCode());
+			response.setMessage(n.getMessage());
+
+		} catch (ParticipantException n) {
 			response.setReturnCode(n.getErrorCode());
 			response.setMessage(n.getMessage());
 		}
 		return response;
 	}
 
-	public AttendanceResponse confirmAttendance(int sessionId, int attendanceId, int eventId, int userId)
-			throws NoSessionException, NotAllowedException, EventOwnerException, ParticipantException {
+	public AttendanceResponse confirmAttendance(int sessionId, int attendanceId, int eventId, int userId) {
 		AttendanceResponse response = new AttendanceResponse();
 		try {
 			Session session = getSession(sessionId);
@@ -121,12 +141,22 @@ public class AttendanceInterface {
 		} catch (NotAllowedException n) {
 			response.setReturnCode(n.getErrorCode());
 			response.setMessage(n.getMessage());
+
+		} catch (NoSessionException n) {
+			response.setReturnCode(n.getErrorCode());
+			response.setMessage(n.getMessage());
+		} catch (EventOwnerException n) {
+			response.setReturnCode(n.getErrorCode());
+			response.setMessage(n.getMessage());
+
+		} catch (ParticipantException n) {
+			response.setReturnCode(n.getErrorCode());
+			response.setMessage(n.getMessage());
 		}
 		return response;
 	}
 
-	public AttendanceResponse rejectAttendance(int sessionId, int attendanceId, int eventId)
-			throws NoSessionException, NotAllowedException, EventOwnerException, ParticipantException {
+	public AttendanceResponse rejectAttendance(int sessionId, int attendanceId, int eventId) {
 		AttendanceResponse response = new AttendanceResponse();
 		try {
 			Session session = getSession(sessionId);
@@ -137,6 +167,17 @@ public class AttendanceInterface {
 				attendance.setStatus(attendance.getStatus());
 			}
 		} catch (NotAllowedException n) {
+			response.setReturnCode(n.getErrorCode());
+			response.setMessage(n.getMessage());
+
+		} catch (NoSessionException n) {
+			response.setReturnCode(n.getErrorCode());
+			response.setMessage(n.getMessage());
+		} catch (EventOwnerException n) {
+			response.setReturnCode(n.getErrorCode());
+			response.setMessage(n.getMessage());
+
+		} catch (ParticipantException n) {
 			response.setReturnCode(n.getErrorCode());
 			response.setMessage(n.getMessage());
 		}

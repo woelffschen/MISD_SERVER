@@ -31,7 +31,7 @@ public class EventInterface {
 
 	@EJB
 	private UserDAOLocal udao;
-	
+
 	private Event event;
 
 	private Session getSession(int sessionId) throws NoSessionException {
@@ -68,8 +68,7 @@ public class EventInterface {
 
 	public EventResponse createEvent(int sessionId, int userId, int min, int max, String street, int plz, String city,
 			String comments, char gender, Calendar dateTime, int eo, String name, boolean lactose, boolean gluten,
-			boolean fructose, boolean sorbit, boolean vega, boolean vegee)
-			throws NoSessionException, NotAllowedException {
+			boolean fructose, boolean sorbit, boolean vega, boolean vegee) {
 		EventResponse response = new EventResponse();
 		EventTO eventTO = new EventTO();
 		try {
@@ -78,36 +77,40 @@ public class EventInterface {
 			if (session != null && user1 != null) {
 				edao.createEvent(min, max, street, plz, city, comments, gender, dateTime, eo, name, lactose, gluten,
 						fructose, sorbit, vega, vegee);
-				// die EventId wird für das TO benötigt this.eventId = eventId;
-				// die MenueId wird für das TO benötigt this.menueId = menueId;
-				edao.getEventId(event);
-				
-				// edao.getMenueId(menue)
-				eventTO.setMinAge(min);
-				eventTO.setMaxAge(max);
-				eventTO.setEventStreet(street);
-				eventTO.setEventPostalCode(plz);
-				eventTO.setEventCity(city);
-				eventTO.setComments(comments);
-				eventTO.setGender(gender);
-				eventTO.setEventDateTime(dateTime);
-				eventTO.setEventOwner(eo);
-				eventTO.setName(name);
-				eventTO.setLactose(lactose);
-				eventTO.setGluten(gluten);
-				eventTO.setFructose(fructose);
-				eventTO.setSorbit(sorbit);
-				eventTO.setVega(vega);
-				eventTO.setVegee(vegee);
+//				// die EventId wird für das TO benötigt this.eventId = eventId;
+//				// die MenueId wird für das TO benötigt this.menueId = menueId;
+//				edao.getEventId(event);
+//
+//				// edao.getMenueId(menue)
+//				eventTO.setMinAge(min);
+//				eventTO.setMaxAge(max);
+//				eventTO.setEventStreet(street);
+//				eventTO.setEventPostalCode(plz);
+//				eventTO.setEventCity(city);
+//				eventTO.setComments(comments);
+//				eventTO.setGender(gender);
+//				eventTO.setEventDateTime(dateTime);
+//				eventTO.setEventOwner(eo);
+//				eventTO.setName(name);
+//				eventTO.setLactose(lactose);
+//				eventTO.setGluten(gluten);
+//				eventTO.setFructose(fructose);
+//				eventTO.setSorbit(sorbit);
+//				eventTO.setVega(vega);
+//				eventTO.setVegee(vegee);
 			}
 		} catch (NotAllowedException n) {
+			response.setReturnCode(n.getErrorCode());
+			response.setMessage(n.getMessage());
+
+		} catch (NoSessionException n) {
 			response.setReturnCode(n.getErrorCode());
 			response.setMessage(n.getMessage());
 		}
 		return response;
 	}
 
-	public EventResponse deleteEvent(int eventId, int userId) throws NotAllowedException {
+	public EventResponse deleteEvent(int eventId, int userId) {
 		EventResponse response = new EventResponse();
 		try {
 			Event event = getEvent(eventId);
@@ -121,8 +124,7 @@ public class EventInterface {
 		return null;
 	}
 
-	public EventFilterCityListResponse filterCity(int sessionId, String city)
-			throws NotAllowedException, NoSessionException {
+	public EventFilterCityListResponse filterCity(int sessionId, String city) {
 		EventFilterCityListResponse response = new EventFilterCityListResponse();
 		try {
 			Session session = getSession(sessionId);
@@ -131,14 +133,15 @@ public class EventInterface {
 			if (session != null && eventList != null) {
 				return response;
 			}
-		}
+		} catch (NotAllowedException n) {
+			response.setReturnCode(n.getErrorCode());
+			response.setMessage(n.getMessage());
 
-		catch (NotAllowedException n) {
+		} catch (NoSessionException n) {
 			response.setReturnCode(n.getErrorCode());
 			response.setMessage(n.getMessage());
 		}
-
-		return null;
+		return response;
 	}
 
 }

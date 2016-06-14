@@ -25,7 +25,12 @@
             <version>1.0.0</version>
             <type>ejb</type>
         </dependency>
+        
+
+        
     </dependencies>
+    
+    
 
     <build>
         <finalName>${project.artifactId}</finalName>
