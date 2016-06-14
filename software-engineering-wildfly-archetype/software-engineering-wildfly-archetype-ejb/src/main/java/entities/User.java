@@ -19,24 +19,22 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue
 	int userId;
-	@Column(nullable = true)
-	byte[] userPic;
 	@Column(nullable = false)
 	String lastname;
 	@Column(nullable = false)
 	String firstname;
-	@Column(nullable = false)
+	@Column(nullable = true)
 	String street;
-	@Column(nullable = false)
+	@Column(nullable = true)
 	int postalCode;
-	@Column(nullable = false)
+	@Column(nullable = true)
 	String city;
 	@Column(nullable = false)
 	int age;
 	@Column(nullable = false)
 	char gender;
+	@Column(nullable = false)
 	String telephoneNumber;
-	boolean alcDrinks;
 	@OneToMany(mappedBy="user")
 	private Set<Attendance> status;
 	private User user;
@@ -44,7 +42,7 @@ public class User implements Serializable {
 	public User() {
 	};
 	
-	public User(String lastname, String firstname, String street, int postalCode, String city, int age, char gender, String telephoneNumber, boolean alcDrinks) {
+	public User(String lastname, String firstname, String street, int postalCode, String city, int age, char gender, String telephoneNumber) {
 		super();
 		this.lastname = lastname;
 		this.firstname = firstname;
@@ -54,7 +52,6 @@ public class User implements Serializable {
 		this.age = age;
 		this.gender = gender;
 		this.telephoneNumber = telephoneNumber;
-		this.alcDrinks = alcDrinks;
 	}
 
 
@@ -122,23 +119,6 @@ public class User implements Serializable {
 	public String getTelephoneNumber() {
 		return telephoneNumber;
 	}
-
-	public void setAlcDrinks(boolean a) {
-		alcDrinks = a;
-	}
-
-	public boolean getAlcDrinks() {
-		return alcDrinks;
-	}
-
-	public void setUserPic(byte[] u) {
-		userPic = u;
-	}
-
-	public byte[] getUserPic() {
-		return userPic;
-	}
-
 	public void setGender(char n) {
 		gender = n;
 	}
@@ -147,72 +127,6 @@ public class User implements Serializable {
 		return gender;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + age;
-		result = prime * result + ((city == null) ? 0 : city.hashCode());
-		result = prime * result + ((firstname == null) ? 0 : firstname.hashCode());
-		result = prime * result + gender;
-		result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
-		result = prime * result + postalCode;
-		result = prime * result + ((status == null) ? 0 : status.hashCode());
-		result = prime * result + ((street == null) ? 0 : street.hashCode());
-		result = prime * result + ((telephoneNumber == null) ? 0 : telephoneNumber.hashCode());
-		result = prime * result + userId;
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		User other = (User) obj;
-		if (age != other.age)
-			return false;
-		if (city == null) {
-			if (other.city != null)
-				return false;
-		} else if (!city.equals(other.city))
-			return false;
-		if (firstname == null) {
-			if (other.firstname != null)
-				return false;
-		} else if (!firstname.equals(other.firstname))
-			return false;
-		if (gender != other.gender)
-			return false;
-		if (lastname == null) {
-			if (other.lastname != null)
-				return false;
-		} else if (!lastname.equals(other.lastname))
-			return false;
-		if (postalCode != other.postalCode)
-			return false;
-		if (status == null) {
-			if (other.status != null)
-				return false;
-		} else if (!status.equals(other.status))
-			return false;
-		if (street == null) {
-			if (other.street != null)
-				return false;
-		} else if (!street.equals(other.street))
-			return false;
-		if (telephoneNumber == null) {
-			if (other.telephoneNumber != null)
-				return false;
-		} else if (!telephoneNumber.equals(other.telephoneNumber))
-			return false;
-		if (userId != other.userId)
-			return false;
-		return true;
-	}
 
 	
 	

@@ -2,7 +2,8 @@
 
 package dao;
 
-import java.time.LocalDateTime;
+
+import java.util.Calendar;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -14,17 +15,22 @@ import entities.User;
 @Local
 public interface EventDAOLocal {
 
-	public void createEvent(Menue m, int min, int max, String street, int plz, String city, LocalDateTime dateTime,
-			String com, char g);
+	public int createEvent(int min, int max, String street, int plz, String city, 
+			String com, char g, Calendar d, int eventOwner, String name, boolean lactose, boolean gluten, boolean fructose, boolean sorbit, boolean vega,
+			boolean vegee);
 
-	public void alterEvent(Event e, Menue m, int min, int max, String street, int plz, String city,
-			LocalDateTime dateTime, String com, char g);
+	public void deleteEvent(int eventId, int userId);
 
-	public void deleteEvent(Event e, User user);
-
-//	public List<Event> filterCity(String city);
+	public List<Event> filterCity(int userid, String city);
 
 	public Event findEventById(int eventId);
 
 	public Menue findMenueById(int menueId);
-}
+
+	User findUserById(int userId);
+	
+//	public int getMenueId(Menue menue);
+//	
+	public int getEventId(Event event);
+	
+	}

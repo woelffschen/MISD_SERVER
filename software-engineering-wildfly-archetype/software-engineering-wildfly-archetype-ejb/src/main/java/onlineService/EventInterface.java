@@ -2,13 +2,12 @@
 
 package onlineService;
 
-import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
-import javax.print.attribute.standard.DateTimeAtCreation;
 
 import dao.AttendanceDAOLocal;
 import dao.EventDAOLocal;
@@ -17,7 +16,6 @@ import dto.EventFilterCityListResponse;
 import dto.EventResponse;
 import dto.EventTO;
 import entities.Event;
-import entities.Menue;
 import entities.Session;
 import entities.User;
 
@@ -33,7 +31,8 @@ public class EventInterface {
 
 	@EJB
 	private UserDAOLocal udao;
-
+	
+	private Event event;
 
 	private Session getSession(int sessionId) throws NoSessionException {
 		Session session = udao.findSessionById(sessionId);
@@ -51,20 +50,12 @@ public class EventInterface {
 			return event;
 	}
 
-//	private List<Event> getEventList(String city) throws NotAllowedException {
-//		List<Event> eventList = edao.filterCity(city);
-//		if (eventList == null)
-//			throw new NotAllowedException("Diese Aktion ist nicht erlaubt!");
-//		else
-//			return (List<Event>) eventList;
-//	}
-
-	private Menue getMenue(int menueId) throws NotAllowedException {
-		Menue menue = edao.findMenueById(menueId);
-		if (menue == null)
+	private List<Event> getEventList(int userid, String city) throws NotAllowedException {
+		List<Event> eventList = edao.filterCity(userid, city);
+		if (eventList == null)
 			throw new NotAllowedException("Diese Aktion ist nicht erlaubt!");
 		else
-			return menue;
+			return (List<Event>) eventList;
 	}
 
 	private User getUser(int userId) throws NotAllowedException {
@@ -75,47 +66,39 @@ public class EventInterface {
 			return user;
 	}
 
-	public EventResponse createEvent(int sessionId, int userId, Menue menue, int min, int max, String street, int plz,
-			String city, LocalDateTime dateTime, String comments, char gender)
+	public EventResponse createEvent(int sessionId, int userId, int min, int max, String street, int plz, String city,
+			String comments, char gender, Calendar dateTime, int eo, String name, boolean lactose, boolean gluten,
+			boolean fructose, boolean sorbit, boolean vega, boolean vegee)
 			throws NoSessionException, NotAllowedException {
 		EventResponse response = new EventResponse();
+		EventTO eventTO = new EventTO();
 		try {
 			Session session = getSession(sessionId);
 			User user1 = getUser(userId);
 			if (session != null && user1 != null) {
-				Event event = new Event(menue, min, max, street, plz, city, dateTime, comments, gender);
-			}
-		} catch (NotAllowedException n) {
-			response.setReturnCode(n.getErrorCode());
-			response.setMessage(n.getMessage());
-		}
-		return response;
-	}
-
-	public EventResponse alterEvent(int sessionId, int eventId, Menue menue, int min, int max, String street, int plz,
-			String city, DateTimeAtCreation dateTime, String comments, User user, char gender)
-			throws NoSessionException, NotAllowedException {
-		EventResponse response = new EventResponse();
-		try {
-			Session session = getSession(sessionId);
-			Menue menue1 = getMenue(menue.getMenueId());
-			Event event = getEvent(eventId);
-			if (session != null && event != null) {
-				menue1.setName(menue.getName());
-				menue1.setLactose(menue.getLactose());
-				menue1.setGluten(menue.getGluten());
-				menue1.setSorbit(menue.getSorbit());
-				menue1.setVegan(menue.getVegan());
-				menue1.setVegetarian(menue.getVegetarian());
-				menue1.setTitlePic(menue.getTitlePic());
-				event.setMinAge(event.getMinAge());
-				event.setMaxAge(event.getMaxAge());
-				event.setEventStreet(event.getEventStreet());
-				event.setEventPostalCode(event.getEventPostalCode());
-				event.setEventCity(event.getEventCity());
-				event.setEventDateTime(event.getEventDateTime());
-				event.setComments(event.getComments());
-				event.setGender(event.getGender());
+				edao.createEvent(min, max, street, plz, city, comments, gender, dateTime, eo, name, lactose, gluten,
+						fructose, sorbit, vega, vegee);
+				// die EventId wird für das TO benötigt this.eventId = eventId;
+				// die MenueId wird für das TO benötigt this.menueId = menueId;
+				edao.getEventId(event);
+				
+				// edao.getMenueId(menue)
+				eventTO.setMinAge(min);
+				eventTO.setMaxAge(max);
+				eventTO.setEventStreet(street);
+				eventTO.setEventPostalCode(plz);
+				eventTO.setEventCity(city);
+				eventTO.setComments(comments);
+				eventTO.setGender(gender);
+				eventTO.setEventDateTime(dateTime);
+				eventTO.setEventOwner(eo);
+				eventTO.setName(name);
+				eventTO.setLactose(lactose);
+				eventTO.setGluten(gluten);
+				eventTO.setFructose(fructose);
+				eventTO.setSorbit(sorbit);
+				eventTO.setVega(vega);
+				eventTO.setVegee(vegee);
 			}
 		} catch (NotAllowedException n) {
 			response.setReturnCode(n.getErrorCode());
@@ -128,9 +111,8 @@ public class EventInterface {
 		EventResponse response = new EventResponse();
 		try {
 			Event event = getEvent(eventId);
-			User user = getUser(userId);
-			if (event != null && user == event.getEventOwner()) {
-				edao.deleteEvent(event, user);
+			if (event != null && userId == event.getEventOwner()) {
+				edao.deleteEvent(eventId, userId);
 			}
 		} catch (NotAllowedException n) {
 			response.setReturnCode(n.getErrorCode());
@@ -139,20 +121,24 @@ public class EventInterface {
 		return null;
 	}
 
-//	public EventFilterCityListResponse filterCity(int sessionId, String city)
-//			throws NotAllowedException, NoSessionException {
-//		EventFilterCityListResponse response = new EventFilterCityListResponse();
-//		try {
-//			Session session = getSession(sessionId);
-//			List<Event> eventList = getEventList(city);
-//		}
-//
-//		catch (NotAllowedException n) {
-//			response.setReturnCode(n.getErrorCode());
-//			response.setMessage(n.getMessage());
-//		}
-//
-//		return (EventFilterCityListResponse) response;
-//	}
+	public EventFilterCityListResponse filterCity(int sessionId, String city)
+			throws NotAllowedException, NoSessionException {
+		EventFilterCityListResponse response = new EventFilterCityListResponse();
+		try {
+			Session session = getSession(sessionId);
+			List<Event> eventList = getEventList(sessionId, city);
+
+			if (session != null && eventList != null) {
+				return response;
+			}
+		}
+
+		catch (NotAllowedException n) {
+			response.setReturnCode(n.getErrorCode());
+			response.setMessage(n.getMessage());
+		}
+
+		return null;
+	}
 
 }

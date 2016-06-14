@@ -40,12 +40,12 @@ public class UserInterface {
 	}
 
 	public UserLoginResponse registerUser(String lastname, String firstname, String street, int postalCode, String city,
-			int age, String telephoneNumber, boolean alcDrinks, byte[] userPic, char gender)
+			int age, String telephoneNumber, char gender)
 			throws NoSessionException, NotAllowedException {
 		UserLoginResponse response = new UserLoginResponse();
 		try {
 			User user = udao.registerUser(lastname, firstname, street, postalCode, city, age, telephoneNumber,
-					alcDrinks, userPic, gender);
+					gender);
 			if (user != null) {
 				int sessionId = udao.loginUser(user.getUserId());
 				getSession(sessionId);

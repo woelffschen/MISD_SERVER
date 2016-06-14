@@ -39,25 +39,19 @@ public class DTOAssembler {
 		dto.setEventCity(event.getEventCity());
 		dto.setEventDateTime(event.getEventDateTime());
 		dto.setComments(event.getComments());
-
-		return dto;
-
-	}
-
-	public MenueTO makeDTO(Menue menue) {
-		MenueTO dto = new MenueTO();
 		dto.setMenueId(menue.getMenueId());
 		dto.setName(menue.getName());
 		dto.setLactose(menue.getLactose());
 		dto.setGluten(menue.getGluten());
 		dto.setFructose(menue.getFructose());
 		dto.setSorbit(menue.getSorbit());
-		dto.setVegan(menue.getVegan());
-		dto.setVegetarian(menue.getVegetarian());
-		dto.setTitlePic(menue.getTitlePic());
+		dto.setVega(menue.getVegan());
+		dto.setVegee(menue.getVegetarian());
+
 		return dto;
 
 	}
+
 
 	public UserTO makeDTO(User user) {
 		UserTO dto = new UserTO();
@@ -69,8 +63,6 @@ public class DTOAssembler {
 		dto.setCity(user.getCity());
 		dto.setAge(user.getAge());
 		dto.setTelephoneNumber(user.getTelephoneNumber());
-		dto.setAlcDrinks(user.getAlcDrinks());
-		dto.setUserPic(user.getUserPic());
 		dto.setGender(user.getGender());
 		return dto;
 
@@ -84,8 +76,6 @@ public class DTOAssembler {
 		dto.setFirstname(user1.getFirstname());
 		dto.setCity(user1.getCity());
 		dto.setAge(user1.getAge());
-		dto.setAlcDrinks(user1.getAlcDrinks());
-		dto.setUserPic(user1.getUserPic());
 		dto.setGender(user1.getGender());
 		return dto;
 

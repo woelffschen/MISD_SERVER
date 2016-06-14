@@ -33,7 +33,7 @@ public class LoginUserTest {
 	@Test
 	public void testLogin() throws Exception {
 		UserLoginResponse userLoginResponse = beans.registerUser("Lustig", "Peter", "Straße", 12345, "Stadt", 35,
-				"Telefonnummer", true, null, 'F');
+				"Telefonnummer", 'F');
 		//assertEquals(userLoginResponse.getReturnCode(), 0);
 		
 		int sessionId = userLoginResponse.getSessionId();

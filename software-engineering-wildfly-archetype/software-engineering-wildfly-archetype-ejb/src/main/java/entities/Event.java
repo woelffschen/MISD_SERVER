@@ -3,7 +3,7 @@
 package entities;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -37,12 +37,15 @@ public class Event implements Serializable {
 	int eventPostalCode;
 	@Column(nullable = false)
 	String eventCity;
-	@Column(nullable = false)
-	LocalDateTime eventDateTime;
 	@Column(nullable = true)
 	String comments;
+	@Column(nullable = false)
+	boolean takePlace;
+	@Column(nullable = false)
+	Calendar dateTime;
+	@Column(nullable = false)
+	int eventOwner;
 	
-	User eventOwner;
 	Attendance attendanceObject;
 	
 	@OneToMany(mappedBy="event")
@@ -51,8 +54,8 @@ public class Event implements Serializable {
 	public Event() {
 	};
 
-	public Event(Menue m, int min, int max, String street, int plz, String city, LocalDateTime dateTime,
-			String com, char g) {
+	public Event(Menue m, int min, int max, String street, int plz, String city, 
+			String com, char g, Calendar d, int eo) {
 
 		// mit Transaktion
 		menue = m;
@@ -61,11 +64,12 @@ public class Event implements Serializable {
 		eventStreet = street;
 		eventPostalCode = plz;
 		eventCity = city;
-		eventDateTime = dateTime;
 		comments = com;
 		gender = g;
-		attendanceObject = new Attendance(eventId, eventOwner.getUserId());		
-
+		attendanceObject = new Attendance(eventId, eventOwner);	
+		dateTime = d;
+		eventOwner = eo;
+		takePlace = true;		
 	}
 	
 	
@@ -118,12 +122,12 @@ public class Event implements Serializable {
 	}
 
 	
-	public LocalDateTime getEventDateTime() {
-		return eventDateTime;
+	public Calendar getEventDateTime() {
+		return dateTime;
 	}
 
-	public void setEventDateTime(LocalDateTime eventDateTime) {
-		this.eventDateTime = eventDateTime;
+	public void setEventDateTime(Calendar dateTime) {
+		this.dateTime = dateTime;
 	}
 
 	public void setComments(String i) {
@@ -134,11 +138,11 @@ public class Event implements Serializable {
 		return comments;
 	}
 	
-	public void setEventOwner(User eO) {
+	public void setEventOwner(int eO) {
 		eventOwner = eO;
 	}
 
-	public User getEventOwner() {
+	public int getEventOwner() {
 		return eventOwner;
 	}
 
@@ -150,6 +154,14 @@ public class Event implements Serializable {
 		return gender;
 	}
 
+	public void setTakePlace(boolean b) {
+		takePlace = b;
+	}
+
+	public boolean getTakePlace() {
+		return takePlace;
+	}
+	
 	public Set<Attendance> getAttendanceList() {
 		return attendanceList;
 	}

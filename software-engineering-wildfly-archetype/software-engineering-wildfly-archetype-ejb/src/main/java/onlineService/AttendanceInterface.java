@@ -44,14 +44,11 @@ public class AttendanceInterface {
 			throws NotAllowedException, EventOwnerException, ParticipantException {
 		Attendance attendance = adao.findAttendanceById(attendanceId);
 		Event event = edao.findEventById(eventId);
-		// TODO: Zum Vergleichen => EQUALS benutzen; Identität!=Gleichheit
 		if (attendance == null)
 			throw new NotAllowedException("This action is not allowed!");
-//		if (attendance.getUser().equals(event.getEventOwner()))
-		if (attendance.getAttendanceId() == event.getEventOwner().getUserId())
+		if (attendance.getAttendanceId() == event.getEventId())
 			throw new ParticipantException("This action is only allowed for Participants");
-//		if (!attendance.getUser().equals(event.getEventOwner()))
-			if (attendance.getAttendanceId() != event.getEventOwner().getUserId())	
+			if (attendance.getAttendanceId() != event.getEventId())	
 			throw new EventOwnerException("This action is only allowed for Event Owner");
 	
 		else

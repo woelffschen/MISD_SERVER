@@ -7,7 +7,6 @@ public class UserTO extends DataTransferObject {
 	private static final long serialVersionUID = 3440740273700082798L;
 
 	private int userId;
-	private byte[] userPic;
 	private String lastname;
 	private String firstname;
 	private String street;
@@ -16,8 +15,7 @@ public class UserTO extends DataTransferObject {
 	private int age;
 	private char gender;
 	private String telephoneNumber;
-	private boolean alcDrinks;
-
+	
 	public UserTO() {
 	};
 
@@ -34,8 +32,6 @@ public class UserTO extends DataTransferObject {
 		age = a;
 		gender = g;
 		telephoneNumber = tel;
-		alcDrinks = alc;
-		userPic = u;
 
 	}
 
@@ -113,21 +109,6 @@ public class UserTO extends DataTransferObject {
 		return telephoneNumber;
 	}
 
-	public void setAlcDrinks(boolean a) {
-		alcDrinks = a;
-	}
-
-	public boolean getAlcDrinks() {
-		return alcDrinks;
-	}
-
-	public void setUserPic(byte[] u) {
-		userPic = u;
-	}
-
-	public byte[] getUserPic() {
-		return userPic;
-	}
 
 //	public User getPublicUserData() {
 //		return user.getUserId();

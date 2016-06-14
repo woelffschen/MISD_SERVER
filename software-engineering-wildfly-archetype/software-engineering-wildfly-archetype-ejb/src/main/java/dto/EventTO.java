@@ -2,7 +2,7 @@
 
 package dto;
 
-import java.time.LocalDateTime;
+import java.util.Calendar;
 
 public class EventTO extends DataTransferObject {
 
@@ -17,14 +17,21 @@ public class EventTO extends DataTransferObject {
 	private int eventPostalCode;
 	private String eventCity;
 	private int eventOwner;
-	private LocalDateTime eventDateTime;
 	private String comments;
+	private Calendar dateTime;
+	private String name;
+	private boolean lactose;
+	private boolean gluten;
+	private boolean fructose;
+	private boolean sorbit;
+	private boolean vega;
+	private boolean vegee;
 
 	public EventTO() {
 	};
 
 	public EventTO(int eventId, int menueId, int min, int max, char g, String street, int plz, String city,
-			LocalDateTime dateTime, String com, int eO) {
+	 String com, Calendar dt, int eO, String n, boolean l, boolean gl, boolean f, boolean s, boolean ve, boolean veg) {
 
 		super();
 		this.eventId = eventId;
@@ -35,9 +42,17 @@ public class EventTO extends DataTransferObject {
 		eventStreet = street;
 		eventPostalCode = plz;
 		eventCity = city;
-		eventDateTime = dateTime;
+		dateTime = dt;
 		comments = com;
 		eventOwner = eO;
+		setName(n);
+		setLactose(l);
+		setGluten(gl);
+		setFructose(f);
+		setSorbit(s);
+		setVega(ve);
+		setVegee(veg);
+		
 
 	}
 
@@ -106,12 +121,12 @@ public class EventTO extends DataTransferObject {
 		return eventCity;
 	}
 
-	public void setEventDateTime(LocalDateTime i) {
-		eventDateTime = i;
+	public void setEventDateTime(Calendar i) {
+		dateTime = i;
 	}
 
-	public LocalDateTime getEventDateTime() {
-		return eventDateTime;
+	public Calendar getEventDateTime() {
+		return dateTime;
 	}
 
 	public void setComments(String i) {
@@ -128,6 +143,62 @@ public class EventTO extends DataTransferObject {
 
 	public int getEventOwner() {
 		return eventOwner;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public boolean getLactose() {
+		return lactose;
+	}
+
+	public void setLactose(boolean lactose) {
+		this.lactose = lactose;
+	}
+
+	public boolean getGluten() {
+		return gluten;
+	}
+
+	public void setGluten(boolean gluten) {
+		this.gluten = gluten;
+	}
+
+	public boolean getFructose() {
+		return fructose;
+	}
+
+	public void setFructose(boolean fructose) {
+		this.fructose = fructose;
+	}
+
+	public boolean getSorbit() {
+		return sorbit;
+	}
+
+	public void setSorbit(boolean sorbit) {
+		this.sorbit = sorbit;
+	}
+
+	public boolean getVega() {
+		return vega;
+	}
+
+	public void setVega(boolean vega) {
+		this.vega = vega;
+	}
+
+	public boolean getVegee() {
+		return vegee;
+	}
+
+	public void setVegee(boolean vegee) {
+		this.vegee = vegee;
 	}
 
 }

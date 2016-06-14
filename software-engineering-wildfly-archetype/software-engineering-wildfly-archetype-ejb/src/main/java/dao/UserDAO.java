@@ -32,7 +32,7 @@ public class UserDAO implements UserDAOLocal {
 
 	@Override
 	public User registerUser(String lastname, String firstname, String street, int postalCode, String city, int age,
-			String telephoneNumber, boolean alcDrinks, byte[] userPic, char gender) {
+			String telephoneNumber, char gender) {
 		User user = new User();
 		user.setLastname(lastname);
 		user.setFirstname(firstname);
@@ -41,8 +41,6 @@ public class UserDAO implements UserDAOLocal {
 		user.setCity(city);
 		user.setAge(age);
 		user.setTelephoneNumber(telephoneNumber);
-		user.setAlcDrinks(alcDrinks);
-		user.setUserPic(userPic);
 		user.setGender(gender);
 		em.persist(user);
 		return user;

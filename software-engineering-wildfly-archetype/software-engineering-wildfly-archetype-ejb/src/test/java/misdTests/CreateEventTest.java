@@ -1,10 +1,9 @@
 
-
 package misdTests;
 
 import static org.junit.Assert.assertEquals;
 
-import java.time.LocalDateTime;
+import java.util.Calendar;
 
 import javax.ejb.EJB;
 
@@ -16,13 +15,13 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import dao.AttendanceDAOLocal;
+import dao.EventDAOLocal;
 import dao.UserDAOLocal;
 import dto.EventResponse;
 import dto.UserLoginResponse;
 import dto.UserTO;
-import entities.Menue;
-import entities.Session;
-import entities.User;
+import onlineService.AttendanceInterface;
 import onlineService.EventInterface;
 import onlineService.UserInterface;
 
@@ -31,15 +30,24 @@ public class CreateEventTest {
 
 	@EJB
 	EventInterface eBean;
-	
+
 	@EJB
 	UserInterface uBean;
-	
+
+	@EJB
+	AttendanceInterface aBean;
+
 	@EJB
 	UserDAOLocal udlBean;
-	
+
+	@EJB
+	EventDAOLocal edlBean;
+
+	@EJB
+	AttendanceDAOLocal adlBean;
+
 	@Inject
-	private LocalDateTime date1 = LocalDateTime.now();
+	private Calendar date1;
 
 	@Deployment
 	public static WebArchive createDeployment() {
@@ -54,26 +62,19 @@ public class CreateEventTest {
 	 * Prueft, ob ein neuer User erfolgreich registriert werden kann.
 	 */
 	public void testCreateEvent() throws Exception {
-//		User user1 = new User("Lustig", "Peter", "Straße", 12345, "Stadt", 35,'F', "Telefonnummer", true);
-//
-//		uBean.loginUser(user1.getUserId());
-//		Session session = new Session(user1.getUserId());	
-//			
+
 		UserLoginResponse userLoginResponse = uBean.registerUser("Lustig", "Peter", "Straße", 12345, "Stadt", 35,
-				"Telefonnummer", true, null, 'F');
-		//assertEquals(userLoginResponse.getReturnCode(), 0);
-		
+				"Telefonnummer", 'F');
+
 		int sessionId = userLoginResponse.getSessionId();
-		//beans.logout(sessionId);
-		//User user1 = new User("Lustig", "Peter", "Straße", 12345, "Stadt", 35,'F', "Telefonnummer", true);
-		//UserLoginResponse 
+
 		UserTO user1 = userLoginResponse.getUser();
 		userLoginResponse = uBean.loginUser(user1.getUserId());
-		
-		Menue menue1 = new Menue("meal", true, false, true, false, true, false);
-		EventResponse eventResponse = eBean.createEvent(sessionId, user1.getUserId(), menue1, 25, 45, "street", 34567, "city", date1, "comments", 'M');
-		
-				assertEquals(eventResponse.getReturnCode(), 0);
+
+		EventResponse eventResponse = eBean.createEvent(sessionId, user1.getUserId(), 25, 45, "street", 34567, "city",
+				"comments", 'M', date1, user1.getUserId(), "name", true, false, true, false, true, false);
+
+		assertEquals(eventResponse.getReturnCode(), 0);
 
 	}
 

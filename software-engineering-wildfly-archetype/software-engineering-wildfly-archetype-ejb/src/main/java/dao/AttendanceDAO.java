@@ -21,7 +21,7 @@ public class AttendanceDAO implements AttendanceDAOLocal {
 	@Override
 	public int cancelAttendance(Event event, User user) {
 		Event e = em.find(Event.class, event);
-		if (e.getEventOwner() != user) {
+		if (e.getEventOwner() != user.getUserId()) {
 			em.merge(e);
 		}
 		return 1;
@@ -30,7 +30,7 @@ public class AttendanceDAO implements AttendanceDAOLocal {
 	@Override
 	public int requestAttendance(Event event, User user) {
 		Event e = em.find(Event.class, event);
-		if (e.getEventOwner() != user) {
+		if (e.getEventOwner() != user.getUserId()) {
 			Attendance a = new Attendance();
 			em.persist(a);
 		}
@@ -42,7 +42,7 @@ public class AttendanceDAO implements AttendanceDAOLocal {
 	@Override
 	public void confirmAttendance(Event event, User user, User userAendern) {
 		Event e = em.find(Event.class, event);
-		if (e.getEventOwner() == user) {
+		if (e.getEventOwner() == user.getUserId()) {
 			Attendance a = em.find(Attendance.class, userAendern);
 			a.setStatus(2);
 			em.merge(a);
@@ -53,7 +53,7 @@ public class AttendanceDAO implements AttendanceDAOLocal {
 	@Override
 	public void rejectAttendance(Event event, User user, User userAendern) {
 		Event e = em.find(Event.class, event);
-		if (e.getEventOwner() == user) {
+		if (e.getEventOwner() == user.getUserId()) {
 			Attendance a = em.find(Attendance.class, userAendern);
 			a.setStatus(4);
 			em.merge(a);

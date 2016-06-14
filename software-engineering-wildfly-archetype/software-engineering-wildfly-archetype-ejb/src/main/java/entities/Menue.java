@@ -33,8 +33,6 @@ public class Menue implements Serializable {
 	boolean vegan;
 	@Column(nullable = false)
 	boolean vegetarian;
-	@Column(nullable = true)
-	byte[] titlePic;
 	@OneToOne(mappedBy = "menue")
 	Event event;
 
@@ -50,7 +48,7 @@ public class Menue implements Serializable {
 		sorbitFree = sorbit;
 		vegan = vega;
 		vegetarian = vegee;
-		//titlePic = t;
+
 
 	}
 
@@ -143,13 +141,5 @@ public class Menue implements Serializable {
 		return vegetarian;
 	}
 
-	// get and set userPic
-	public void setTitlePic(byte[] t) {
-		titlePic = t;
-	}
-
-	public byte[] getTitlePic() {
-		return titlePic;
-	}
 
 }
