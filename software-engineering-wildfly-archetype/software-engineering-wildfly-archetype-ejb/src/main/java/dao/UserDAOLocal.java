@@ -2,6 +2,8 @@
 
 package dao;
 
+import java.math.BigInteger;
+
 import javax.ejb.Local;
 
 import entities.Session;
@@ -12,17 +14,17 @@ public interface UserDAOLocal {
 
 	public User getPublicUserData(User userId);
 
-	public User registerUser(String lastname, String firstname, String street, int postalCode, String city, int age,
+	public User registerUser(BigInteger userId, String lastname, String firstname, String street, int postalCode, String city, int age,
 			String telephoneNumber, char gender);
 
-	public int loginUser(int userId);
+	public int loginUser(BigInteger userId);
 
 	public void logoutUser(int sessionId);
 
-	public void deleteUser(int userId);
+	public void deleteUser(BigInteger userId);
 
 	public Session findSessionById(int sessionId);
 
-	public User findUserById(int userId);
+	public User findUserById(BigInteger userId);
 
 }

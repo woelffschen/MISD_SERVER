@@ -3,7 +3,9 @@
 package entities;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Calendar;
+//import java.util.Set;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -11,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+//import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -25,6 +28,8 @@ public class Event implements Serializable {
 	@OneToOne
 	Menue menue;
 	
+	@Column(nullable = false)
+	int menueId;	
 	@Column(nullable = false)
 	int minAge;
 	@Column(nullable = false)
@@ -44,21 +49,22 @@ public class Event implements Serializable {
 	@Column(nullable = false)
 	Calendar dateTime;
 	@Column(nullable = false)
-	int eventOwner;
+	BigInteger eventOwner;
 	
-	Attendance attendanceObject;
+
 	
-	@OneToMany(mappedBy="event")
-	private Set<Attendance> attendanceList;
+	@OneToMany(mappedBy = "event")
+	private Set<Attendance> attendance;
 
 	public Event() {
 	};
 
-	public Event(Menue m, int min, int max, String street, int plz, String city, 
-			String com, char g, Calendar d, int eo) {
+	public Event(int menueId, int min, int max, String street, int plz, String city, 
+			String com, char g, Calendar d, BigInteger eo) {
 
 		// mit Transaktion
-		menue = m;
+		//menueId = m;
+		this.menueId = menueId;
 		minAge = min;
 		maxAge = max;
 		eventStreet = street;
@@ -66,19 +72,21 @@ public class Event implements Serializable {
 		eventCity = city;
 		comments = com;
 		gender = g;
-		attendanceObject = new Attendance(eventId, eventOwner);	
 		dateTime = d;
 		eventOwner = eo;
 		takePlace = true;		
 	}
 	
+	public int getMenueId() {
+		return menueId;
+	}
+	
+	public void setMenueId(int menueId) {
+		this.menueId = menueId;
+	}
 	
 	public int getEventId() {
 		return eventId;
-	}
-
-	public int getMenueId(int m) {
-		return menue.getMenueId();
 	}
 
 	public void setMinAge(int i) {
@@ -138,11 +146,11 @@ public class Event implements Serializable {
 		return comments;
 	}
 	
-	public void setEventOwner(int eO) {
+	public void setEventOwner(BigInteger eO) {
 		eventOwner = eO;
 	}
 
-	public int getEventOwner() {
+	public BigInteger getEventOwner() {
 		return eventOwner;
 	}
 
@@ -162,12 +170,12 @@ public class Event implements Serializable {
 		return takePlace;
 	}
 	
-	public Set<Attendance> getAttendanceList() {
-		return attendanceList;
-	}
-
-	public void setAttendanceList(Set<Attendance> attendanceList) {
-		this.attendanceList = attendanceList;
-	}
+//	public Set<Attendance> getAttendanceList() {
+//		return attendanceList;
+//	}
+//
+//	public void setAttendanceList(Set<Attendance> attendanceList) {
+//		this.attendanceList = attendanceList;
+//	}
 
 }

@@ -1,5 +1,6 @@
 package entities;
 
+import java.math.BigInteger;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -12,38 +13,40 @@ public class Session {
 
 	@Id
 	@GeneratedValue
-	private int id;
+	private int sessionId;
 	@ManyToOne
 	private User user;
+	private BigInteger userId;
 	private Date creationTime;
-	private int userId;
+
 
 	public Session() {
 	}
 
-	public Session(int userId) {
-		this.userId = userId;
+	public Session(BigInteger userId) {
+		this.setUserId(userId);
 		this.creationTime = new Date();
 	}
 	
 	public int getSessionId() {
-		return id;
+		return sessionId;
 	}
 
-	public void setSessionId(int id) {
-		this.id = id;
+	public void setSessionId(int sessionId) {
+		this.sessionId = sessionId;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
 
 	public Date getCreationTime() {
 		return creationTime;
+	}
+
+	public BigInteger getUserId() {
+		return userId;
+	}
+
+	public void setUserId(BigInteger userId) {
+		this.userId = userId;
 	}
 
 }

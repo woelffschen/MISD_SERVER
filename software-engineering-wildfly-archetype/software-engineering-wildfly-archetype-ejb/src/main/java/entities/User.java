@@ -3,11 +3,11 @@
 package entities;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -15,10 +15,9 @@ import javax.persistence.OneToMany;
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@GeneratedValue
-	int userId;
+	BigInteger userId;
 	@Column(nullable = false)
 	String lastname;
 	@Column(nullable = false)
@@ -35,16 +34,16 @@ public class User implements Serializable {
 	char gender;
 	@Column(nullable = false)
 	String telephoneNumber;
-	@OneToMany(mappedBy="user")
-	private Set<Attendance> status;
-	
-//	private User user;
+	@OneToMany(mappedBy = "user")
+	private Set<Attendance> attendance;
 
 	public User() {
 	};
-	
-	public User(String lastname, String firstname, String street, int postalCode, String city, int age, char gender, String telephoneNumber) {
+
+	public User(BigInteger userId, String lastname, String firstname, String street, int postalCode, String city, int age, char gender,
+			String telephoneNumber) {
 		super();
+		this.userId = userId;
 		this.lastname = lastname;
 		this.firstname = firstname;
 		this.street = street;
@@ -55,14 +54,12 @@ public class User implements Serializable {
 		this.telephoneNumber = telephoneNumber;
 	}
 
-
-	public int getUserId() {
+	public BigInteger getUserId() {
 		return userId;
 	}
 
-	
-	public void setLastname(String l) {
-		lastname = l;
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 
 	}
 
@@ -117,6 +114,7 @@ public class User implements Serializable {
 	public String getTelephoneNumber() {
 		return telephoneNumber;
 	}
+
 	public void setGender(char n) {
 		gender = n;
 	}
@@ -125,7 +123,4 @@ public class User implements Serializable {
 		return gender;
 	}
 
-
-	
-	
 }

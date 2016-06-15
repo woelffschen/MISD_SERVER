@@ -6,7 +6,7 @@ import javax.ejb.Stateless;
 
 import entities.Attendance;
 import entities.Event;
-import entities.Menue;
+//import entities.Menue;
 import entities.User;
 
 /**
@@ -27,30 +27,30 @@ public class DTOAssembler {
 		return dto;
 	}
 
-	public EventTO makeDTO(Event event, Menue menue, User user) {
-		EventTO dto = new EventTO();
-		dto.setEventId(event.getEventId());
-		dto.setMenueId(menue.getMenueId());
-		dto.setMinAge(event.getMinAge());
-		dto.setMaxAge(event.getMaxAge());
-		dto.setGender(event.getGender());
-		dto.setEventStreet(event.getEventStreet());
-		dto.setEventPostalCode(event.getEventPostalCode());
-		dto.setEventCity(event.getEventCity());
-		dto.setEventDateTime(event.getEventDateTime());
-		dto.setComments(event.getComments());
-		dto.setMenueId(menue.getMenueId());
-		dto.setName(menue.getName());
-		dto.setLactose(menue.getLactose());
-		dto.setGluten(menue.getGluten());
-		dto.setFructose(menue.getFructose());
-		dto.setSorbit(menue.getSorbit());
-		dto.setVega(menue.getVegan());
-		dto.setVegee(menue.getVegetarian());
-
-		return dto;
-
-	}
+//	public EventTO makeDTO(int eventId, int menueId, User user) {
+//		EventTO dto = new EventTO();
+//		dto.setEventId(event.getEventId());
+//		dto.setMenueId(menue.getMenueId());
+//		dto.setMinAge(event.getMinAge());
+//		dto.setMaxAge(event.getMaxAge());
+//		dto.setGender(event.getGender());
+//		dto.setEventStreet(event.getEventStreet());
+//		dto.setEventPostalCode(event.getEventPostalCode());
+//		dto.setEventCity(event.getEventCity());
+//		dto.setEventDateTime(event.getEventDateTime());
+//		dto.setComments(event.getComments());
+//		dto.setMenueId(menue.getMenueId());
+//		dto.setName(menue.getName());
+//		dto.setLactose(menue.getLactose());
+//		dto.setGluten(menue.getGluten());
+//		dto.setFructose(menue.getFructose());
+//		dto.setSorbit(menue.getSorbit());
+//		dto.setVega(menue.getVegan());
+//		dto.setVegee(menue.getVegetarian());
+//
+//		return dto;
+//
+//	}
 
 
 	public UserTO makeDTO(User user) {

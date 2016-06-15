@@ -2,6 +2,7 @@
 
 package dao;
 
+import java.math.BigInteger;
 import java.util.Calendar;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import entities.Attendance;
 import entities.Event;
 import entities.Menue;
 import entities.User;
@@ -21,23 +23,26 @@ public class EventDAO implements EventDAOLocal {
 	@PersistenceContext
 	EntityManager em;
 	
-	private Event event;
 
 	@Override
-	public int createEvent(int min, int max, String street, int plz, String city, String com, char g, Calendar d,
-			int eo, String name, boolean lactose, boolean gluten, boolean fructose, boolean sorbit, boolean vega,
+	public void createEvent(int min, int max, String street, int plz, String city, String com, char g, Calendar d,
+			BigInteger eo, String name, boolean lactose, boolean gluten, boolean fructose, boolean sorbit, boolean vega,
 			boolean vegee) {
 		Menue menue = new Menue(name, lactose, gluten, fructose, sorbit, vega, vegee);
 		em.persist(menue);
-		em.find(Menue.class, menue);
-		Event event = new Event(menue, min, max, street, plz, city, com, g, d, eo);
+		int menueId = menue.getMenueId();
+		//System.out.println(menueId);
+		Event event = new Event(menueId, min, max, street, plz, city, com, g, d, eo);
 		em.persist(event);
-		em.find(Event.class, event);
-		return event.getEventId();
+//		int eventId = event.getEventId();
+//		int eventOwner = event.getEventOwner();
+		User user = em.find(User.class, event.getEventOwner());
+		Attendance attendance = new Attendance(event, user);
+		em.persist(attendance);
 	}
 
 	@Override
-	public void deleteEvent(int eventId, int userId) {
+	public void deleteEvent(int eventId, BigInteger userId) {
 		em.find(Event.class, eventId);
 		Event event = findEventById(eventId);
 		if (event.getEventOwner() == userId) {
@@ -47,7 +52,7 @@ public class EventDAO implements EventDAOLocal {
 	}
 
 	@Override
-	public List<Event> filterCity(int userid, String city) {
+	public List<Event> filterCity(BigInteger userid, String city) {
 		int age = findUserById(userid).getAge();
 		@SuppressWarnings("unchecked")
 		List<Event> results = em
@@ -67,20 +72,20 @@ public class EventDAO implements EventDAOLocal {
 
 	}
 
-	@Override
-	public Menue findMenueById(int menueId) {
-		return em.find(Menue.class, menueId);
+//	@Override
+//	public Menue findMenueById(int menueId) {
+//		return em.find(Menue.class, menueId);
+//
+//	}
 
-	}
 
 	@Override
-	public User findUserById(int userId) {
+	public User findUserById(BigInteger userId) {
 		return em.find(User.class, userId);
 	}
 	
 //	@Override
-//	public int getMenueId(Event event) {
-//	em.find(Menue.class, menue);
+//	public int getMenueId(Menue menue) {
 //	return menue.getMenueId(); 
 //	}
 	

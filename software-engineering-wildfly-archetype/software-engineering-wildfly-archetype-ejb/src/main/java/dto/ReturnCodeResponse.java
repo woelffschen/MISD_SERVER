@@ -9,12 +9,9 @@ public class ReturnCodeResponse extends DataTransferObject {
 	private static final long serialVersionUID = 3397348747136795401L;
 	private static final int CODE_OK = 0;
 	
-	private int returnCode;
+	private int returnCode = CODE_OK;
 	private String message;
 	
-	public ReturnCodeResponse() {
-		this.returnCode = CODE_OK;
-	}
 
 	public int getReturnCode() {
 		return returnCode;

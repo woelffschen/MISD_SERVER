@@ -2,6 +2,8 @@
 
 package onlineService;
 
+import java.math.BigInteger;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
@@ -63,7 +65,7 @@ public class AttendanceInterface {
 			return event;
 	}
 
-	private User getUser(int userId) throws NotAllowedException {
+	private User getUser(BigInteger userId) throws NotAllowedException {
 		User user = udao.findUserById(userId);
 		if (user == null)
 			throw new NotAllowedException("This action is not allowed!");
@@ -71,6 +73,8 @@ public class AttendanceInterface {
 			return user;
 	}
 
+	// bei Attendance (außer bei request) nur int status zurück
+	
 	public AttendanceResponse cancelAttendance(int sessionId, int attendanceId, int eventId) {
 		AttendanceResponse response = new AttendanceResponse();
 		try {
@@ -99,16 +103,17 @@ public class AttendanceInterface {
 		return response;
 	}
 
-	public AttendanceResponse requestAttendance(int sessionId, int eventId, int userId) {
+	// return Attendance ID status & Attendance Id zurück schicken
+	public AttendanceResponse requestAttendance(int sessionId, int eventId, BigInteger userId) {
 		AttendanceResponse response = new AttendanceResponse();
 		try {
 			Session session = getSession(sessionId);
 			Event event = getEvent(eventId);
 			User user = getUser(userId);
 			if (event != null) {
-				Attendance attendance = new Attendance();
+				Attendance attendance = new Attendance(event, user);
 				attendance.setStatus(attendance.getStatus());
-				getAttendance(eventId, userId);
+				getAttendance(attendance.getAttendanceId(), eventId);
 			}
 		} catch (NotAllowedException n) {
 			response.setReturnCode(n.getErrorCode());

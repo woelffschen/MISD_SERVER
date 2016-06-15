@@ -18,9 +18,10 @@ public class Menue implements Serializable {
 	@Id
 	@GeneratedValue
 	int menueId;
+	@OneToOne(mappedBy = "menue")
+	Event event;
 	@Column(nullable = false)
 	String meal;
-
 	@Column(nullable = false)
 	boolean lactoseFree;
 	@Column(nullable = false)
@@ -33,8 +34,6 @@ public class Menue implements Serializable {
 	boolean vegan;
 	@Column(nullable = false)
 	boolean vegetarian;
-	@OneToOne(mappedBy = "menue")
-	Event event;
 
 	public Menue() {};
 
@@ -48,8 +47,6 @@ public class Menue implements Serializable {
 		sorbitFree = sorbit;
 		vegan = vega;
 		vegetarian = vegee;
-
-
 	}
 
 	public int getMenueId() {

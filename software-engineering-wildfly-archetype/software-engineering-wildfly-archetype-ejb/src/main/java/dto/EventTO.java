@@ -13,7 +13,6 @@ public class EventTO extends DataTransferObject {
 	private int minAge;
 	private int maxAge;
 	private char gender;
-	private String eventStreet;
 	private int eventPostalCode;
 	private String eventCity;
 	private int eventOwner;
@@ -39,7 +38,6 @@ public class EventTO extends DataTransferObject {
 		minAge = min;
 		maxAge = max;
 		gender = g;
-		eventStreet = street;
 		eventPostalCode = plz;
 		eventCity = city;
 		dateTime = dt;
@@ -95,14 +93,6 @@ public class EventTO extends DataTransferObject {
 
 	public int getMaxAge() {
 		return maxAge;
-	}
-
-	public void setEventStreet(String i) {
-		eventStreet = i;
-	}
-
-	public String getEventStreet() {
-		return eventStreet;
 	}
 
 	public void setEventPostalCode(int i) {

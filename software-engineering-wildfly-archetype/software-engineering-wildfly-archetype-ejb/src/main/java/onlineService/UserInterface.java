@@ -2,12 +2,15 @@
 
 package onlineService;
 
+import java.math.BigInteger;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
 
 import dao.UserDAOLocal;
 import dto.DTOAssembler;
+import dto.ReturnCodeResponse;
 import dto.UserLoginResponse;
 import dto.UserResponse;
 import entities.Session;
@@ -31,7 +34,7 @@ public class UserInterface {
 			return session;
 	}
 
-	private User getUser(int userId) throws NotAllowedException {
+	private User getUser(BigInteger userId) throws NotAllowedException {
 		User user = udao.findUserById(userId);
 		if (user == null)
 			throw new NotAllowedException("Diese Aktion ist nicht erlaubt!");
@@ -39,52 +42,58 @@ public class UserInterface {
 			return user;
 	}
 
-	public UserLoginResponse registerUser(String lastname, String firstname, String street, int postalCode, String city,
+	public UserResponse registerUser(BigInteger userId, String lastname, String firstname, String street, int postalCode, String city,
 			int age, String telephoneNumber, char gender) {
-		UserLoginResponse response = new UserLoginResponse();
+		UserResponse response = new UserResponse();
 		try {
-			User user = udao.registerUser(lastname, firstname, street, postalCode, city, age, telephoneNumber, gender);
+			User user = udao.registerUser(userId, lastname, firstname, street, postalCode, city, age, telephoneNumber, gender);
 			if (user != null) {
 				User user1 = getUser(user.getUserId());
 				int sessionId = udao.loginUser(user1.getUserId());
-				getSession(sessionId);
+	
 				response.setSessionId(sessionId);
-				response.setUser(dtoAssembler.makeDTO(user1));
+				//response.setUserId(user1.getUserId());
 			}
 		} catch (NotAllowedException n) {
 			response.setReturnCode(n.getErrorCode());
 			response.setMessage(n.getMessage());
-		} catch (NoSessionException e) {
-			response.setReturnCode(e.getErrorCode());
-			response.setMessage(e.getMessage());
-		}
+		} 
 		return response;
 	}
 
-	public UserLoginResponse loginUser(int userId) {
+	public UserLoginResponse loginUser(BigInteger userId) {
 		UserLoginResponse response = new UserLoginResponse();
 		try {
 			User user = getUser(userId);
 			if (user != null) {
 				int sessionId = udao.loginUser(userId);
-				getSession(sessionId);
 				response.setSessionId(sessionId);
-				response.setUser(dtoAssembler.makeDTO(user));
+			
 			}
 		} catch (NotAllowedException n) {
 			response.setReturnCode(n.getErrorCode());
 			response.setMessage(n.getMessage());
+		}
+		return response;
+	}
+
+	public ReturnCodeResponse logout(int sessionId) {
+		ReturnCodeResponse response = new ReturnCodeResponse();
+
+		try {
+			Session session = getSession(sessionId);
+			if (session != null);
+			udao.logoutUser(sessionId);
+		
 		} catch (NoSessionException e) {
 			response.setReturnCode(e.getErrorCode());
 			response.setMessage(e.getMessage());
 		}
 		return response;
+	
 	}
 
-	public void logout(int sessionId) {
-		udao.logoutUser(sessionId);
-	}
-
+	// 
 	// public PublicUserResponse getPublicUserData(int userId) {
 	// PublicUserResponse response = new PublicUserResponse();
 	// try {
@@ -102,7 +111,9 @@ public class UserInterface {
 	// return response;
 	// }
 
-	public UserResponse deleteUser(int userId, int sessionId) {
+	
+	// hier nur ReturnCodeResponse zurück schicken!!
+	public UserResponse deleteUser(BigInteger userId, int sessionId) {
 		UserResponse response = new UserResponse();
 		try {
 			getUser(userId);

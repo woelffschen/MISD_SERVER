@@ -5,18 +5,17 @@ public class PublicUserTO extends DataTransferObject {
 	private static final long serialVersionUID = 3440740273700082798L;
 
 	private int userId;
-	private byte[] userPic;
 	private String lastname;
 	private String firstname;
 	private String city;
 	private int age;
 	private char gender;
-	private boolean alcDrinks;
+
 
 	public PublicUserTO() {
 	};
 
-	public PublicUserTO(int userId, String ln, String fn, String c, int a, char g, byte[] u, boolean alc) {
+	public PublicUserTO(int userId, String ln, String fn, String c, int a, char g) {
 
 		super();
 		this.userId = userId;
@@ -25,8 +24,6 @@ public class PublicUserTO extends DataTransferObject {
 		city = c;
 		age = a;
 		gender = g;
-		alcDrinks = alc;
-		userPic = u;
 
 	}
 
@@ -34,7 +31,7 @@ public class PublicUserTO extends DataTransferObject {
 		this.userId = userId;
 	}
 
-	public int getUserId(int userId) {
+	public int getUserId() {
 		return userId;
 	}
 
@@ -80,20 +77,7 @@ public class PublicUserTO extends DataTransferObject {
 		return gender;
 	}
 
-	public void setAlcDrinks(boolean a) {
-		alcDrinks = a;
-	}
 
-	public boolean getAlcDrinks() {
-		return alcDrinks;
-	}
 
-	public void setUserPic(byte[] u) {
-		userPic = u;
-	}
-
-	public byte[] getUserPic() {
-		return userPic;
-	}
 
 }

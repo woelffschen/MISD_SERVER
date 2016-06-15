@@ -2,6 +2,7 @@
 
 package dao;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -31,23 +32,15 @@ public class UserDAO implements UserDAOLocal {
 	}
 
 	@Override
-	public User registerUser(String lastname, String firstname, String street, int postalCode, String city, int age,
+	public User registerUser(BigInteger userId, String lastname, String firstname, String street, int postalCode, String city, int age,
 			String telephoneNumber, char gender) {
-		User user = new User();
-		user.setLastname(lastname);
-		user.setFirstname(firstname);
-		user.setStreet(street);
-		user.setPostalCode(postalCode);
-		user.setCity(city);
-		user.setAge(age);
-		user.setTelephoneNumber(telephoneNumber);
-		user.setGender(gender);
+		User user = new User(userId, lastname, firstname, street, postalCode, city, age, gender, telephoneNumber);
 		em.persist(user);
 		return user;
 	}
 
 	@Override
-	public int loginUser(int userId) {
+	public int loginUser(BigInteger userId) {
 		Session newSession = new Session(userId);
 		em.persist(newSession);
 		return newSession.getSessionId();
@@ -62,7 +55,7 @@ public class UserDAO implements UserDAOLocal {
 	}
 
 	@Override
-	public void deleteUser(int userId) {
+	public void deleteUser(BigInteger userId) {
 		em.remove(userId);
 	}
 
@@ -72,7 +65,7 @@ public class UserDAO implements UserDAOLocal {
 	}
 
 	@Override
-	public User findUserById(int userId) {
+	public User findUserById(BigInteger userId) {
 		return em.find(User.class, userId);
 	}
 
