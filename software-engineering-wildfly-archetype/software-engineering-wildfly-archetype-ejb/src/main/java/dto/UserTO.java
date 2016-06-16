@@ -18,11 +18,12 @@ public class UserTO extends DataTransferObject {
 	private Calendar age;
 	private char gender;
 	private String telephoneNumber;
-	
+
 	public UserTO() {
 	};
 
-	public UserTO(BigInteger userId, String ln, String fn, String str, int plz, String c, Calendar a, char g, String tel) {
+	public UserTO(BigInteger userId, String ln, String fn, String str, int plz, String c, Calendar a, char g,
+			String tel) {
 
 		super();
 		this.userId = userId;
@@ -111,19 +112,18 @@ public class UserTO extends DataTransferObject {
 		return telephoneNumber;
 	}
 
+	// public User getPublicUserData() {
+	// return user.getUserId();
+	// return lastname;
+	// return firstname;
+	// return city;
+	// return age;
+	// return gender;
+	// return telephoneNumber;
+	// return alcDrinks;
+	// return userPic;
+	//
+	// }
+	// strg shift c alles aus oder einkommentieren
 
-//	public User getPublicUserData() {
-//		return user.getUserId();
-//		return lastname;
-//		return firstname;
-//		return city;
-//		return age;
-//		return gender;
-//		return telephoneNumber;
-//		return alcDrinks;
-//		return userPic;
-//		
-//	}
-// strg shift c alles aus oder einkommentieren
-	
 }
