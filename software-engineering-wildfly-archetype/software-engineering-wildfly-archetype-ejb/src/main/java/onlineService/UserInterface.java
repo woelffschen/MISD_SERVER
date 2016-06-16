@@ -81,10 +81,10 @@ public class UserInterface {
 		return response;
 	}
 
-	public UserResponse loginUser(BigInteger userId) {
+	public UserResponse loginUser(String email) {
 		UserResponse response = new UserResponse();
 		try {
-			User user = getUser(userId);
+			User user = getEmail(email);
 			if (user != null) {
 				int sessionId = udao.loginUser(user);
 				response.setSessionId(sessionId);
