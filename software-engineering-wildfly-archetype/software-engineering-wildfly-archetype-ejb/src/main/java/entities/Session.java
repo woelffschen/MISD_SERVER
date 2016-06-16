@@ -16,18 +16,22 @@ public class Session {
 	private int sessionId;
 	@ManyToOne
 	private User user;
-	private BigInteger userId;
+
 	private Date creationTime;
 
 
 	public Session() {
-	}
-
-	public Session(BigInteger userId) {
-		this.setUserId(userId);
 		this.creationTime = new Date();
 	}
 	
+	
+	public Session(User user) {
+		super();
+		this.creationTime = new Date();
+		this.user = user;
+	}
+
+
 	public int getSessionId() {
 		return sessionId;
 	}
@@ -41,12 +45,14 @@ public class Session {
 		return creationTime;
 	}
 
-	public BigInteger getUserId() {
-		return userId;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUserId(BigInteger userId) {
-		this.userId = userId;
+	public void setUser(User user) {
+		this.user = user;
 	}
+
+	
 
 }

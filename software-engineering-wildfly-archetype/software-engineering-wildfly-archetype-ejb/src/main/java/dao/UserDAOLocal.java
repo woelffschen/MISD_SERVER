@@ -13,12 +13,10 @@ import entities.User;
 @Local
 public interface UserDAOLocal {
 
-	public User getPublicUserData(User userId);
+	public User registerUser(BigInteger userId, String lastname, String firstname, String street, int postalCode,
+			String city, Calendar age, char gender, String telephoneNumber);
 
-	public User registerUser(BigInteger userId, String lastname, String firstname, String street, int postalCode, String city, Calendar age,
-			char gender, String telephoneNumber);
-
-	public int loginUser(BigInteger userId);
+	public int loginUser(User user);
 
 	public void logoutUser(int sessionId);
 

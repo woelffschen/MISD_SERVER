@@ -41,7 +41,8 @@ public class User implements Serializable {
 	public User() {
 	};
 
-	public User(BigInteger userId, String lastname, String firstname, String street, int postalCode, String city, Calendar age, char gender, String telephoneNumber) {
+	public User(BigInteger userId, String lastname, String firstname, String street, int postalCode, String city,
+			Calendar age, char gender, String telephoneNumber) {
 		super();
 		this.userId = userId;
 		this.lastname = lastname;
@@ -58,9 +59,12 @@ public class User implements Serializable {
 		return userId;
 	}
 
+	public void setUserId(BigInteger userId) {
+		this.userId = userId;
+	}
+
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
-
 	}
 
 	public String getLastname() {

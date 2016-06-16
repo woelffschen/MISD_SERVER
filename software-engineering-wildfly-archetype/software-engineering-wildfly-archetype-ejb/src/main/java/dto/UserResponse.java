@@ -10,7 +10,7 @@ public class UserResponse extends ReturnCodeResponse {
 
 	public UserResponse() {
 	};
-	
+
 	public int getSessionId() {
 		return sessionId;
 	}

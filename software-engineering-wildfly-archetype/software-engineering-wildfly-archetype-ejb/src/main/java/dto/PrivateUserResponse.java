@@ -1,9 +1,11 @@
+// created by Sylvia & Daniel
+
 package dto;
 
 import java.math.BigInteger;
 import java.util.Calendar;
 
-public class PublicUserResponse extends ReturnCodeResponse {
+public class PrivateUserResponse extends ReturnCodeResponse {
 
 	private static final long serialVersionUID = -5754928488884226775L;
 
@@ -25,10 +27,9 @@ public class PublicUserResponse extends ReturnCodeResponse {
 	private Calendar dateTime;
 	private BigInteger eventOwner;
 	private int eventId;
-	private int postalCode;
-	private String telephoneNumber;
+	private String telephonNumber;
 
-	public PublicUserResponse() {
+	public PrivateUserResponse() {
 	};
 
 	public void setUserId(BigInteger userId) {
@@ -177,20 +178,12 @@ public class PublicUserResponse extends ReturnCodeResponse {
 		return takePlace;
 	}
 
-	public int getPostalCode() {
-		return postalCode;
-	}
-
-	public void setPostalCode(int postalCode) {
-		this.postalCode = postalCode;
-	}
-
 	public String getTelephoneNumber() {
-		return telephoneNumber;
+		return telephonNumber;
 	}
 
-	public void setTelephoneNumber(String telephoneNumber) {
-		this.telephoneNumber = telephoneNumber;
+	public void setTelephoneNumber(String telephonNumber) {
+		this.telephonNumber = telephonNumber;
 	}
 
 }

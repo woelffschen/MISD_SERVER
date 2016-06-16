@@ -9,11 +9,14 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
 
+import dao.EventDAOLocal;
 import dao.UserDAOLocal;
 import dto.DTOAssembler;
 import dto.ReturnCodeResponse;
-import dto.UserLoginResponse;
+import dto.PrivateUserResponse;
+import dto.PublicUserResponse;
 import dto.UserResponse;
+import entities.Event;
 import entities.Session;
 import entities.User;
 
@@ -25,7 +28,18 @@ public class UserInterface {
 	private UserDAOLocal udao;
 
 	@EJB
+	private EventDAOLocal edao;
+
+	@EJB
 	private DTOAssembler dtoAssembler;
+
+	private Event getEvent(int eventId) throws NotAllowedException {
+		Event event = edao.findEventById(eventId);
+		if (event == null)
+			throw new NotAllowedException("Diese Aktion ist nicht erlaubt!");
+		else
+			return event;
+	}
 
 	private Session getSession(int sessionId) throws NoSessionException {
 		Session session = udao.findSessionById(sessionId);
@@ -43,33 +57,30 @@ public class UserInterface {
 			return user;
 	}
 
-	public UserResponse registerUser(BigInteger userId, String lastname, String firstname, String street, int postalCode, String city,
-			Calendar age, String telephoneNumber, char gender) {
+	public UserResponse registerUser(BigInteger userId, String lastname, String firstname, String street,
+			int postalCode, String city, Calendar age, String telephoneNumber, char gender) {
 		UserResponse response = new UserResponse();
-		try {
-			User user = udao.registerUser(userId, lastname, firstname, street, postalCode, city, age, gender, telephoneNumber);
-			if (user != null) {
-				User user1 = getUser(user.getUserId());
-				int sessionId = udao.loginUser(user1.getUserId());
-	
+
+		if (udao.findUserById(userId) == null) {
+			User user = udao.registerUser(userId, lastname, firstname, street, postalCode, city, age, gender,
+					telephoneNumber);
+			if (user != null ) {
+				int sessionId = udao.loginUser(user);
+
 				response.setSessionId(sessionId);
-				//response.setUserId(user1.getUserId());
 			}
-		} catch (NotAllowedException n) {
-			response.setReturnCode(n.getErrorCode());
-			response.setMessage(n.getMessage());
-		} 
+		}
 		return response;
 	}
 
-	public UserLoginResponse loginUser(BigInteger userId) {
-		UserLoginResponse response = new UserLoginResponse();
+	public UserResponse loginUser(BigInteger userId) {
+		UserResponse response = new UserResponse();
 		try {
 			User user = getUser(userId);
 			if (user != null) {
-				int sessionId = udao.loginUser(userId);
+				int sessionId = udao.loginUser(user);
 				response.setSessionId(sessionId);
-			
+
 			}
 		} catch (NotAllowedException n) {
 			response.setReturnCode(n.getErrorCode());
@@ -83,39 +94,90 @@ public class UserInterface {
 
 		try {
 			Session session = getSession(sessionId);
-			if (session != null);
-			udao.logoutUser(sessionId);
-		
+			if (session != null)
+				udao.logoutUser(sessionId);
+
 		} catch (NoSessionException e) {
 			response.setReturnCode(e.getErrorCode());
 			response.setMessage(e.getMessage());
 		}
 		return response;
-	
+
 	}
 
-	// 
-	// public PublicUserResponse getPublicUserData(int userId) {
-	// PublicUserResponse response = new PublicUserResponse();
-	// try {
-	// User user = getUser(userId);
-	// if (user != null) {
-	// udao.getPublicUserData();
-	//
-	// }
-	//
-	//
-	// } catch (NotAllowedException n) {
-	// response.setReturnCode(n.getErrorCode());
-	// response.setMessage(n.getMessage());
-	// }
-	// return response;
-	// }
+	public PublicUserResponse getPublicUserData(BigInteger userId, int eventId) {
+		PublicUserResponse response = new PublicUserResponse();
+		try {
+			User user = getUser(userId);
+			Event event = getEvent(eventId);
+			if (user != null) {
+				udao.findUserById(userId);
+				edao.findEventById(eventId);
+				response.setUserId(user.getUserId());
+				response.setLastname(user.getLastname());
+				response.setFirstname(user.getFirstname());
+				response.setPostalCode(user.getPostalCode());
+				response.setAge(user.getAge());
+				response.setGender(user.getGender());
+				response.setTelephoneNumber(user.getTelephoneNumber());
+				response.setComments(event.getComments());
+				response.setEventCity(event.getEventCity());
+				response.setEventDateTime(event.getEventDateTime());
+				response.setEventOwner(event.getEventOwner());
+				response.setEventPostalCode(event.getEventPostalCode());
+				response.setEventStreet(event.getEventStreet());
+				response.setGender(event.getGender());
+				response.setMaxAge(event.getMaxAge());
+				response.setMenueId(event.getMenueId());
+				response.setMinAge(event.getMinAge());
+				response.setTakePlace(event.getTakePlace());
+				return response;
+			}
 
-	
-	// hier nur ReturnCodeResponse zurück schicken!!
-	public UserResponse deleteUser(BigInteger userId, int sessionId) {
-		UserResponse response = new UserResponse();
+		} catch (NotAllowedException n) {
+			response.setReturnCode(n.getErrorCode());
+			response.setMessage(n.getMessage());
+		}
+		return response;
+	}
+
+	public PrivateUserResponse getPrivateUserData(BigInteger userId, int eventId) {
+		PrivateUserResponse response = new PrivateUserResponse();
+		try {
+			User user = getUser(userId);
+			Event event = getEvent(eventId);
+			if (user != null) {
+				udao.findUserById(userId);
+				edao.findEventById(eventId);
+				response.setUserId(user.getUserId());
+				response.setLastname(user.getLastname());
+				response.setFirstname(user.getFirstname());
+				response.setAge(user.getAge());
+				response.setGender(user.getGender());
+				response.setTelephoneNumber(user.getTelephoneNumber());
+				response.setComments(event.getComments());
+				response.setEventCity(event.getEventCity());
+				response.setEventDateTime(event.getEventDateTime());
+				response.setEventOwner(event.getEventOwner());
+				response.setEventPostalCode(event.getEventPostalCode());
+				response.setEventStreet(event.getEventStreet());
+				response.setGender(event.getGender());
+				response.setMaxAge(event.getMaxAge());
+				response.setMenueId(event.getMenueId());
+				response.setMinAge(event.getMinAge());
+				response.setTakePlace(event.getTakePlace());
+				return response;
+			}
+
+		} catch (NotAllowedException n) {
+			response.setReturnCode(n.getErrorCode());
+			response.setMessage(n.getMessage());
+		}
+		return response;
+	}
+
+	public ReturnCodeResponse deleteUser(BigInteger userId, int sessionId) {
+		ReturnCodeResponse response = new ReturnCodeResponse();
 		try {
 			getUser(userId);
 			getSession(sessionId);
