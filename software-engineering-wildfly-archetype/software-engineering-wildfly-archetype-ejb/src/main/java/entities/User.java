@@ -123,4 +123,8 @@ public class User implements Serializable {
 		return gender;
 	}
 
+	public Set<Attendance> getAttendance() {
+		return attendance;
+	}
+	
 }

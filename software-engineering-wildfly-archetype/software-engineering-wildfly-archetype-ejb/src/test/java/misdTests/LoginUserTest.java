@@ -2,49 +2,47 @@ package misdTests;
 
 import static org.junit.Assert.assertEquals;
 
+import java.math.BigInteger;
+import java.util.Calendar;
+
 import javax.ejb.EJB;
 
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import dto.UserLoginResponse;
+import dto.UserResponse;
 import dto.UserTO;
 import onlineService.UserInterface;
 
-@RunWith(Arquillian.class)
-public class LoginUserTest {
+
+public class LoginUserTest extends DataSet {
 	
 	@EJB
 	UserInterface beans;
 
 
-	@Deployment
-	public static WebArchive createDeployment() {
-		return ShrinkWrap.create(WebArchive.class, "test.war")
-				.addPackages(true, "dao", "dto", "entities", "onlineService", "misdTests")
-				.addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
-				.addAsWebInfResource("META-INF/ejb-jar.xml", "ejb-jar.xml");
-	}
 
 	@Test
 	public void testLogin() throws Exception {
-		UserLoginResponse userLoginResponse = beans.registerUser("Lustig", "Peter", "Straße", 12345, "Stadt", 35,
-				"Telefonnummer", 'F');
-		//assertEquals(userLoginResponse.getReturnCode(), 0);
+		BigInteger bi = new BigInteger("222222222222222222222222222222222");
+		Calendar c = Calendar.getInstance();
+		c.set(Calendar.YEAR, 1992);
+		c.set(Calendar.MONTH, 6);
+		c.set(Calendar.DAY_OF_MONTH, 11);
+		UserLoginResponse userLoginResponse;
+		//registriere User
 		
-		int sessionId = userLoginResponse.getSessionId();
-		beans.logout(sessionId);
-		//User user1 = new User("Lustig", "Peter", "Straße", 12345, "Stadt", 35,'F', "Telefonnummer", true);
-		//UserLoginResponse 
-		UserTO user1 = userLoginResponse.getUser();
-		userLoginResponse = beans.loginUser(user1.getUserId());
-				assertEquals(userLoginResponse.getReturnCode(), 0);
+		UserResponse userResponse = beans.registerUser(bi, "Lustig", "Peter", "Straße", 12345, "Stadt", c, "Tel", 'M');
+		
+		int sessionId = userResponse.getSessionId();
+		beans.logout(sessionId); //User ausloggen
+		
+		UserTO user1=new UserTO();
+		 userLoginResponse = beans.loginUser(user1.getUserId()); 
+		 
+		 assertEquals(userResponse.getReturnCode(), 0);
 
-//				int sessionId = userLoginResponse.getSessionId();
-//				beans.logout(sessionId);
+			sessionId = userResponse.getSessionId();
+			beans.logout(sessionId);
 	}
 }

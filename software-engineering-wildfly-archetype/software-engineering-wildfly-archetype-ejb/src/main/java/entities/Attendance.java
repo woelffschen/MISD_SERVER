@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import javax.persistence.ManyToOne;
@@ -16,6 +17,7 @@ public class Attendance implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue
 	int attendanceId;
 	
 	@ManyToOne
@@ -63,5 +65,10 @@ public class Attendance implements Serializable {
 	public void setStatus(int i) {
 		status = i;
 	}
+
+	public Event getEvent() {
+		return event;
+	}
+	
 	
 }

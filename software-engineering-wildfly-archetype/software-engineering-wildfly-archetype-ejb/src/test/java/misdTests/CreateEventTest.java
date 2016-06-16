@@ -3,30 +3,26 @@ package misdTests;
 
 import static org.junit.Assert.assertEquals;
 
+import java.math.BigInteger;
 import java.util.Calendar;
 
 import javax.ejb.EJB;
 
-import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.core.api.annotation.Inject;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import dao.AttendanceDAOLocal;
 import dao.EventDAOLocal;
 import dao.UserDAOLocal;
-import dto.EventResponse;
+import dto.ReturnCodeResponse;
 import dto.UserLoginResponse;
+import dto.UserResponse;
 import dto.UserTO;
 import onlineService.AttendanceInterface;
 import onlineService.EventInterface;
 import onlineService.UserInterface;
 
-@RunWith(Arquillian.class)
-public class CreateEventTest {
+public class CreateEventTest extends DataSet{
 
 	@EJB
 	EventInterface eBean;
@@ -49,30 +45,29 @@ public class CreateEventTest {
 	@Inject
 	private Calendar date1;
 
-	@Deployment
-	public static WebArchive createDeployment() {
-		return ShrinkWrap.create(WebArchive.class, "test.war")
-				.addPackages(true, "dao", "dto", "entities", "onlineService", "misdTests")
-				.addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
-				.addAsWebInfResource("META-INF/ejb-jar.xml", "ejb-jar.xml");
-	}
+
 
 	@Test
 	/**
 	 * Prueft, ob ein neuer User erfolgreich registriert werden kann.
 	 */
 	public void testCreateEvent() throws Exception {
-
-		UserLoginResponse userLoginResponse = uBean.registerUser("Lustig", "Peter", "Straße", 12345, "Stadt", 35,
+		BigInteger bi = new BigInteger("222222222222222222222222222222222");
+		Calendar c = Calendar.getInstance();
+		c.set(Calendar.YEAR, 1992);
+		c.set(Calendar.MONTH, 6);
+		c.set(Calendar.DAY_OF_MONTH, 11);
+		
+		UserResponse userResponse = uBean.registerUser(bi,"Lustig", "Peter", "Straße", 12345, "Stadt", c,
 				"Telefonnummer", 'F');
 
-		int sessionId = userLoginResponse.getSessionId();
+		int sessionId = userResponse.getSessionId();
 
-		UserTO user1 = userLoginResponse.getUser();
-		userLoginResponse = uBean.loginUser(user1.getUserId());
+		UserTO user1= new UserTO();
 
-		EventResponse eventResponse = eBean.createEvent(sessionId, user1.getUserId(), 25, 45, "street", 34567, "city",
-				"comments", 'M', date1, user1.getUserId(), "name", true, false, true, false, true, false);
+		
+		ReturnCodeResponse eventResponse = eBean.createEvent(sessionId,bi, 25, 45, "street", 34567, "city",
+				"comments", 'M', c, user1.getUserId(), "name", true, false, true, false, true, false);
 
 		assertEquals(eventResponse.getReturnCode(), 0);
 

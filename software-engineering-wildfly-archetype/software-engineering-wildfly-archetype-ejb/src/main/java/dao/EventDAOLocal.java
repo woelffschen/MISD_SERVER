@@ -23,6 +23,9 @@ public interface EventDAOLocal {
 	public void deleteEvent(int eventId, BigInteger userId);
 
 	public List<Event> filterCity(BigInteger userid, String city);
+	
+	//hinzugefügt
+	public List<Event> ownEventList(BigInteger userid);
 
 	public Event findEventById(int eventId);
 

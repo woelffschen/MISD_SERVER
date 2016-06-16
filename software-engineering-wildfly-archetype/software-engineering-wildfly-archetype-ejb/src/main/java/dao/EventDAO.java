@@ -3,6 +3,7 @@
 package dao;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -22,7 +23,6 @@ public class EventDAO implements EventDAOLocal {
 
 	@PersistenceContext
 	EntityManager em;
-	
 
 	@Override
 	public void createEvent(int min, int max, String street, int plz, String city, String com, char g, Calendar d,
@@ -31,11 +31,11 @@ public class EventDAO implements EventDAOLocal {
 		Menue menue = new Menue(name, lactose, gluten, fructose, sorbit, vega, vegee);
 		em.persist(menue);
 		int menueId = menue.getMenueId();
-		//System.out.println(menueId);
+		// System.out.println(menueId);
 		Event event = new Event(menueId, min, max, street, plz, city, com, g, d, eo);
 		em.persist(event);
-//		int eventId = event.getEventId();
-//		int eventOwner = event.getEventOwner();
+		// int eventId = event.getEventId();
+		// int eventOwner = event.getEventOwner();
 		User user = em.find(User.class, event.getEventOwner());
 		Attendance attendance = new Attendance(event, user);
 		em.persist(attendance);
@@ -57,12 +57,31 @@ public class EventDAO implements EventDAOLocal {
 		@SuppressWarnings("unchecked")
 		List<Event> results = em
 				.createQuery(
-						"SELECT * FROM Event WHERE eventCity LIKE :cityName and age between minAge and maxAge and takePlace=true")
+						"SELECT e FROM Event e WHERE eventCity LIKE :cityName and age between minAge and maxAge and takePlace=true")
 				.setParameter(":cityName", city).setParameter(":age", age).getResultList();
 		if (results.size() >= 1) {
 			return (results);
 		} else {
 			return null;
+		}
+	}
+
+	// hinzugefügt
+	@Override
+	public List<Event> ownEventList(BigInteger userId) {
+		User u = em.find(User.class, userId);
+
+		List<Event> result = new ArrayList<Event>();
+
+		for (Attendance a : u.getAttendance()) {
+			result.add(a.getEvent());
+		}
+		if (result.size() >= 1) {
+			return result;
+		} else {
+			{
+				return new ArrayList<Event>();
+			}
 		}
 	}
 
@@ -72,25 +91,24 @@ public class EventDAO implements EventDAOLocal {
 
 	}
 
-//	@Override
-//	public Menue findMenueById(int menueId) {
-//		return em.find(Menue.class, menueId);
-//
-//	}
-
+	// @Override
+	// public Menue findMenueById(int menueId) {
+	// return em.find(Menue.class, menueId);
+	//
+	// }
 
 	@Override
 	public User findUserById(BigInteger userId) {
 		return em.find(User.class, userId);
 	}
-	
-//	@Override
-//	public int getMenueId(Menue menue) {
-//	return menue.getMenueId(); 
-//	}
-	
+
+	// @Override
+	// public int getMenueId(Menue menue) {
+	// return menue.getMenueId();
+	// }
+
 	@Override
 	public int getEventId(Event event) {
-	return event.getEventId();
+		return event.getEventId();
 	}
 }

@@ -56,7 +56,18 @@ public class EventInterface {
 		else
 			return (List<Event>) eventList;
 	}
+	
+	
+	//hinzugefügt
+	private List<Event> getownEventList(BigInteger userid) throws NotAllowedException {
+		List<Event> eventList = edao.ownEventList(userid);
+		if (eventList == null)
+			throw new NotAllowedException("Diese Aktion ist nicht erlaubt!");
+		else
+			return (List<Event>) eventList;
+	}
 
+	
 	private User getUser(BigInteger userId) throws NotAllowedException {
 		User user = udao.findUserById(userId);
 		if (user == null)
@@ -111,6 +122,26 @@ public class EventInterface {
 			Session session = getSession(sessionId);
 			// to do TO Objekte erstellen
 			List<Event> eventList = getEventList(userId, city);
+
+			if (session != null && eventList != null) {
+				return response;
+			}
+		} catch (NotAllowedException n) {
+			response.setReturnCode(n.getErrorCode());
+			response.setMessage(n.getMessage());
+
+		} catch (NoSessionException n) {
+			response.setReturnCode(n.getErrorCode());
+			response.setMessage(n.getMessage());
+		}
+		return response;
+	}
+	
+	public EventFilterCityListResponse eventList(BigInteger userId, int sessionId) {
+		EventFilterCityListResponse response = new EventFilterCityListResponse();
+		try {
+			Session session = getSession(sessionId);
+			List<Event> eventList = getownEventList(userId);
 
 			if (session != null && eventList != null) {
 				return response;
