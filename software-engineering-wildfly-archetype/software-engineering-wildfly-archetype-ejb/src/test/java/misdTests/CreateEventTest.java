@@ -52,22 +52,18 @@ public class CreateEventTest extends DataSet{
 	 * Prueft, ob ein neuer User erfolgreich registriert werden kann.
 	 */
 	public void testCreateEvent() throws Exception {
-		BigInteger bi = new BigInteger("222222222222222222222222222222222");
-		Calendar c = Calendar.getInstance();
-		c.set(Calendar.YEAR, 1992);
-		c.set(Calendar.MONTH, 6);
-		c.set(Calendar.DAY_OF_MONTH, 11);
 		
-		UserResponse userResponse = uBean.registerUser(bi,"Lustig", "Peter", "Straße", 12345, "Stadt", c,
+		
+		UserResponse userResponse = uBean.registerUser("Test@IchWeißnichtWasIchTuh.de","Lustig", "Peter", "Straße", 12345, "Stadt", 11061992,
 				"Telefonnummer", 'F');
 
 		int sessionId = userResponse.getSessionId();
 
 		UserTO user1= new UserTO();
-
 		
-		ReturnCodeResponse eventResponse = eBean.createEvent(sessionId,bi, 25, 45, "street", 34567, "city",
-				"comments", 'M', c, user1.getUserId(), "name", true, false, true, false, true, false);
+		
+		ReturnCodeResponse eventResponse = eBean.createEvent(sessionId,25, 45, "street", 34567, "city",
+				"comments", 'M',11061992, user1.getUserId(), "name", true, false, true, false, true, false);
 
 		assertEquals(eventResponse.getReturnCode(), 0);
 

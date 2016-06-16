@@ -68,15 +68,15 @@ public class UserInterface {
 	public UserResponse registerUser(String email, String lastname, String firstname, String street,
 			int postalCode, String city, int age, String telephoneNumber, char gender) {
 		UserResponse response = new UserResponse();
-//IF ANPASSEN
-//		if (udao.findUserById(userId) == null) {
+
+ 		if (udao.findUserByEmail(email) == null) {
 			User user = udao.registerUser(email, lastname, firstname, street, postalCode, city, age, gender,
 					telephoneNumber);
 			if (user != null ) {
 				int sessionId = udao.loginUser(user);
 
 				response.setSessionId(sessionId);
-//			}
+			}
 		}
 		return response;
 	}
@@ -184,12 +184,11 @@ public class UserInterface {
 		return response;
 	}
 
-	public UserTO getPubliceData(String email) {
+	public UserTO getPublicData(String email) {
 		UserTO response = new UserTO();
 		try {
 			User user = getEmail(email);
 			if (user != null) {
-				udao.findUserByEmail(email);
 				response.setUserId(user.getUserId());
 				response.setLastname(user.getLastname());
 				response.setFirstname(user.getFirstname());

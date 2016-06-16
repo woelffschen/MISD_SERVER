@@ -76,13 +76,13 @@ public class EventInterface {
 	}
 
 	// nur Returncode zurück
-	public ReturnCodeResponse createEvent(int sessionId, BigInteger userId, int min, int max, String street, int plz, String city,
+	public ReturnCodeResponse createEvent(int sessionId, int min, int max, String street, int plz, String city,
 			String comments, char gender, int dateTime, BigInteger eo, String name, boolean lactose, boolean gluten,
 			boolean fructose, boolean sorbit, boolean vega, boolean vegee) {
 		ReturnCodeResponse response = new ReturnCodeResponse();
 		try {
 			Session session = getSession(sessionId);
-			User user = getUser(userId);
+			User user = getUser(eo);
 			if (session != null && user != null) {
 				edao.createEvent(min, max, street, plz, city, comments, gender, dateTime, eo, name, lactose, gluten,
 						fructose, sorbit, vega, vegee);
