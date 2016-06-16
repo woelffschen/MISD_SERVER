@@ -3,6 +3,7 @@
 package dao;
 
 import java.math.BigInteger;
+import java.util.Calendar;
 
 import javax.ejb.Local;
 
@@ -14,8 +15,8 @@ public interface UserDAOLocal {
 
 	public User getPublicUserData(User userId);
 
-	public User registerUser(BigInteger userId, String lastname, String firstname, String street, int postalCode, String city, int age,
-			String telephoneNumber, char gender);
+	public User registerUser(BigInteger userId, String lastname, String firstname, String street, int postalCode, String city, Calendar age,
+			char gender, String telephoneNumber);
 
 	public int loginUser(BigInteger userId);
 

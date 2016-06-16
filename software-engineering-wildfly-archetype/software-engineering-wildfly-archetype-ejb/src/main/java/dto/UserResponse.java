@@ -1,13 +1,12 @@
-package dto;
+// created by Sylvia & Daniel
 
-import java.math.BigInteger;
+package dto;
 
 public class UserResponse extends ReturnCodeResponse {
 
 	private static final long serialVersionUID = -5754928488884226775L;
 
 	private int sessionId;
-//	private BigInteger userId;
 
 	public UserResponse() {
 	};
@@ -19,16 +18,5 @@ public class UserResponse extends ReturnCodeResponse {
 	public void setSessionId(int sessionId) {
 		this.sessionId = sessionId;
 	}
-
-//	public BigInteger getUserId() {
-//		return userId;
-//	}
-//
-//	public void setUserId(BigInteger userId) {
-//		this.userId = userId;
-//	}
-//
-//	
-	
 
 }

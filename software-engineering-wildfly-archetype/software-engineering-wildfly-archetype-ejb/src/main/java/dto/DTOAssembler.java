@@ -22,7 +22,6 @@ public class DTOAssembler {
 		//dto.setAttendanceId(attendance.GET);
 		dto.setEventId(event.getEventId());
 		dto.setUserId(user.getUserId());
-		dto.setUpdateAt(attendance.getUpdateAt());
 		dto.setStatus(attendance.getStatus());
 		return dto;
 	}

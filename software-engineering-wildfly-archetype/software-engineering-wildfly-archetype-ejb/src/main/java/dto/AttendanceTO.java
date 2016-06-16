@@ -2,6 +2,7 @@
 
 package dto;
 
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 public class AttendanceTO extends DataTransferObject {
@@ -10,14 +11,14 @@ public class AttendanceTO extends DataTransferObject {
 
 	private int attendanceId;
 	private int eventId;
-	private int userId;
+	private BigInteger userId;
 	private LocalDateTime updateAt;
 	private int status;
 
 	public AttendanceTO() {
 	};
 
-	public AttendanceTO(int attendanceId, int eventId, int userId, LocalDateTime updateAt, int status) {
+	public AttendanceTO(int attendanceId, int eventId, BigInteger userId, LocalDateTime updateAt, int status) {
 		super();
 		this.attendanceId = attendanceId;
 		this.eventId = eventId;
@@ -43,11 +44,11 @@ public class AttendanceTO extends DataTransferObject {
 		this.eventId = eventId;
 	}
 
-	public int getUserId() {
+	public BigInteger getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(BigInteger userId) {
 		this.userId = userId;
 	}
 

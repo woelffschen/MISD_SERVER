@@ -3,6 +3,7 @@
 package onlineService;
 
 import java.math.BigInteger;
+import java.util.Calendar;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -43,10 +44,10 @@ public class UserInterface {
 	}
 
 	public UserResponse registerUser(BigInteger userId, String lastname, String firstname, String street, int postalCode, String city,
-			int age, String telephoneNumber, char gender) {
+			Calendar age, String telephoneNumber, char gender) {
 		UserResponse response = new UserResponse();
 		try {
-			User user = udao.registerUser(userId, lastname, firstname, street, postalCode, city, age, telephoneNumber, gender);
+			User user = udao.registerUser(userId, lastname, firstname, street, postalCode, city, age, gender, telephoneNumber);
 			if (user != null) {
 				User user1 = getUser(user.getUserId());
 				int sessionId = udao.loginUser(user1.getUserId());

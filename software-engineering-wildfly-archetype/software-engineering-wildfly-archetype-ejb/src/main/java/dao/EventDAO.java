@@ -53,7 +53,7 @@ public class EventDAO implements EventDAOLocal {
 
 	@Override
 	public List<Event> filterCity(BigInteger userid, String city) {
-		int age = findUserById(userid).getAge();
+		Calendar age = findUserById(userid).getAge();
 		@SuppressWarnings("unchecked")
 		List<Event> results = em
 				.createQuery(

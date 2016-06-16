@@ -1,21 +1,24 @@
 package dto;
 
+import java.math.BigInteger;
+import java.util.Calendar;
+
 public class PublicUserTO extends DataTransferObject {
 
 	private static final long serialVersionUID = 3440740273700082798L;
 
-	private int userId;
+	private BigInteger userId;
 	private String lastname;
 	private String firstname;
 	private String city;
-	private int age;
+	private Calendar age;
 	private char gender;
 
 
 	public PublicUserTO() {
 	};
 
-	public PublicUserTO(int userId, String ln, String fn, String c, int a, char g) {
+	public PublicUserTO(BigInteger userId, String ln, String fn, String c, Calendar a, char g) {
 
 		super();
 		this.userId = userId;
@@ -27,11 +30,11 @@ public class PublicUserTO extends DataTransferObject {
 
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(BigInteger userId) {
 		this.userId = userId;
 	}
 
-	public int getUserId() {
+	public BigInteger getUserId() {
 		return userId;
 	}
 
@@ -60,11 +63,11 @@ public class PublicUserTO extends DataTransferObject {
 		return city;
 	}
 
-	public void setAge(int a) {
+	public void setAge(Calendar a) {
 		age = a;
 	}
 
-	public int getAge() {
+	public Calendar getAge() {
 		return age;
 
 	}

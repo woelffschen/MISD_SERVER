@@ -4,6 +4,7 @@ package entities;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.Calendar;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -29,7 +30,7 @@ public class User implements Serializable {
 	@Column(nullable = true)
 	String city;
 	@Column(nullable = false)
-	int age;
+	Calendar age;
 	@Column(nullable = false)
 	char gender;
 	@Column(nullable = false)
@@ -40,8 +41,7 @@ public class User implements Serializable {
 	public User() {
 	};
 
-	public User(BigInteger userId, String lastname, String firstname, String street, int postalCode, String city, int age, char gender,
-			String telephoneNumber) {
+	public User(BigInteger userId, String lastname, String firstname, String street, int postalCode, String city, Calendar age, char gender, String telephoneNumber) {
 		super();
 		this.userId = userId;
 		this.lastname = lastname;
@@ -99,11 +99,11 @@ public class User implements Serializable {
 		return city;
 	}
 
-	public void setAge(int a) {
+	public void setAge(Calendar a) {
 		age = a;
 	}
 
-	public int getAge() {
+	public Calendar getAge() {
 		return age;
 	}
 
