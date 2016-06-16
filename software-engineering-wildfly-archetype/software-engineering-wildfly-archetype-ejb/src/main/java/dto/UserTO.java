@@ -3,9 +3,8 @@
 package dto;
 
 import java.math.BigInteger;
-import java.util.Calendar;
 
-public class UserTO extends DataTransferObject {
+public class UserTO extends ReturnCodeResponse {
 
 	private static final long serialVersionUID = 3440740273700082798L;
 
@@ -15,14 +14,15 @@ public class UserTO extends DataTransferObject {
 	private String street;
 	private int postalCode;
 	private String city;
-	private Calendar age;
+	private int age;
 	private char gender;
 	private String telephoneNumber;
-
+	private String email;
+	
 	public UserTO() {
 	};
 
-	public UserTO(BigInteger userId, String ln, String fn, String str, int plz, String c, Calendar a, char g,
+	public UserTO(String email,BigInteger userId, String ln, String fn, String str, int plz, String c, int a, char g,
 			String tel) {
 
 		super();
@@ -35,7 +35,18 @@ public class UserTO extends DataTransferObject {
 		age = a;
 		gender = g;
 		telephoneNumber = tel;
+		this.email = email;
 
+	}
+	
+	
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public void setUserId(BigInteger userId) {
@@ -87,11 +98,11 @@ public class UserTO extends DataTransferObject {
 		return city;
 	}
 
-	public void setAge(Calendar a) {
+	public void setAge(int a) {
 		age = a;
 	}
 
-	public Calendar getAge() {
+	public int getAge() {
 		return age;
 
 	}

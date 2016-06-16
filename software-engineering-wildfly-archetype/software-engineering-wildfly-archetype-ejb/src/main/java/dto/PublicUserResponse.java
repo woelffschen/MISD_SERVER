@@ -1,7 +1,6 @@
 package dto;
 
 import java.math.BigInteger;
-import java.util.Calendar;
 
 public class PublicUserResponse extends ReturnCodeResponse {
 
@@ -11,7 +10,7 @@ public class PublicUserResponse extends ReturnCodeResponse {
 	private String lastname;
 	private String firstname;
 	private String city;
-	private Calendar age;
+	private int age;
 	private char genderUser;
 	private int menueId;
 	private int minAge;
@@ -22,11 +21,12 @@ public class PublicUserResponse extends ReturnCodeResponse {
 	private String eventCity;
 	private String comments;
 	private boolean takePlace;
-	private Calendar dateTime;
+	private int dateTime;
 	private BigInteger eventOwner;
 	private int eventId;
 	private int postalCode;
 	private String telephoneNumber;
+	private String email;
 
 	public PublicUserResponse() {
 	};
@@ -64,11 +64,11 @@ public class PublicUserResponse extends ReturnCodeResponse {
 		return city;
 	}
 
-	public void setAge(Calendar a) {
+	public void setAge(int a) {
 		age = a;
 	}
 
-	public Calendar getAge() {
+	public int getAge() {
 		return age;
 
 	}
@@ -137,11 +137,11 @@ public class PublicUserResponse extends ReturnCodeResponse {
 		return eventCity;
 	}
 
-	public Calendar getEventDateTime() {
+	public int getEventDateTime() {
 		return dateTime;
 	}
 
-	public void setEventDateTime(Calendar dateTime) {
+	public void setEventDateTime(int dateTime) {
 		this.dateTime = dateTime;
 	}
 
@@ -191,6 +191,14 @@ public class PublicUserResponse extends ReturnCodeResponse {
 
 	public void setTelephoneNumber(String telephoneNumber) {
 		this.telephoneNumber = telephoneNumber;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 }

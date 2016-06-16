@@ -4,11 +4,11 @@ package entities;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.util.Calendar;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -18,6 +18,7 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue
 	BigInteger userId;
 	@Column(nullable = false)
 	String lastname;
@@ -30,21 +31,24 @@ public class User implements Serializable {
 	@Column(nullable = true)
 	String city;
 	@Column(nullable = false)
-	Calendar age;
+	int age;
 	@Column(nullable = false)
 	char gender;
 	@Column(nullable = false)
 	String telephoneNumber;
+	@Column(nullable = false)
+	String email;
+	
+
 	@OneToMany(mappedBy = "user")
 	private Set<Attendance> attendance;
 
 	public User() {
 	};
 
-	public User(BigInteger userId, String lastname, String firstname, String street, int postalCode, String city,
-			Calendar age, char gender, String telephoneNumber) {
+	public User(String email, String lastname, String firstname, String street, int postalCode, String city,
+			int age, char gender, String telephoneNumber) {
 		super();
-		this.userId = userId;
 		this.lastname = lastname;
 		this.firstname = firstname;
 		this.street = street;
@@ -53,8 +57,17 @@ public class User implements Serializable {
 		this.age = age;
 		this.gender = gender;
 		this.telephoneNumber = telephoneNumber;
+		this.email = email;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 	public BigInteger getUserId() {
 		return userId;
 	}
@@ -103,11 +116,11 @@ public class User implements Serializable {
 		return city;
 	}
 
-	public void setAge(Calendar a) {
+	public void setAge(int a) {
 		age = a;
 	}
 
-	public Calendar getAge() {
+	public int getAge() {
 		return age;
 	}
 

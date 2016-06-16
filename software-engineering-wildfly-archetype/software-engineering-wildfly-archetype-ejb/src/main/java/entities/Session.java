@@ -1,6 +1,5 @@
 package entities;
 
-import java.math.BigInteger;
 import java.util.Date;
 
 import javax.persistence.Entity;

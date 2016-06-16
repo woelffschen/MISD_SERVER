@@ -19,9 +19,9 @@ public class UserDAO implements UserDAOLocal {
 	EntityManager em;
 
 	@Override
-	public User registerUser(BigInteger userId, String lastname, String firstname, String street, int postalCode,
-			String city, Calendar age, char gender, String telephoneNumber) {
-		User user = new User(userId, lastname, firstname, street, postalCode, city, age, gender, telephoneNumber);
+	public User registerUser(String email, String lastname, String firstname, String street, int postalCode,
+			String city, int age, char gender, String telephoneNumber) {
+		User user = new User(email, lastname, firstname, street, postalCode, city, age, gender, telephoneNumber);
 		em.persist(user);
 		return user;
 	}
@@ -54,6 +54,11 @@ public class UserDAO implements UserDAOLocal {
 	@Override
 	public User findUserById(BigInteger userId) {
 		return em.find(User.class, userId);
+	}
+	
+	@Override
+	public User findUserByEmail(String email) {
+		return em.find(User.class, email);
 	}
 
 }

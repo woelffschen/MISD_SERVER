@@ -13,8 +13,8 @@ import entities.User;
 @Local
 public interface UserDAOLocal {
 
-	public User registerUser(BigInteger userId, String lastname, String firstname, String street, int postalCode,
-			String city, Calendar age, char gender, String telephoneNumber);
+	public User registerUser(String eamil, String lastname, String firstname, String street, int postalCode,
+			String city, int age, char gender, String telephoneNumber);
 
 	public int loginUser(User user);
 
@@ -25,5 +25,7 @@ public interface UserDAOLocal {
 	public Session findSessionById(int sessionId);
 
 	public User findUserById(BigInteger userId);
+
+	public User findUserByEmail(String email);
 
 }

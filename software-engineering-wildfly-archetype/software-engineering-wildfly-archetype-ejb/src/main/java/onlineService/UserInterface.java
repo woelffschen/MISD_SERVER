@@ -3,7 +3,6 @@
 package onlineService;
 
 import java.math.BigInteger;
-import java.util.Calendar;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -12,10 +11,11 @@ import javax.jws.WebService;
 import dao.EventDAOLocal;
 import dao.UserDAOLocal;
 import dto.DTOAssembler;
-import dto.ReturnCodeResponse;
 import dto.PrivateUserResponse;
 import dto.PublicUserResponse;
+import dto.ReturnCodeResponse;
 import dto.UserResponse;
+import dto.UserTO;
 import entities.Event;
 import entities.Session;
 import entities.User;
@@ -56,19 +56,27 @@ public class UserInterface {
 		else
 			return user;
 	}
+	
+	private User getEmail(String email) throws NotAllowedException {
+		User user = udao.findUserByEmail(email);
+		if (user == null)
+			throw new NotAllowedException("Diese Aktion ist nicht erlaubt!");
+		else
+			return user;
+	}
 
-	public UserResponse registerUser(BigInteger userId, String lastname, String firstname, String street,
-			int postalCode, String city, Calendar age, String telephoneNumber, char gender) {
+	public UserResponse registerUser(String email, String lastname, String firstname, String street,
+			int postalCode, String city, int age, String telephoneNumber, char gender) {
 		UserResponse response = new UserResponse();
-
-		if (udao.findUserById(userId) == null) {
-			User user = udao.registerUser(userId, lastname, firstname, street, postalCode, city, age, gender,
+//IF ANPASSEN
+//		if (udao.findUserById(userId) == null) {
+			User user = udao.registerUser(email, lastname, firstname, street, postalCode, city, age, gender,
 					telephoneNumber);
 			if (user != null ) {
 				int sessionId = udao.loginUser(user);
 
 				response.setSessionId(sessionId);
-			}
+//			}
 		}
 		return response;
 	}
@@ -176,6 +184,31 @@ public class UserInterface {
 		return response;
 	}
 
+	public UserTO getPubliceData(String email) {
+		UserTO response = new UserTO();
+		try {
+			User user = getEmail(email);
+			if (user != null) {
+				udao.findUserByEmail(email);
+				response.setUserId(user.getUserId());
+				response.setLastname(user.getLastname());
+				response.setFirstname(user.getFirstname());
+				response.setAge(user.getAge());
+				response.setGender(user.getGender());
+				response.setTelephoneNumber(user.getTelephoneNumber());
+				response.setPostalCode(user.getPostalCode());
+				response.setCity(user.getCity());
+				return response;
+			}
+
+		} catch (NotAllowedException n) {
+			response.setReturnCode(n.getErrorCode());
+			response.setMessage(n.getMessage());
+		}
+		return response;
+	}
+
+	
 	public ReturnCodeResponse deleteUser(BigInteger userId, int sessionId) {
 		ReturnCodeResponse response = new ReturnCodeResponse();
 		try {

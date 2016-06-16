@@ -17,7 +17,7 @@ public class EventTO extends DataTransferObject {
 	private String eventCity;
 	private int eventOwner;
 	private String comments;
-	private Calendar dateTime;
+	private int dateTime;
 	private String name;
 	private boolean lactose;
 	private boolean gluten;
@@ -30,7 +30,7 @@ public class EventTO extends DataTransferObject {
 	};
 
 	public EventTO(int eventId, int menueId, int min, int max, char g, String street, int plz, String city,
-	 String com, Calendar dt, int eO, String n, boolean l, boolean gl, boolean f, boolean s, boolean ve, boolean veg) {
+	 String com, int dt, int eO, String n, boolean l, boolean gl, boolean f, boolean s, boolean ve, boolean veg) {
 
 		super();
 		this.eventId = eventId;
@@ -111,11 +111,11 @@ public class EventTO extends DataTransferObject {
 		return eventCity;
 	}
 
-	public void setEventDateTime(Calendar i) {
+	public void setEventDateTime(int i) {
 		dateTime = i;
 	}
 
-	public Calendar getEventDateTime() {
+	public int getEventDateTime() {
 		return dateTime;
 	}
 

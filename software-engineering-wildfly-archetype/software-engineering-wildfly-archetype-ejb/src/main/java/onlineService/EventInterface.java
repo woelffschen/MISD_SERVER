@@ -3,7 +3,6 @@
 package onlineService;
 
 import java.math.BigInteger;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -78,7 +77,7 @@ public class EventInterface {
 
 	// nur Returncode zurück
 	public ReturnCodeResponse createEvent(int sessionId, BigInteger userId, int min, int max, String street, int plz, String city,
-			String comments, char gender, Calendar dateTime, BigInteger eo, String name, boolean lactose, boolean gluten,
+			String comments, char gender, int dateTime, BigInteger eo, String name, boolean lactose, boolean gluten,
 			boolean fructose, boolean sorbit, boolean vega, boolean vegee) {
 		ReturnCodeResponse response = new ReturnCodeResponse();
 		try {

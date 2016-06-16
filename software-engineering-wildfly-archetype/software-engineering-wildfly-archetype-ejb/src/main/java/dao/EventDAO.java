@@ -4,7 +4,6 @@ package dao;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -25,7 +24,7 @@ public class EventDAO implements EventDAOLocal {
 	EntityManager em;
 
 	@Override
-	public void createEvent(int min, int max, String street, int plz, String city, String com, char g, Calendar d,
+	public void createEvent(int min, int max, String street, int plz, String city, String com, char g, int d,
 			BigInteger eo, String name, boolean lactose, boolean gluten, boolean fructose, boolean sorbit, boolean vega,
 			boolean vegee) {
 		Menue menue = new Menue(name, lactose, gluten, fructose, sorbit, vega, vegee);
@@ -53,7 +52,7 @@ public class EventDAO implements EventDAOLocal {
 
 	@Override
 	public List<Event> filterCity(BigInteger userid, String city) {
-		Calendar age = findUserById(userid).getAge();
+		int age = findUserById(userid).getAge();
 		@SuppressWarnings("unchecked")
 		List<Event> results = em
 				.createQuery(

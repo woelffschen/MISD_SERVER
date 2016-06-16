@@ -4,7 +4,6 @@ package entities;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.util.Calendar;
 //import java.util.Set;
 import java.util.Set;
 
@@ -47,7 +46,7 @@ public class Event implements Serializable {
 	@Column(nullable = false)
 	boolean takePlace;
 	@Column(nullable = false)
-	Calendar dateTime;
+	int dateTime;
 	@Column(nullable = false)
 	BigInteger eventOwner;
 	
@@ -60,7 +59,7 @@ public class Event implements Serializable {
 	};
 
 	public Event(int menueId, int min, int max, String street, int plz, String city, 
-			String com, char g, Calendar d, BigInteger eo) {
+			String com, char g, int d, BigInteger eo) {
 
 		// mit Transaktion
 		//menueId = m;
@@ -130,11 +129,11 @@ public class Event implements Serializable {
 	}
 
 	
-	public Calendar getEventDateTime() {
+	public int getEventDateTime() {
 		return dateTime;
 	}
 
-	public void setEventDateTime(Calendar dateTime) {
+	public void setEventDateTime(int dateTime) {
 		this.dateTime = dateTime;
 	}
 
