@@ -58,7 +58,9 @@ public class UserDAO implements UserDAOLocal {
 	
 	@Override
 	public User findUserByEmail(String email) {
-		return em.find(User.class, email);
+		return this.em.createQuery("SELECT e FROM User e WHERE e.email = :email", User.class)
+				.setParameter("email", email)
+				.getSingleResult();
 	}
 
 }

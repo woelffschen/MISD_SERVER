@@ -83,17 +83,17 @@ public class UserInterface {
 
 	public UserResponse loginUser(String email) {
 		UserResponse response = new UserResponse();
-		try {
-			User user = getEmail(email);
+//		try {
+			User user = udao.findUserByEmail(email);
 			if (user != null) {
 				int sessionId = udao.loginUser(user);
 				response.setSessionId(sessionId);
 
 			}
-		} catch (NotAllowedException n) {
-			response.setReturnCode(n.getErrorCode());
-			response.setMessage(n.getMessage());
-		}
+//		} catch (NotAllowedException n) {
+//			response.setReturnCode(n.getErrorCode());
+//			response.setMessage(n.getMessage());
+//		}
 		return response;
 	}
 

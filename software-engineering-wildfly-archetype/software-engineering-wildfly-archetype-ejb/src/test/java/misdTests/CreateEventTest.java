@@ -3,7 +3,6 @@ package misdTests;
 
 import static org.junit.Assert.assertEquals;
 
-import java.math.BigInteger;
 import java.util.Calendar;
 
 import javax.ejb.EJB;
@@ -15,7 +14,6 @@ import dao.AttendanceDAOLocal;
 import dao.EventDAOLocal;
 import dao.UserDAOLocal;
 import dto.ReturnCodeResponse;
-import dto.UserLoginResponse;
 import dto.UserResponse;
 import dto.UserTO;
 import onlineService.AttendanceInterface;
@@ -54,18 +52,18 @@ public class CreateEventTest extends DataSet{
 	public void testCreateEvent() throws Exception {
 		
 		
-		UserResponse userResponse = uBean.registerUser("Test@IchWeißnichtWasIchTuh.de","Lustig", "Peter", "Straße", 12345, "Stadt", 11061992,
-				"Telefonnummer", 'F');
-
-		int sessionId = userResponse.getSessionId();
-
-		UserTO user1= new UserTO();
-		
-		
-		ReturnCodeResponse eventResponse = eBean.createEvent(sessionId,25, 45, "street", 34567, "city",
-				"comments", 'M',11061992, user1.getUserId(), "name", true, false, true, false, true, false);
-
-		assertEquals(eventResponse.getReturnCode(), 0);
+//		UserResponse userResponse = uBean.registerUser("Test@IchWeißnichtWasIchTuh.de","Lustig", "Peter", "Straße", 12345, "Stadt", 11061992,
+//				"Telefonnummer", 'F');
+//
+//		int sessionId = userResponse.getSessionId();
+//
+//		UserTO user1= new UserTO();
+//		
+//		
+//		ReturnCodeResponse eventResponse = eBean.createEvent(sessionId,25, 45, "street", 34567, "city",
+//				"comments", 'M',11061992, user1.getUserId(), "name", true, false, true, false, true, false);
+//
+//		assertEquals(eventResponse.getReturnCode(), 0);
 
 	}
 
