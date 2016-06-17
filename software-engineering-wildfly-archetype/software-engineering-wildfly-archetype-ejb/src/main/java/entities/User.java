@@ -17,7 +17,7 @@ public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
+	
 	@GeneratedValue
 	BigInteger userId;
 	@Column(nullable = false)
@@ -36,6 +36,7 @@ public class User implements Serializable {
 	char gender;
 	@Column(nullable = false)
 	String telephoneNumber;
+	@Id
 	@Column(nullable = false)
 	String email;
 	

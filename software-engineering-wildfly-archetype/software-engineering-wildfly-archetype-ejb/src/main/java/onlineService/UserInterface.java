@@ -81,6 +81,7 @@ public class UserInterface {
 		return response;
 	}
 
+	// User erwartet Big Integer erhält aber String, ist ja auch richtig? noch mal genaue Logik überdenken!!!
 	public UserResponse loginUser(String email) {
 		UserResponse response = new UserResponse();
 //		try {
