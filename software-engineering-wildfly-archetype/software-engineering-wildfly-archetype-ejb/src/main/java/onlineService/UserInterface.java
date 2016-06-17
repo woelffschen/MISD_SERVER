@@ -2,8 +2,6 @@
 
 package onlineService;
 
-import java.math.BigInteger;
-
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
@@ -56,7 +54,7 @@ public class UserInterface {
 		else
 			return user;
 	}
-	
+
 	private User getEmail(String email) throws NotAllowedException {
 		User user = udao.findUserByEmail(email);
 		if (user == null)
@@ -64,32 +62,45 @@ public class UserInterface {
 		else
 			return user;
 	}
+	
+	private User getNullEmail(String email) throws NotAllowedException {
+		User user = udao.findUserByEmail(email);
+		if (user != null)
+			throw new NotAllowedException("Diese Aktion ist nicht erlaubt!");
+		else
+			return user;
+	}
 
-	public UserResponse registerUser(String email, String lastname, String firstname, String street,
-			int postalCode, String city, int age, String telephoneNumber, char gender) {
+	// funktioniert
+	public UserResponse registerUser(String email, String lastname, String firstname, String street, int postalCode,
+			String city, int age, String telephoneNumber, char gender) {
 		UserResponse response = new UserResponse();
-
- 		if (udao.findUserByEmail(email) == null) {
-			User user = udao.registerUser(email, lastname, firstname, street, postalCode, city, age, gender,
-					telephoneNumber);
-			if (user != null ) {
-				int sessionId = udao.loginUser(user);
-
-				response.setSessionId(sessionId);
-			}
+		try {
+//			if (getEmail(email) == null) {
+				User user = udao.registerUser(email, lastname, firstname, street, postalCode, city, age, gender,
+						telephoneNumber);
+//				if (getNullEmail(email) != null) {
+					int sessionId = udao.loginUser(user);
+					getEmail(email);
+					response.setSessionId(sessionId);
+//				}
+//			}
+		} catch (NotAllowedException n) {
+			response.setReturnCode(n.getErrorCode());
+			response.setMessage(n.getMessage());
 		}
 		return response;
 	}
 
-
+	// funktioniert, User kann sich aber mehrfach einloggen, Fehler noch nicht
+	// gefunden
 	public UserResponse loginUser(String email) {
 		UserResponse response = new UserResponse();
 		try {
-			User user = udao.findUserByEmail(email);
+			User user = getEmail(email);
 			if (user != null) {
 				int sessionId = udao.loginUser(user);
 				response.setSessionId(sessionId);
-				getEmail(email);
 			}
 		} catch (NotAllowedException n) {
 			response.setReturnCode(n.getErrorCode());
@@ -207,7 +218,6 @@ public class UserInterface {
 		return response;
 	}
 
-	
 	public ReturnCodeResponse deleteUser(String email, int sessionId) {
 		ReturnCodeResponse response = new ReturnCodeResponse();
 		try {

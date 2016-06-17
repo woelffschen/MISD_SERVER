@@ -2,7 +2,6 @@
 
 package onlineService;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -75,17 +74,20 @@ public class EventInterface {
 			return user;
 	}
 
-	// nur Returncode zurück
-	public ReturnCodeResponse createEvent(int sessionId, int min, int max, String street, int plz, String city,
+	// eventId muss auch zurück
+	public EventResponse createEvent(int sessionId, int min, int max, String street, int plz, String city,
 			String comments, char gender, int dateTime, String eo, String name, boolean lactose, boolean gluten,
 			boolean fructose, boolean sorbit, boolean vega, boolean vegee) {
-		ReturnCodeResponse response = new ReturnCodeResponse();
+		EventResponse response = new EventResponse();
 		try {
 			Session session = getSession(sessionId);
 			User user = getUser(eo);
 			if (session != null && user != null) {
 				edao.createEvent(min, max, street, plz, city, comments, gender, dateTime, eo, name, lactose, gluten,
 						fructose, sorbit, vega, vegee);
+				
+				
+				response.setEventId(event.getEventId());
 			}
 		} catch (NotAllowedException n) {
 			response.setReturnCode(n.getErrorCode());
@@ -99,9 +101,9 @@ public class EventInterface {
 	}
 	
 	
-	// return nur returncode // bei uns aber separat abspeichern und status ändern 
-	public EventResponse deleteEvent(int eventId, String email) {
-		EventResponse response = new EventResponse();
+	// return nur returncode // bei uns aber separat abspeichern und status ändern Methode in EventDao delete Event machen
+	public ReturnCodeResponse deleteEvent(int eventId, String email) {
+		ReturnCodeResponse response = new ReturnCodeResponse();
 		try {
 			Event event = getEvent(eventId);
 			if (event != null && email == event.getEventOwner()) {
@@ -111,7 +113,7 @@ public class EventInterface {
 			response.setReturnCode(n.getErrorCode());
 			response.setMessage(n.getMessage());
 		}
-		return null;
+		return response;
 	}
 
 	// 

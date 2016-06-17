@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
@@ -37,8 +38,10 @@ public class User implements Serializable {
 	@Column(nullable = false)
 	String telephoneNumber;
 	@Id
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	String email;
+	@OneToOne
+	Session session;
 	
 
 	@OneToMany(mappedBy = "user")
@@ -135,6 +138,12 @@ public class User implements Serializable {
 
 	public Set<Attendance> getAttendance() {
 		return attendance;
+	}
+	
+	public Session getsSession() {
+		return session;
+
+		
 	}
 	
 }
