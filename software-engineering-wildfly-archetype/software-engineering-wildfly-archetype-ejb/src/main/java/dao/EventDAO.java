@@ -24,8 +24,8 @@ public class EventDAO implements EventDAOLocal {
 	EntityManager em;
 
 	@Override
-	public void createEvent(int min, int max, String street, int plz, String city, String com, char g, int d,
-			String eo, String name, boolean lactose, boolean gluten, boolean fructose, boolean sorbit, boolean vega,
+	public void createEvent(int min, int max, String street, int plz, String city, String com, char g, int d, String eo,
+			String name, boolean lactose, boolean gluten, boolean fructose, boolean sorbit, boolean vega,
 			boolean vegee) {
 		Menue menue = new Menue(name, lactose, gluten, fructose, sorbit, vega, vegee);
 		em.persist(menue);
@@ -53,16 +53,10 @@ public class EventDAO implements EventDAOLocal {
 	@Override
 	public List<Event> filterCity(String email, String city) {
 		int age = findUserByEmail(email).getAge();
-		@SuppressWarnings("unchecked")
-		List<Event> results = em
-				.createQuery(
-						"SELECT e FROM Event e WHERE eventCity LIKE :cityName and age between minAge and maxAge and takePlace=true")
-				.setParameter(":cityName", city).setParameter(":age", age).getResultList();
-		if (results.size() >= 1) {
-			return (results);
-		} else {
-			return null;
-		}
+
+		return em.createQuery(
+				"SELECT e FROM Event e WHERE e.eventCity LIKE :city AND :age BETWEEN e.minAge AND e.maxAge",
+				Event.class).setParameter("city", city).setParameter("age", age).getResultList();
 	}
 
 	// hinzugefügt

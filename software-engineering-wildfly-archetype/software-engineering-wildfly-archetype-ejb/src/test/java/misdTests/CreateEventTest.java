@@ -1,70 +1,69 @@
-
+// created by Daniel & Sylvia
 package misdTests;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Calendar;
+import java.util.List;
 
 import javax.ejb.EJB;
 
-import org.jboss.arquillian.core.api.annotation.Inject;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit.InSequence;
+import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-import dao.AttendanceDAOLocal;
 import dao.EventDAOLocal;
 import dao.UserDAOLocal;
 import dto.ReturnCodeResponse;
 import dto.UserResponse;
-import dto.UserTO;
-import onlineService.AttendanceInterface;
+import entities.Attendance;
+import entities.Event;
 import onlineService.EventInterface;
 import onlineService.UserInterface;
 
+@RunWith(Arquillian.class)
 public class CreateEventTest extends DataSet{
 
-	@EJB
-	EventInterface eBean;
+
 
 	@EJB
-	UserInterface uBean;
-
+	private UserInterface beans;
+	
 	@EJB
-	AttendanceInterface aBean;
-
+	private EventInterface ebeans;
+	
 	@EJB
-	UserDAOLocal udlBean;
-
+	private UserDAOLocal udao;
+	
 	@EJB
-	EventDAOLocal edlBean;
-
-	@EJB
-	AttendanceDAOLocal adlBean;
-
-	@Inject
-	private Calendar date1;
-
+	public EventDAOLocal edao;
+	
 
 
 	@Test
-	/**
-	 * Prueft, ob ein neuer User erfolgreich registriert werden kann.
-	 */
+	@InSequence(1)
 	public void testCreateEvent() throws Exception {
+		UserResponse userResponse = beans.registerUser("Test@isp.de","Lustig", "Peter", "Straße", 12345, "Stadt", 30,
+				"Telefonnummer", 'F');
 		
+		assertEquals("User not created", 0, userResponse.getReturnCode(), 0);
 		
-//		UserResponse userResponse = uBean.registerUser("Test@IchWeißnichtWasIchTuh.de","Lustig", "Peter", "Straße", 12345, "Stadt", 11061992,
-//				"Telefonnummer", 'F');
-//
-//		int sessionId = userResponse.getSessionId();
-//
-//		UserTO user1= new UserTO();
-//		
-//		
-//		ReturnCodeResponse eventResponse = eBean.createEvent(sessionId,25, 45, "street", 34567, "city",
-//				"comments", 'M',11061992, user1.getUserId(), "name", true, false, true, false, true, false);
-//
-//		assertEquals(eventResponse.getReturnCode(), 0);
+		int sessionId = userResponse.getSessionId();
+		
+		Assert.assertNotEquals("No Session", 0, sessionId, 0);
+	
+		ReturnCodeResponse eventResponse = ebeans.createEvent(sessionId,25, 45, "street", 34567, "city",
+				"comments", 'M',11061992,"Test@isp.de" , "name", true, false, true, false, true, false);
 
+		assertEquals("Event not created", 0, eventResponse.getReturnCode(), 0);
+	}
+	@Test
+	@InSequence(2)
+	public void testFindCreatedEvent() throws Exception {
+		List<Event> eventResponse = edao.filterCity("Test@isp.de","city");
+
+		assertEquals(1, eventResponse.size(), 0);
 	}
 
 }

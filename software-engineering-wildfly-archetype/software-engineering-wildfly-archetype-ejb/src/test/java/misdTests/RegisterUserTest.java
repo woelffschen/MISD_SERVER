@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
 import dto.UserResponse;
 import onlineService.UserInterface;
 
-//@RunWith(Arquillian.class)
+@RunWith(Arquillian.class)
 public class RegisterUserTest extends DataSet {
 
 	@EJB
@@ -25,12 +25,12 @@ public class RegisterUserTest extends DataSet {
 	@Test
 	public void testRegistration() throws Exception {
 		
-//		UserResponse userResponse = beans.registerUser("Test@IchWeißnichtWasIchTuh.de", "Lustig", "Peter", "Straße", 12345, "Stadt", 11061992, "Tel", 'M');
-//		
-//		assertEquals(userResponse.getReturnCode(), 0);
-//
-//		int sessionId = userResponse.getSessionId();
-//		beans.logout(sessionId);
+		UserResponse userResponse = beans.registerUser("Test@IchWeißnichtWasIchTuh.de", "Lustig", "Peter", "Straße", 12345, "Stadt", 11061992, "Tel", 'M');
+		
+		assertEquals(userResponse.getReturnCode(), 0);
+
+		int sessionId = userResponse.getSessionId();
+		beans.logout(sessionId);
 	}
 
 }

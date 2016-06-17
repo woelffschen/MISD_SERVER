@@ -3,13 +3,11 @@
 package dao;
 
 
-import java.math.BigInteger;
 import java.util.List;
 
 import javax.ejb.Local;
 
 import entities.Event;
-//import entities.Menue;
 import entities.User;
 
 @Local
@@ -27,12 +25,6 @@ public interface EventDAOLocal {
 	public List<Event> ownEventList(String email);
 
 	public Event findEventById(int eventId);
-
-//	public Menue findMenueById(int menueId);
-
-//	User findUserById(BigInteger userId);
-	
-//	public int getMenueId(Menue menue);
 	
 	public int getEventId(Event event);
 
