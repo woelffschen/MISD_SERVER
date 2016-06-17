@@ -8,7 +8,7 @@ public class UserTO extends ReturnCodeResponse {
 
 	private static final long serialVersionUID = 3440740273700082798L;
 
-	private BigInteger userId;
+	private String email;
 	private String lastname;
 	private String firstname;
 	private String street;
@@ -21,11 +21,11 @@ public class UserTO extends ReturnCodeResponse {
 	public UserTO() {
 	};
 
-	public UserTO(BigInteger userId, String ln, String fn, String str, int plz, String c, int a, char g,
+	public UserTO(String email, String ln, String fn, String str, int plz, String c, int a, char g,
 			String tel) {
 
 		super();
-		this.userId = userId;
+		this.email = email;
 		lastname = ln;
 		firstname = fn;
 		street = str;
@@ -38,12 +38,12 @@ public class UserTO extends ReturnCodeResponse {
 	
 
 
-	public void setUserId(BigInteger userId) {
-		this.userId = userId;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public BigInteger getUserId() {
-		return userId;
+	public String getEmail() {
+		return email;
 	}
 
 	public void setLastname(String l) {

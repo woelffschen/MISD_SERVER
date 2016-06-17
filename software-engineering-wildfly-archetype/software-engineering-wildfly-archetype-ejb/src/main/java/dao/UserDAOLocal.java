@@ -20,11 +20,11 @@ public interface UserDAOLocal {
 
 	public void logoutUser(int sessionId);
 
-	public void deleteUser(BigInteger userId);
+	public void deleteUser(String email);
 
 	public Session findSessionById(int sessionId);
 
-	public User findUserById(BigInteger userId);
+	public User findUserById(String email);
 
 	public User findUserByEmail(String email);
 

@@ -25,7 +25,7 @@ public class EventDAO implements EventDAOLocal {
 
 	@Override
 	public void createEvent(int min, int max, String street, int plz, String city, String com, char g, int d,
-			BigInteger eo, String name, boolean lactose, boolean gluten, boolean fructose, boolean sorbit, boolean vega,
+			String eo, String name, boolean lactose, boolean gluten, boolean fructose, boolean sorbit, boolean vega,
 			boolean vegee) {
 		Menue menue = new Menue(name, lactose, gluten, fructose, sorbit, vega, vegee);
 		em.persist(menue);
@@ -41,18 +41,18 @@ public class EventDAO implements EventDAOLocal {
 	}
 
 	@Override
-	public void deleteEvent(int eventId, BigInteger userId) {
+	public void deleteEvent(int eventId, String email) {
 		em.find(Event.class, eventId);
 		Event event = findEventById(eventId);
-		if (event.getEventOwner() == userId) {
+		if (event.getEventOwner() == email) {
 			event.setTakePlace(false);
 			em.merge(eventId);
 		}
 	}
 
 	@Override
-	public List<Event> filterCity(BigInteger userid, String city) {
-		int age = findUserById(userid).getAge();
+	public List<Event> filterCity(String email, String city) {
+		int age = findUserByEmail(email).getAge();
 		@SuppressWarnings("unchecked")
 		List<Event> results = em
 				.createQuery(
@@ -67,8 +67,8 @@ public class EventDAO implements EventDAOLocal {
 
 	// hinzugefügt
 	@Override
-	public List<Event> ownEventList(BigInteger userId) {
-		User u = em.find(User.class, userId);
+	public List<Event> ownEventList(String email) {
+		User u = em.find(User.class, email);
 
 		List<Event> result = new ArrayList<Event>();
 
@@ -97,8 +97,8 @@ public class EventDAO implements EventDAOLocal {
 	// }
 
 	@Override
-	public User findUserById(BigInteger userId) {
-		return em.find(User.class, userId);
+	public User findUserByEmail(String email) {
+		return em.find(User.class, email);
 	}
 
 	// @Override

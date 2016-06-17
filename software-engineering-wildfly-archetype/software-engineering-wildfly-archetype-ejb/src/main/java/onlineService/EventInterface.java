@@ -48,8 +48,8 @@ public class EventInterface {
 			return event;
 	}
 
-	private List<Event> getEventList(BigInteger userid, String city) throws NotAllowedException {
-		List<Event> eventList = edao.filterCity(userid, city);
+	private List<Event> getEventList(String email, String city) throws NotAllowedException {
+		List<Event> eventList = edao.filterCity(email, city);
 		if (eventList == null)
 			throw new NotAllowedException("Diese Aktion ist nicht erlaubt!");
 		else
@@ -58,8 +58,8 @@ public class EventInterface {
 	
 	
 	//hinzugefügt
-	private List<Event> getownEventList(BigInteger userid) throws NotAllowedException {
-		List<Event> eventList = edao.ownEventList(userid);
+	private List<Event> getownEventList(String email) throws NotAllowedException {
+		List<Event> eventList = edao.ownEventList(email);
 		if (eventList == null)
 			throw new NotAllowedException("Diese Aktion ist nicht erlaubt!");
 		else
@@ -67,8 +67,8 @@ public class EventInterface {
 	}
 
 	
-	private User getUser(BigInteger userId) throws NotAllowedException {
-		User user = udao.findUserById(userId);
+	private User getUser(String email) throws NotAllowedException {
+		User user = udao.findUserById(email);
 		if (user == null)
 			throw new NotAllowedException("Diese Aktion ist nicht erlaubt!");
 		else
@@ -77,7 +77,7 @@ public class EventInterface {
 
 	// nur Returncode zurück
 	public ReturnCodeResponse createEvent(int sessionId, int min, int max, String street, int plz, String city,
-			String comments, char gender, int dateTime, BigInteger eo, String name, boolean lactose, boolean gluten,
+			String comments, char gender, int dateTime, String eo, String name, boolean lactose, boolean gluten,
 			boolean fructose, boolean sorbit, boolean vega, boolean vegee) {
 		ReturnCodeResponse response = new ReturnCodeResponse();
 		try {
@@ -100,12 +100,12 @@ public class EventInterface {
 	
 	
 	// return nur returncode // bei uns aber separat abspeichern und status ändern 
-	public EventResponse deleteEvent(int eventId, BigInteger userId) {
+	public EventResponse deleteEvent(int eventId, String email) {
 		EventResponse response = new EventResponse();
 		try {
 			Event event = getEvent(eventId);
-			if (event != null && userId == event.getEventOwner()) {
-				edao.deleteEvent(eventId, userId);
+			if (event != null && email == event.getEventOwner()) {
+				edao.deleteEvent(eventId, email);
 			}
 		} catch (NotAllowedException n) {
 			response.setReturnCode(n.getErrorCode());
@@ -115,12 +115,12 @@ public class EventInterface {
 	}
 
 	// 
-	public EventFilterCityListResponse filterCity(BigInteger userId, int sessionId, String city) {
+	public EventFilterCityListResponse filterCity(String email, int sessionId, String city) {
 		EventFilterCityListResponse response = new EventFilterCityListResponse();
 		try {
 			Session session = getSession(sessionId);
 			// to do TO Objekte erstellen
-			List<Event> eventList = getEventList(userId, city);
+			List<Event> eventList = getEventList(email, city);
 
 			if (session != null && eventList != null) {
 				return response;
@@ -136,11 +136,11 @@ public class EventInterface {
 		return response;
 	}
 	
-	public EventFilterCityListResponse eventList(BigInteger userId, int sessionId) {
+	public EventFilterCityListResponse eventList(String email, int sessionId) {
 		EventFilterCityListResponse response = new EventFilterCityListResponse();
 		try {
 			Session session = getSession(sessionId);
-			List<Event> eventList = getownEventList(userId);
+			List<Event> eventList = getownEventList(email);
 
 			if (session != null && eventList != null) {
 				return response;

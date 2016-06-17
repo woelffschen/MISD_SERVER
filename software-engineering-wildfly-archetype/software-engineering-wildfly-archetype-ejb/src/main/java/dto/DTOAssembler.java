@@ -21,7 +21,7 @@ public class DTOAssembler {
 		AttendanceTO dto = new AttendanceTO();
 		//dto.setAttendanceId(attendance.GET);
 		dto.setEventId(event.getEventId());
-		dto.setUserId(user.getUserId());
+		dto.setEmail(user.getEmail());
 		dto.setStatus(attendance.getStatus());
 		return dto;
 	}
@@ -54,7 +54,7 @@ public class DTOAssembler {
 
 	public UserTO makeDTO(User user) {
 		UserTO dto = new UserTO();
-		dto.setUserId(user.getUserId());
+		dto.setEmail(user.getEmail());
 		dto.setLastname(user.getLastname());
 		dto.setFirstname(user.getFirstname());
 		dto.setStreet(user.getStreet());

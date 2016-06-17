@@ -11,18 +11,18 @@ public class AttendanceTO extends DataTransferObject {
 
 	private int attendanceId;
 	private int eventId;
-	private BigInteger userId;
+	private String email;
 	private LocalDateTime updateAt;
 	private int status;
 
 	public AttendanceTO() {
 	};
 
-	public AttendanceTO(int attendanceId, int eventId, BigInteger userId, LocalDateTime updateAt, int status) {
+	public AttendanceTO(int attendanceId, int eventId, String email, LocalDateTime updateAt, int status) {
 		super();
 		this.attendanceId = attendanceId;
 		this.eventId = eventId;
-		this.userId = userId;
+		this.email = email;
 		this.updateAt = updateAt;
 		this.status = status;
 
@@ -44,12 +44,12 @@ public class AttendanceTO extends DataTransferObject {
 		this.eventId = eventId;
 	}
 
-	public BigInteger getUserId() {
-		return userId;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setUserId(BigInteger userId) {
-		this.userId = userId;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public LocalDateTime getUpdateAt() {

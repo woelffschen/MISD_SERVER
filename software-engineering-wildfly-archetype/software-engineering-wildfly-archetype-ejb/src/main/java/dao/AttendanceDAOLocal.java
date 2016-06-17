@@ -2,8 +2,6 @@
 
 package dao;
 
-import javax.ejb.Local;
-
 import entities.Attendance;
 import entities.Event;
 import entities.User;

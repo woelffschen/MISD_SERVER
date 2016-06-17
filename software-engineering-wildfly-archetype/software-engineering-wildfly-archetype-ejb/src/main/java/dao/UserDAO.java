@@ -42,8 +42,8 @@ public class UserDAO implements UserDAOLocal {
 	}
 
 	@Override
-	public void deleteUser(BigInteger userId) {
-		em.remove(userId);
+	public void deleteUser(String email) {
+		em.remove(email);
 	}
 
 	@Override
@@ -52,15 +52,16 @@ public class UserDAO implements UserDAOLocal {
 	}
 
 	@Override
-	public User findUserById(BigInteger userId) {
-		return em.find(User.class, userId);
+	public User findUserById(String email) {
+		return em.find(User.class, email);
 	}
 	
 	@Override
 	public User findUserByEmail(String email) {
-		return this.em.createQuery("SELECT e FROM User e WHERE e.email = :email", User.class)
-				.setParameter("email", email)
-				.getSingleResult();
+//		return this.em.createQuery("SELECT e FROM User e WHERE e.email = :email", User.class)
+//				.setParameter("email", email)
+//				.getSingleResult();
+		return em.find(User.class, email);
 	}
 
 }

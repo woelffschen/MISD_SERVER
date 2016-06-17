@@ -65,8 +65,8 @@ public class AttendanceInterface {
 			return event;
 	}
 
-	private User getUser(BigInteger userId) throws NotAllowedException {
-		User user = udao.findUserById(userId);
+	private User getUser(String email) throws NotAllowedException {
+		User user = udao.findUserByEmail(email);
 		if (user == null)
 			throw new NotAllowedException("This action is not allowed!");
 		else
@@ -104,12 +104,12 @@ public class AttendanceInterface {
 	}
 
 	// return Attendance ID status & Attendance Id zurück schicken
-	public AttendanceResponse requestAttendance(int sessionId, int eventId, BigInteger userId) {
+	public AttendanceResponse requestAttendance(int sessionId, int eventId, String email) {
 		AttendanceResponse response = new AttendanceResponse();
 		try {
 			Session session = getSession(sessionId);
 			Event event = getEvent(eventId);
-			User user = getUser(userId);
+			User user = getUser(email);
 			if (event != null) {
 				Attendance attendance = new Attendance(event, user);
 				attendance.setStatus(attendance.getStatus());
@@ -133,7 +133,7 @@ public class AttendanceInterface {
 		return response;
 	}
 
-	public AttendanceResponse confirmAttendance(int sessionId, int attendanceId, int eventId, int userId) {
+	public AttendanceResponse confirmAttendance(int sessionId, int attendanceId, int eventId, String email) {
 		AttendanceResponse response = new AttendanceResponse();
 		try {
 			Session session = getSession(sessionId);

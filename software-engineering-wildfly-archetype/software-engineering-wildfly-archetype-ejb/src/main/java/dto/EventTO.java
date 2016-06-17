@@ -2,8 +2,6 @@
 
 package dto;
 
-import java.util.Calendar;
-
 public class EventTO extends DataTransferObject {
 
 	private static final long serialVersionUID = 3440740273700082798L;
@@ -15,7 +13,7 @@ public class EventTO extends DataTransferObject {
 	private char gender;
 	private int eventPostalCode;
 	private String eventCity;
-	private int eventOwner;
+	private String eventOwner;
 	private String comments;
 	private int dateTime;
 	private String name;
@@ -30,7 +28,7 @@ public class EventTO extends DataTransferObject {
 	};
 
 	public EventTO(int eventId, int menueId, int min, int max, char g, String street, int plz, String city,
-	 String com, int dt, int eO, String n, boolean l, boolean gl, boolean f, boolean s, boolean ve, boolean veg) {
+	 String com, int dt, String eO, String n, boolean l, boolean gl, boolean f, boolean s, boolean ve, boolean veg) {
 
 		super();
 		this.eventId = eventId;
@@ -127,11 +125,11 @@ public class EventTO extends DataTransferObject {
 		return comments;
 	}
 
-	public void setEventOwner(int eO) {
+	public void setEventOwner(String eO) {
 		eventOwner = eO;
 	}
 
-	public int getEventOwner() {
+	public String getEventOwner() {
 		return eventOwner;
 	}
 

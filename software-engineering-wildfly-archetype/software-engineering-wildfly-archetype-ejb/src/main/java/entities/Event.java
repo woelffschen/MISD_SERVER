@@ -48,7 +48,7 @@ public class Event implements Serializable {
 	@Column(nullable = false)
 	int dateTime;
 	@Column(nullable = false)
-	BigInteger eventOwner;
+	String eventOwner;
 	
 
 	
@@ -59,7 +59,7 @@ public class Event implements Serializable {
 	};
 
 	public Event(int menueId, int min, int max, String street, int plz, String city, 
-			String com, char g, int d, BigInteger eo) {
+			String com, char g, int d, String eo) {
 
 		// mit Transaktion
 		//menueId = m;
@@ -145,11 +145,11 @@ public class Event implements Serializable {
 		return comments;
 	}
 	
-	public void setEventOwner(BigInteger eO) {
+	public void setEventOwner(String eO) {
 		eventOwner = eO;
 	}
 
-	public BigInteger getEventOwner() {
+	public String getEventOwner() {
 		return eventOwner;
 	}
 

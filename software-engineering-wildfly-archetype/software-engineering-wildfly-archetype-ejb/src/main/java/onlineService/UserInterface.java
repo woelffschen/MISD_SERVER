@@ -49,8 +49,8 @@ public class UserInterface {
 			return session;
 	}
 
-	private User getUser(BigInteger userId) throws NotAllowedException {
-		User user = udao.findUserById(userId);
+	private User getUser(String email) throws NotAllowedException {
+		User user = udao.findUserById(email);
 		if (user == null)
 			throw new NotAllowedException("Diese Aktion ist nicht erlaubt!");
 		else
@@ -81,20 +81,20 @@ public class UserInterface {
 		return response;
 	}
 
-	// User erwartet Big Integer erhält aber String, ist ja auch richtig? noch mal genaue Logik überdenken!!!
+
 	public UserResponse loginUser(String email) {
 		UserResponse response = new UserResponse();
-//		try {
+		try {
 			User user = udao.findUserByEmail(email);
 			if (user != null) {
 				int sessionId = udao.loginUser(user);
 				response.setSessionId(sessionId);
-
+				getEmail(email);
 			}
-//		} catch (NotAllowedException n) {
-//			response.setReturnCode(n.getErrorCode());
-//			response.setMessage(n.getMessage());
-//		}
+		} catch (NotAllowedException n) {
+			response.setReturnCode(n.getErrorCode());
+			response.setMessage(n.getMessage());
+		}
 		return response;
 	}
 
@@ -114,15 +114,14 @@ public class UserInterface {
 
 	}
 
-	public PublicUserResponse getPublicUserData(BigInteger userId, int eventId) {
+	public PublicUserResponse getPublicUserData(String email, int eventId) {
 		PublicUserResponse response = new PublicUserResponse();
 		try {
-			User user = getUser(userId);
+			User user = getUser(email);
 			Event event = getEvent(eventId);
 			if (user != null) {
-				udao.findUserById(userId);
+				udao.findUserById(email);
 				edao.findEventById(eventId);
-				response.setUserId(user.getUserId());
 				response.setLastname(user.getLastname());
 				response.setFirstname(user.getFirstname());
 				response.setPostalCode(user.getPostalCode());
@@ -150,15 +149,14 @@ public class UserInterface {
 		return response;
 	}
 
-	public PrivateUserResponse getPrivateUserData(BigInteger userId, int eventId) {
+	public PrivateUserResponse getPrivateUserData(String email, int eventId) {
 		PrivateUserResponse response = new PrivateUserResponse();
 		try {
-			User user = getUser(userId);
+			User user = getUser(email);
 			Event event = getEvent(eventId);
 			if (user != null) {
-				udao.findUserById(userId);
+				udao.findUserById(email);
 				edao.findEventById(eventId);
-				response.setUserId(user.getUserId());
 				response.setLastname(user.getLastname());
 				response.setFirstname(user.getFirstname());
 				response.setAge(user.getAge());
@@ -175,6 +173,7 @@ public class UserInterface {
 				response.setMenueId(event.getMenueId());
 				response.setMinAge(event.getMinAge());
 				response.setTakePlace(event.getTakePlace());
+				response.setEmail(user.getEmail());
 				return response;
 			}
 
@@ -190,7 +189,7 @@ public class UserInterface {
 		try {
 			User user = getEmail(email);
 			if (user != null) {
-				response.setUserId(user.getUserId());
+				response.setEmail(user.getEmail());
 				response.setLastname(user.getLastname());
 				response.setFirstname(user.getFirstname());
 				response.setAge(user.getAge());
@@ -209,12 +208,12 @@ public class UserInterface {
 	}
 
 	
-	public ReturnCodeResponse deleteUser(BigInteger userId, int sessionId) {
+	public ReturnCodeResponse deleteUser(String email, int sessionId) {
 		ReturnCodeResponse response = new ReturnCodeResponse();
 		try {
-			getUser(userId);
+			getUser(email);
 			getSession(sessionId);
-			udao.deleteUser(userId);
+			udao.deleteUser(email);
 
 		} catch (NotAllowedException n) {
 			response.setReturnCode(n.getErrorCode());

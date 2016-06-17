@@ -9,8 +9,10 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 public class User implements Serializable {
@@ -18,8 +20,6 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	
-	@GeneratedValue
-	BigInteger userId;
 	@Column(nullable = false)
 	String lastname;
 	@Column(nullable = false)
@@ -69,14 +69,6 @@ public class User implements Serializable {
 		this.email = email;
 	}
 	
-	public BigInteger getUserId() {
-		return userId;
-	}
-
-	public void setUserId(BigInteger userId) {
-		this.userId = userId;
-	}
-
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}

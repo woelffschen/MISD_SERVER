@@ -1,12 +1,9 @@
 package dto;
 
-import java.math.BigInteger;
-
 public class PublicUserResponse extends ReturnCodeResponse {
 
 	private static final long serialVersionUID = -5754928488884226775L;
 
-	private BigInteger userId;
 	private String lastname;
 	private String firstname;
 	private String city;
@@ -22,7 +19,7 @@ public class PublicUserResponse extends ReturnCodeResponse {
 	private String comments;
 	private boolean takePlace;
 	private int dateTime;
-	private BigInteger eventOwner;
+	private String eventOwner;
 	private int eventId;
 	private int postalCode;
 	private String telephoneNumber;
@@ -31,13 +28,7 @@ public class PublicUserResponse extends ReturnCodeResponse {
 	public PublicUserResponse() {
 	};
 
-	public void setUserId(BigInteger userId) {
-		this.userId = userId;
-	}
 
-	public BigInteger getUserId() {
-		return userId;
-	}
 
 	public void setLastname(String l) {
 		lastname = l;
@@ -153,11 +144,11 @@ public class PublicUserResponse extends ReturnCodeResponse {
 		return comments;
 	}
 
-	public void setEventOwner(BigInteger eO) {
+	public void setEventOwner(String eO) {
 		eventOwner = eO;
 	}
 
-	public BigInteger getEventOwner() {
+	public String getEventOwner() {
 		return eventOwner;
 	}
 
