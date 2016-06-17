@@ -2,7 +2,6 @@
 
 package onlineService;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -48,7 +47,7 @@ public class EventInterface {
 			return event;
 	}
 
-	private List<Event> getEventList(String email, String city) throws NotAllowedException {
+	public List<Event> getEventList(String email, String city) throws NotAllowedException {
 		List<Event> eventList = edao.filterCity(email, city);
 		if (eventList == null)
 			throw new NotAllowedException("Diese Aktion ist nicht erlaubt!");
