@@ -1,22 +1,16 @@
 package dto;
 
-import java.util.List;
-
 public class EventFilterCityListResponse extends ReturnCodeResponse {
 
 	private static final long serialVersionUID = -5754928488884226775L;
 
-	private List<EventTO> eventList;
+	private EventTO[] eventList;
 
-	public EventFilterCityListResponse() {
-	};
-
-	public List<EventTO> getEventList() {
+	public EventTO[] getEventList() {
 		return eventList;
 	}
 
-	public void setEventList(List<EventTO> eventList) {
+	public void setEventList(EventTO[] eventList) {
 		this.eventList = eventList;
-	}
-
+	};
 }

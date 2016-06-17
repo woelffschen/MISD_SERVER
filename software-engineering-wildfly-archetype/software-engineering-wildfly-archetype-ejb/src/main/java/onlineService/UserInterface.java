@@ -62,7 +62,7 @@ public class UserInterface {
 		else
 			return user;
 	}
-	
+
 	private User getNullEmail(String email) throws NotAllowedException {
 		User user = udao.findUserByEmail(email);
 		if (user != null)
@@ -76,15 +76,15 @@ public class UserInterface {
 			String city, int age, String telephoneNumber, char gender) {
 		UserResponse response = new UserResponse();
 		try {
-//			if (getEmail(email) == null) {
-				User user = udao.registerUser(email, lastname, firstname, street, postalCode, city, age, gender,
-						telephoneNumber);
-//				if (getNullEmail(email) != null) {
-					int sessionId = udao.loginUser(user);
-					getEmail(email);
-					response.setSessionId(sessionId);
-//				}
-//			}
+			// if (getEmail(email) == null) {
+			User user = udao.registerUser(email, lastname, firstname, street, postalCode, city, age, gender,
+					telephoneNumber);
+			// if (getNullEmail(email) != null) {
+			int sessionId = udao.loginUser(user);
+			getEmail(email);
+			response.setSessionId(sessionId);
+			// }
+			// }
 		} catch (NotAllowedException n) {
 			response.setReturnCode(n.getErrorCode());
 			response.setMessage(n.getMessage());
@@ -147,7 +147,7 @@ public class UserInterface {
 				response.setEventStreet(event.getEventStreet());
 				response.setGender(event.getGender());
 				response.setMaxAge(event.getMaxAge());
-				response.setMenueId(event.getMenueId());
+				response.setMenueId(event.getMenue().getMenueId());
 				response.setMinAge(event.getMinAge());
 				response.setTakePlace(event.getTakePlace());
 				return response;
@@ -181,7 +181,7 @@ public class UserInterface {
 				response.setEventStreet(event.getEventStreet());
 				response.setGender(event.getGender());
 				response.setMaxAge(event.getMaxAge());
-				response.setMenueId(event.getMenueId());
+				response.setMenueId(event.getMenue().getMenueId());
 				response.setMinAge(event.getMinAge());
 				response.setTakePlace(event.getTakePlace());
 				response.setEmail(user.getEmail());

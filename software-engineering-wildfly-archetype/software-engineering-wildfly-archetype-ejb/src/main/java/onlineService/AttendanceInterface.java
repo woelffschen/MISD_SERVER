@@ -2,8 +2,6 @@
 
 package onlineService;
 
-import java.math.BigInteger;
-
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
@@ -42,21 +40,6 @@ public class AttendanceInterface {
 			return session;
 	}
 
-	private Attendance getAttendance(int attendanceId, int eventId)
-			throws NotAllowedException, EventOwnerException, ParticipantException {
-		Attendance attendance = adao.findAttendanceById(attendanceId);
-		Event event = edao.findEventById(eventId);
-		if (attendance == null)
-			throw new NotAllowedException("This action is not allowed!");
-		if (attendance.getAttendanceId() == event.getEventId())
-			throw new ParticipantException("This action is only allowed for Participants");
-		if (attendance.getAttendanceId() != event.getEventId())
-			throw new EventOwnerException("This action is only allowed for Event Owner");
-
-		else
-			return attendance;
-	}
-
 	private Event getEvent(int eventId) throws NotAllowedException {
 		Event event = edao.findEventById(eventId);
 		if (event == null)
@@ -75,28 +58,18 @@ public class AttendanceInterface {
 
 	// bei Attendance (außer bei request) nur int status zurück
 	
-	public AttendanceResponse cancelAttendance(int sessionId, int attendanceId, int eventId) {
+	public AttendanceResponse cancelAttendance(int sessionId, int eventId) {
 		AttendanceResponse response = new AttendanceResponse();
 		try {
 			Session session = getSession(sessionId);
-			Attendance attendance = getAttendance(attendanceId, eventId);
 			Event event = getEvent(eventId);
 
-			if (attendance != null) {
-				attendance.setStatus(attendance.getStatus());
-			}
+			this.adao.cancelAttendance(event, session.getUser());
 		} catch (NotAllowedException n) {
 			response.setReturnCode(n.getErrorCode());
 			response.setMessage(n.getMessage());
 
 		} catch (NoSessionException n) {
-			response.setReturnCode(n.getErrorCode());
-			response.setMessage(n.getMessage());
-		} catch (EventOwnerException n) {
-			response.setReturnCode(n.getErrorCode());
-			response.setMessage(n.getMessage());
-
-		} catch (ParticipantException n) {
 			response.setReturnCode(n.getErrorCode());
 			response.setMessage(n.getMessage());
 		}
@@ -107,13 +80,12 @@ public class AttendanceInterface {
 	public AttendanceResponse requestAttendance(int sessionId, int eventId, String email) {
 		AttendanceResponse response = new AttendanceResponse();
 		try {
-			Session session = getSession(sessionId);
+			getSession(sessionId);
 			Event event = getEvent(eventId);
 			User user = getUser(email);
-			if (event != null) {
-				Attendance attendance = new Attendance(event, user);
-				attendance.setStatus(attendance.getStatus());
-				getAttendance(attendance.getAttendanceId(), eventId);
+			if (event != null && user != null) {
+				int status = this.adao.requestAttendance(event, user);
+				response.setStatus(status);
 			}
 		} catch (NotAllowedException n) {
 			response.setReturnCode(n.getErrorCode());
@@ -122,27 +94,21 @@ public class AttendanceInterface {
 		} catch (NoSessionException n) {
 			response.setReturnCode(n.getErrorCode());
 			response.setMessage(n.getMessage());
-		} catch (EventOwnerException n) {
-			response.setReturnCode(n.getErrorCode());
-			response.setMessage(n.getMessage());
-
-		} catch (ParticipantException n) {
-			response.setReturnCode(n.getErrorCode());
-			response.setMessage(n.getMessage());
 		}
+		
 		return response;
 	}
 
-	public AttendanceResponse confirmAttendance(int sessionId, int attendanceId, int eventId, String email) {
+	public AttendanceResponse confirmAttendance(int sessionId, int eventId, String email) {
 		AttendanceResponse response = new AttendanceResponse();
 		try {
 			Session session = getSession(sessionId);
-			Attendance attendance = getAttendance(attendanceId, eventId);
 			Event event = getEvent(eventId);
-
-			if (attendance != null) {
-				attendance.setStatus(attendance.getStatus());
-			}
+			User userAendern = getUser(email);
+			
+			int status = this.adao.confirmAttendance(event, session.getUser(), userAendern);
+			
+			response.setStatus(status);
 		} catch (NotAllowedException n) {
 			response.setReturnCode(n.getErrorCode());
 			response.setMessage(n.getMessage());
@@ -150,27 +116,21 @@ public class AttendanceInterface {
 		} catch (NoSessionException n) {
 			response.setReturnCode(n.getErrorCode());
 			response.setMessage(n.getMessage());
-		} catch (EventOwnerException n) {
-			response.setReturnCode(n.getErrorCode());
-			response.setMessage(n.getMessage());
-
-		} catch (ParticipantException n) {
-			response.setReturnCode(n.getErrorCode());
-			response.setMessage(n.getMessage());
 		}
+		
 		return response;
 	}
 
-	public AttendanceResponse rejectAttendance(int sessionId, int attendanceId, int eventId) {
+	public AttendanceResponse rejectAttendance(int sessionId, int eventId, String email) {
 		AttendanceResponse response = new AttendanceResponse();
 		try {
 			Session session = getSession(sessionId);
-			Attendance attendance = getAttendance(attendanceId, eventId);
 			Event event = getEvent(eventId);
-
-			if (attendance != null) {
-				attendance.setStatus(attendance.getStatus());
-			}
+			User userAendern = getUser(email);
+			
+			int status = this.adao.rejectAttendance(event, session.getUser(), userAendern);
+			
+			response.setStatus(status);
 		} catch (NotAllowedException n) {
 			response.setReturnCode(n.getErrorCode());
 			response.setMessage(n.getMessage());
@@ -178,15 +138,8 @@ public class AttendanceInterface {
 		} catch (NoSessionException n) {
 			response.setReturnCode(n.getErrorCode());
 			response.setMessage(n.getMessage());
-		} catch (EventOwnerException n) {
-			response.setReturnCode(n.getErrorCode());
-			response.setMessage(n.getMessage());
-
-		} catch (ParticipantException n) {
-			response.setReturnCode(n.getErrorCode());
-			response.setMessage(n.getMessage());
 		}
+		
 		return response;
 	}
-
 }

@@ -6,7 +6,6 @@ public class EventTO extends DataTransferObject {
 
 	private static final long serialVersionUID = 3440740273700082798L;
 
-	private int eventId;
 	private int menueId;
 	private int minAge;
 	private int maxAge;
@@ -23,6 +22,7 @@ public class EventTO extends DataTransferObject {
 	private boolean sorbit;
 	private boolean vega;
 	private boolean vegee;
+	private int eventId;
 
 	public EventTO() {
 	};
@@ -30,7 +30,6 @@ public class EventTO extends DataTransferObject {
 	public EventTO(int eventId, int menueId, int min, int max, char g, String street, int plz, String city,
 	 String com, int dt, String eO, String n, boolean l, boolean gl, boolean f, boolean s, boolean ve, boolean veg) {
 
-		super();
 		this.eventId = eventId;
 		this.menueId = menueId;
 		minAge = min;
@@ -52,12 +51,13 @@ public class EventTO extends DataTransferObject {
 
 	}
 
-	public void setEventId(int eventId) {
-		this.eventId = eventId;
+
+	public int getEventId() {
+		return eventId;
 	}
 
-	public int getEventId(int eventId) {
-		return eventId;
+	public void setEventId(int eventId) {
+		this.eventId = eventId;
 	}
 
 	public void setMenueId(int menueId) {

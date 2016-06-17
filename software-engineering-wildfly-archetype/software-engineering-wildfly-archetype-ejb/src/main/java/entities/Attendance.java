@@ -38,37 +38,34 @@ public class Attendance implements Serializable {
 		this.user = user;
 	}
 
-	public int getAttendanceId() {
-		return attendanceId;
+	public Event getEvent() {
+		return event;
 	}
 
-	public void setCancelAttendance(int attendanceId) {
-		status = 1;
+	public void setEvent(Event event) {
+		this.event = event;
 	}
 
-	public void setConfirmAttendance(int attendanceId) {
-		status = 2;
+	public User getUser() {
+		return user;
 	}
 
-	public void setRequestAttendance(int attendanceId) {
-		status = 3;
-	}
-
-	public void setRejectAttendance(int attendanceId) {
-		status = 4;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public int getStatus() {
 		return status;
 	}
 
-	public void setStatus(int i) {
-		status = i;
+	public void setStatus(int status) {
+		this.status = status;
 	}
 
-	public Event getEvent() {
-		return event;
+	public int getAttendanceId() {
+		return attendanceId;
 	}
-	
-	
+
+
+
 }

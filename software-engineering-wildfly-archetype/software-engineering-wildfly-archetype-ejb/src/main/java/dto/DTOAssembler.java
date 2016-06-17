@@ -2,6 +2,8 @@
 
 package dto;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 
 import entities.Attendance;
@@ -26,31 +28,40 @@ public class DTOAssembler {
 		return dto;
 	}
 
-//	public EventTO makeDTO(int eventId, int menueId, User user) {
-//		EventTO dto = new EventTO();
-//		dto.setEventId(event.getEventId());
-//		dto.setMenueId(menue.getMenueId());
-//		dto.setMinAge(event.getMinAge());
-//		dto.setMaxAge(event.getMaxAge());
-//		dto.setGender(event.getGender());
-//		dto.setEventStreet(event.getEventStreet());
-//		dto.setEventPostalCode(event.getEventPostalCode());
-//		dto.setEventCity(event.getEventCity());
-//		dto.setEventDateTime(event.getEventDateTime());
-//		dto.setComments(event.getComments());
-//		dto.setMenueId(menue.getMenueId());
-//		dto.setName(menue.getName());
-//		dto.setLactose(menue.getLactose());
-//		dto.setGluten(menue.getGluten());
-//		dto.setFructose(menue.getFructose());
-//		dto.setSorbit(menue.getSorbit());
-//		dto.setVega(menue.getVegan());
-//		dto.setVegee(menue.getVegetarian());
-//
-//		return dto;
-//
-//	}
-
+	public EventTO makeDTO(Event event) {
+		EventTO result = new EventTO();
+		
+		result.setEventId(event.getEventId());
+		result.setComments(event.getComments());
+		result.setEventCity(event.getEventCity());
+		result.setEventDateTime(event.getEventDateTime());
+		result.setEventId(event.getEventId());
+		result.setEventOwner(event.getEventOwner());
+		result.setEventPostalCode(event.getEventPostalCode());
+		result.setGender(event.getGender());
+		result.setFructose(event.getMenue().getFructose());
+		result.setGluten(event.getMenue().getGluten());
+		result.setLactose(event.getMenue().getLactose());
+		result.setMaxAge(event.getMaxAge());
+		result.setMenueId(event.getMenue().getMenueId());
+		result.setMinAge(event.getMinAge());
+		result.setName(event.getMenue().getName());
+		result.setSorbit(event.getMenue().getSorbit());
+		result.setVega(event.getMenue().getVegan());
+		result.setVegee(event.getMenue().getVegetarian());
+			
+		
+		return result;
+	}
+	public EventTO[] makeDTOs(List<Event> events) {
+		EventTO[] result = new EventTO[events.size()];
+		
+		for(int i = 0; i < events.size(); i++) {
+			result[i] = makeDTO(events.get(i));
+		}
+		
+		return result;
+	}
 
 	public UserTO makeDTO(User user) {
 		UserTO dto = new UserTO();

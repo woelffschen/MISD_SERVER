@@ -11,9 +11,11 @@ import javax.jws.WebService;
 import dao.AttendanceDAOLocal;
 import dao.EventDAOLocal;
 import dao.UserDAOLocal;
+import dto.DTOAssembler;
 import dto.EventFilterCityListResponse;
 import dto.EventResponse;
 import dto.ReturnCodeResponse;
+import dto.SingleEventResponse;
 import entities.Event;
 import entities.Session;
 import entities.User;
@@ -21,6 +23,9 @@ import entities.User;
 @WebService
 @Stateless
 public class EventInterface {
+
+	@EJB
+	private DTOAssembler assembler;
 
 	@EJB
 	private AttendanceDAOLocal adao;
@@ -39,33 +44,15 @@ public class EventInterface {
 			return session;
 	}
 
-	private Event getEvent(int eventId) throws NotAllowedException {
+	public SingleEventResponse getEvent(int eventId) {
+		SingleEventResponse response = new SingleEventResponse();
+
 		Event event = edao.findEventById(eventId);
-		if (event == null)
-			throw new NotAllowedException("Diese Aktion ist nicht erlaubt!");
-		else
-			return event;
+		response.setEvent(this.assembler.makeDTO(event));
+
+		return response;
 	}
 
-	public List<Event> getEventList(String email, String city) throws NotAllowedException {
-		List<Event> eventList = edao.filterCity(email, city);
-		if (eventList == null)
-			throw new NotAllowedException("Diese Aktion ist nicht erlaubt!");
-		else
-			return (List<Event>) eventList;
-	}
-	
-	
-	//hinzugefügt
-	private List<Event> getownEventList(String email) throws NotAllowedException {
-		List<Event> eventList = edao.ownEventList(email);
-		if (eventList == null)
-			throw new NotAllowedException("Diese Aktion ist nicht erlaubt!");
-		else
-			return (List<Event>) eventList;
-	}
-
-	
 	private User getUser(String email) throws NotAllowedException {
 		User user = udao.findUserById(email);
 		if (user == null)
@@ -83,10 +70,9 @@ public class EventInterface {
 			Session session = getSession(sessionId);
 			User user = getUser(eo);
 			if (session != null && user != null) {
-				edao.createEvent(min, max, street, plz, city, comments, gender, dateTime, eo, name, lactose, gluten,
-						fructose, sorbit, vega, vegee);
-				
-				
+				Event event = edao.createEvent(min, max, street, plz, city, comments, gender, dateTime, eo, name,
+						lactose, gluten, fructose, sorbit, vega, vegee);
+
 				response.setEventId(event.getEventId());
 			}
 		} catch (NotAllowedException n) {
@@ -99,58 +85,26 @@ public class EventInterface {
 		}
 		return response;
 	}
-	
-	
-	// return nur returncode // bei uns aber separat abspeichern und status ändern Methode in EventDao delete Event machen
+
+	// return nur returncode // bei uns aber separat abspeichern und status
+	// ändern Methode in EventDao delete Event machen
 	public ReturnCodeResponse deleteEvent(int eventId, String email) {
 		ReturnCodeResponse response = new ReturnCodeResponse();
-		try {
-			Event event = getEvent(eventId);
-			if (event != null && email == event.getEventOwner()) {
-				edao.deleteEvent(eventId, email);
-			}
-		} catch (NotAllowedException n) {
-			response.setReturnCode(n.getErrorCode());
-			response.setMessage(n.getMessage());
+		Event event = this.edao.findEventById(eventId);
+		if (event != null && email == event.getEventOwner()) {
+			edao.deleteEvent(eventId, email);
 		}
 		return response;
 	}
 
-	// 
-	public EventFilterCityListResponse filterCity(String email, int sessionId, String city) {
+	public EventFilterCityListResponse getEventsByCity(String email, int sessionId, String city) {
 		EventFilterCityListResponse response = new EventFilterCityListResponse();
 		try {
-			Session session = getSession(sessionId);
-			// to do TO Objekte erstellen
-			List<Event> eventList = getEventList(email, city);
+			getSession(sessionId);
 
-			if (session != null && eventList != null) {
-				return response;
-			}
-		} catch (NotAllowedException n) {
-			response.setReturnCode(n.getErrorCode());
-			response.setMessage(n.getMessage());
+			List<Event> eventList = edao.filterCity(email, city);
 
-		} catch (NoSessionException n) {
-			response.setReturnCode(n.getErrorCode());
-			response.setMessage(n.getMessage());
-		}
-		return response;
-	}
-	
-	public EventFilterCityListResponse eventList(String email, int sessionId) {
-		EventFilterCityListResponse response = new EventFilterCityListResponse();
-		try {
-			Session session = getSession(sessionId);
-			List<Event> eventList = getownEventList(email);
-
-			if (session != null && eventList != null) {
-				return response;
-			}
-		} catch (NotAllowedException n) {
-			response.setReturnCode(n.getErrorCode());
-			response.setMessage(n.getMessage());
-
+			response.setEventList(this.assembler.makeDTOs(eventList));
 		} catch (NoSessionException n) {
 			response.setReturnCode(n.getErrorCode());
 			response.setMessage(n.getMessage());
@@ -158,4 +112,34 @@ public class EventInterface {
 		return response;
 	}
 
+	public EventFilterCityListResponse getEventsByEmail(String email, int sessionId) {
+		EventFilterCityListResponse response = new EventFilterCityListResponse();
+		try {
+			getSession(sessionId);
+
+			List<Event> eventList = edao.ownEventList(email);
+
+			response.setEventList(this.assembler.makeDTOs(eventList));
+		} catch (NoSessionException n) {
+			response.setReturnCode(n.getErrorCode());
+			response.setMessage(n.getMessage());
+		}
+
+		return response;
+	}
+
+	public EventFilterCityListResponse getEvents(int sessionId) {
+		EventFilterCityListResponse response = new EventFilterCityListResponse();
+		try {
+			getSession(sessionId);
+
+			List<Event> eventList = edao.getAll();
+			response.setEventList(this.assembler.makeDTOs(eventList));
+		} catch (NoSessionException n) {
+			response.setReturnCode(n.getErrorCode());
+			response.setMessage(n.getMessage());
+		}
+
+		return response;
+	}
 }

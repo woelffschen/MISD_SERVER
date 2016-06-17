@@ -27,8 +27,6 @@ public class Event implements Serializable {
 	Menue menue;
 	
 	@Column(nullable = false)
-	int menueId;	
-	@Column(nullable = false)
 	int minAge;
 	@Column(nullable = false)
 	int maxAge;
@@ -57,12 +55,11 @@ public class Event implements Serializable {
 	public Event() {
 	};
 
-	public Event(int menueId, int min, int max, String street, int plz, String city, 
+	public Event(int min, int max, String street, int plz, String city, 
 			String com, char g, int d, String eo) {
 
 		// mit Transaktion
 		//menueId = m;
-		this.menueId = menueId;
 		minAge = min;
 		maxAge = max;
 		eventStreet = street;
@@ -74,15 +71,16 @@ public class Event implements Serializable {
 		eventOwner = eo;
 		takePlace = true;		
 	}
+
 	
-	public int getMenueId() {
-		return menueId;
+	public Menue getMenue() {
+		return menue;
 	}
-	
-	public void setMenueId(int menueId) {
-		this.menueId = menueId;
+
+	public void setMenue(Menue menue) {
+		this.menue = menue;
 	}
-	
+
 	public int getEventId() {
 		return eventId;
 	}
@@ -168,9 +166,9 @@ public class Event implements Serializable {
 		return takePlace;
 	}
 	
-//	public Set<Attendance> getAttendanceList() {
-//		return attendanceList;
-//	}
+	public Set<Attendance> getAttendanceList() {
+		return this.attendance;
+	}
 //
 //	public void setAttendanceList(Set<Attendance> attendanceList) {
 //		this.attendanceList = attendanceList;

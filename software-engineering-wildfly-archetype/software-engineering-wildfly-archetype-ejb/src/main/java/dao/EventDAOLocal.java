@@ -2,7 +2,6 @@
 
 package dao;
 
-
 import java.util.List;
 
 import javax.ejb.Local;
@@ -13,21 +12,21 @@ import entities.User;
 @Local
 public interface EventDAOLocal {
 
-	public void createEvent(int min, int max, String street, int plz, String city, 
-			String com, char g, int d, String eventOwner, String name, boolean lactose, boolean gluten, boolean fructose, boolean sorbit, boolean vega,
-			boolean vegee);
+	public Event createEvent(int min, int max, String street, int plz, String city, String com, char g, int d,
+			String eventOwner, String name, boolean lactose, boolean gluten, boolean fructose, boolean sorbit,
+			boolean vega, boolean vegee);
 
 	public void deleteEvent(int eventId, String email);
 
+	public List<Event> getAll();
+
 	public List<Event> filterCity(String email, String city);
-	
-	//hinzugefügt
+
 	public List<Event> ownEventList(String email);
 
 	public Event findEventById(int eventId);
-	
+
 	public int getEventId(Event event);
 
 	User findUserByEmail(String eventOwner);
-	
-	}
+}

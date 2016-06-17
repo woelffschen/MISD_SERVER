@@ -2,7 +2,6 @@
 
 package dao;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,20 +23,20 @@ public class EventDAO implements EventDAOLocal {
 	EntityManager em;
 
 	@Override
-	public void createEvent(int min, int max, String street, int plz, String city, String com, char g, int d, String eo,
-			String name, boolean lactose, boolean gluten, boolean fructose, boolean sorbit, boolean vega,
+	public Event createEvent(int min, int max, String street, int plz, String city, String com, char g, int d,
+			String eo, String name, boolean lactose, boolean gluten, boolean fructose, boolean sorbit, boolean vega,
 			boolean vegee) {
 		Menue menue = new Menue(name, lactose, gluten, fructose, sorbit, vega, vegee);
 		em.persist(menue);
-		int menueId = menue.getMenueId();
-		// System.out.println(menueId);
-		Event event = new Event(menueId, min, max, street, plz, city, com, g, d, eo);
+
+		Event event = new Event(min, max, street, plz, city, com, g, d, eo);
+		event.setMenue(menue);
 		em.persist(event);
-		// int eventId = event.getEventId();
-		// int eventOwner = event.getEventOwner();
+
 		User user = em.find(User.class, event.getEventOwner());
 		Attendance attendance = new Attendance(event, user);
 		em.persist(attendance);
+		return event;
 	}
 
 	@Override
@@ -52,14 +51,19 @@ public class EventDAO implements EventDAOLocal {
 
 	@Override
 	public List<Event> filterCity(String email, String city) {
-		int age = findUserByEmail(email).getAge();
+		List<Event> result = new ArrayList<Event>();
 
-		return em.createQuery(
-				"SELECT e FROM Event e WHERE e.eventCity LIKE :city AND :age BETWEEN e.minAge AND e.maxAge",
-				Event.class).setParameter("city", city).setParameter("age", age).getResultList();
+		User user = findUserByEmail(email);
+		if (user != null) {
+			int age = user.getAge();
+			result = em.createQuery(
+					"SELECT e FROM Event e WHERE e.eventCity LIKE :city AND :age BETWEEN e.minAge AND e.maxAge",
+					Event.class).setParameter("city", city).setParameter("age", age).getResultList();
+		}
+
+		return result;
 	}
 
-	// hinzugefügt
 	@Override
 	public List<Event> ownEventList(String email) {
 		User u = em.find(User.class, email);
@@ -67,15 +71,17 @@ public class EventDAO implements EventDAOLocal {
 		List<Event> result = new ArrayList<Event>();
 
 		for (Attendance a : u.getAttendance()) {
-			result.add(a.getEvent());
-		}
-		if (result.size() >= 1) {
-			return result;
-		} else {
-			{
-				return new ArrayList<Event>();
+			if(a.getStatus() != 4) {
+				result.add(a.getEvent());
 			}
 		}
+
+		return result;
+	}
+
+	@Override
+	public List<Event> getAll() {
+		return this.em.createQuery("SELECT x FROM " + Event.class.getSimpleName() + " x", Event.class).getResultList();
 	}
 
 	@Override
@@ -83,12 +89,6 @@ public class EventDAO implements EventDAOLocal {
 		return em.find(Event.class, eventId);
 
 	}
-
-	// @Override
-	// public Menue findMenueById(int menueId) {
-	// return em.find(Menue.class, menueId);
-	//
-	// }
 
 	@Override
 	public User findUserByEmail(String email) {
