@@ -22,7 +22,7 @@ public class AttendanceDAO implements AttendanceDAOLocal {
 	// EventParticipant
 	@Override
 	public int cancelAttendance(Event event, User user) throws NotAllowedException {
-		if (event.getEventOwner() != user.getEmail()) {
+		if (event.getEventOwner().equals(user.getEmail())) {
 			Event e = this.em.find(Event.class, event.getEventId());
 			Attendance attendance = null;
 
@@ -48,7 +48,7 @@ public class AttendanceDAO implements AttendanceDAOLocal {
 
 	@Override
 	public int requestAttendance(Event event, User user) throws NotAllowedException {
-		if (event.getEventOwner() != user.getEmail()) {
+		if (!event.getEventOwner().equals(user.getEmail())) {
 			Event e = this.em.find(Event.class, event.getEventId());
 			User u = this.em.find(User.class, user.getEmail());
 
@@ -63,8 +63,8 @@ public class AttendanceDAO implements AttendanceDAOLocal {
 
 	@Override
 	public int confirmAttendance(Event event, User user, User userAendern) throws NotAllowedException {
-		Event e = em.find(Event.class, event);
-		if (e.getEventOwner() == user.getEmail()) {
+		Event e = em.find(Event.class, event.getEventId());
+		if (e.getEventOwner().equals(user.getEmail())) {
 			Attendance attendance = null;
 			for (Attendance a : e.getAttendanceList()) {
 				if (a.getUser().getEmail().equals(userAendern.getEmail())) {
@@ -87,8 +87,8 @@ public class AttendanceDAO implements AttendanceDAOLocal {
 
 	@Override
 	public int rejectAttendance(Event event, User user, User userAendern) throws NotAllowedException {
-		Event e = em.find(Event.class, event);
-		if (e.getEventOwner() == user.getEmail()) {
+		Event e = em.find(Event.class, event.getEventId());
+		if (e.getEventOwner().equals(user.getEmail())) {
 			Attendance attendance = null;
 			for (Attendance a : e.getAttendanceList()) {
 				if (a.getUser().getEmail().equals(userAendern.getEmail())) {

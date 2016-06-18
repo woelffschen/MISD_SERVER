@@ -6,6 +6,7 @@ public class EventTO extends DataTransferObject {
 
 	private static final long serialVersionUID = 3440740273700082798L;
 
+	private int eventId;
 	private int menueId;
 	private int minAge;
 	private int maxAge;
@@ -22,115 +23,129 @@ public class EventTO extends DataTransferObject {
 	private boolean sorbit;
 	private boolean vega;
 	private boolean vegee;
-	private int eventId;
 
 	public EventTO() {
 	};
 
-	public EventTO(int eventId, int menueId, int min, int max, char g, String street, int plz, String city,
-	 String com, int dt, String eO, String n, boolean l, boolean gl, boolean f, boolean s, boolean ve, boolean veg) {
-
+	public EventTO(int eventId, int menueId, int minAge, int maxAge, char gender, int eventPostalCode, String eventCity,
+			String eventOwner, String comments, int dateTime, String name, boolean lactose, boolean gluten,
+			boolean fructose, boolean sorbit, boolean vega, boolean vegee) {
+		super();
 		this.eventId = eventId;
 		this.menueId = menueId;
-		minAge = min;
-		maxAge = max;
-		gender = g;
-		eventPostalCode = plz;
-		eventCity = city;
-		dateTime = dt;
-		comments = com;
-		eventOwner = eO;
-		setName(n);
-		setLactose(l);
-		setGluten(gl);
-		setFructose(f);
-		setSorbit(s);
-		setVega(ve);
-		setVegee(veg);
-		
-
+		this.minAge = minAge;
+		this.maxAge = maxAge;
+		this.gender = gender;
+		this.eventPostalCode = eventPostalCode;
+		this.eventCity = eventCity;
+		this.eventOwner = eventOwner;
+		this.comments = comments;
+		this.dateTime = dateTime;
+		this.name = name;
+		this.lactose = lactose;
+		this.gluten = gluten;
+		this.fructose = fructose;
+		this.sorbit = sorbit;
+		this.vega = vega;
+		this.vegee = vegee;
 	}
 
+	// public EventTO(int eventId, int menueId, int min, int max, char g, String
+	// street, int plz, String city,
+	// String com, int dt, String eO, String n, boolean l, boolean gl, boolean
+	// f, boolean s, boolean ve, boolean veg) {
+	//
+	// this.eventId = eventId;
+	// this.menueId = menueId;
+	// minAge = min;
+	// maxAge = max;
+	// gender = g;
+	// eventPostalCode = plz;
+	// eventCity = city;
+	// dateTime = dt;
+	// comments = com;
+	// eventOwner = eO;
+	// setName(n);
+	// setLactose(l);
+	// setGluten(gl);
+	// setFructose(f);
+	// setSorbit(s);
+	// setVega(ve);
+	// setVegee(veg);
+	//
+	//
+	// }
 
-	public int getEventId() {
-		return eventId;
-	}
-
-	public void setEventId(int eventId) {
-		this.eventId = eventId;
+	public int getMenueId() {
+		return menueId;
 	}
 
 	public void setMenueId(int menueId) {
 		this.menueId = menueId;
 	}
 
-	public int getMenueId() {
-		return menueId;
-	}
-
-	public void setGender(char g) {
-		gender = g;
-
-	}
-
-	public char getGender() {
-		return gender;
-	}
-
-	public void setMinAge(int i) {
-		minAge = i;
-	}
-
 	public int getMinAge() {
 		return minAge;
 	}
 
-	public void setMaxAge(int i) {
-		maxAge = i;
+	public void setMinAge(int minAge) {
+		this.minAge = minAge;
 	}
 
 	public int getMaxAge() {
 		return maxAge;
 	}
 
-	public void setEventPostalCode(int i) {
-		eventPostalCode = i;
+	public void setMaxAge(int maxAge) {
+		this.maxAge = maxAge;
+	}
+
+	public char getGender() {
+		return gender;
+	}
+
+	public void setGender(char gender) {
+		this.gender = gender;
 	}
 
 	public int getEventPostalCode() {
 		return eventPostalCode;
 	}
 
-	public void setEventCity(String i) {
-		eventCity = i;
+	public void setEventPostalCode(int eventPostalCode) {
+		this.eventPostalCode = eventPostalCode;
 	}
 
 	public String getEventCity() {
 		return eventCity;
 	}
 
-	public void setEventDateTime(int i) {
-		dateTime = i;
+	public void setEventCity(String eventCity) {
+		this.eventCity = eventCity;
 	}
 
-	public int getEventDateTime() {
-		return dateTime;
+	public String getEventOwner() {
+		return eventOwner;
 	}
 
-	public void setComments(String i) {
-		comments = i;
+	public void setEventOwner(String eventOwner) {
+		this.eventOwner = eventOwner;
 	}
 
 	public String getComments() {
 		return comments;
 	}
 
-	public void setEventOwner(String eO) {
-		eventOwner = eO;
+	public void setComments(String comments) {
+		this.comments = comments;
 	}
 
-	public String getEventOwner() {
-		return eventOwner;
+	public int getDateTime() {
+		return dateTime;
+	}
+
+	public void setDateTime(int dateTime) {
+		this.dateTime = dateTime;
 	}
 
 	public String getName() {
@@ -141,7 +156,7 @@ public class EventTO extends DataTransferObject {
 		this.name = name;
 	}
 
-	public boolean getLactose() {
+	public boolean isLactose() {
 		return lactose;
 	}
 
@@ -149,7 +164,7 @@ public class EventTO extends DataTransferObject {
 		this.lactose = lactose;
 	}
 
-	public boolean getGluten() {
+	public boolean isGluten() {
 		return gluten;
 	}
 
@@ -157,7 +172,7 @@ public class EventTO extends DataTransferObject {
 		this.gluten = gluten;
 	}
 
-	public boolean getFructose() {
+	public boolean isFructose() {
 		return fructose;
 	}
 
@@ -165,7 +180,7 @@ public class EventTO extends DataTransferObject {
 		this.fructose = fructose;
 	}
 
-	public boolean getSorbit() {
+	public boolean isSorbit() {
 		return sorbit;
 	}
 
@@ -173,7 +188,7 @@ public class EventTO extends DataTransferObject {
 		this.sorbit = sorbit;
 	}
 
-	public boolean getVega() {
+	public boolean isVega() {
 		return vega;
 	}
 
@@ -181,12 +196,24 @@ public class EventTO extends DataTransferObject {
 		this.vega = vega;
 	}
 
-	public boolean getVegee() {
+	public boolean isVegee() {
 		return vegee;
 	}
 
 	public void setVegee(boolean vegee) {
 		this.vegee = vegee;
+	}
+
+	public int getEventId() {
+		return eventId;
+	}
+
+	public void setEventId(int eventId) {
+		this.eventId = eventId;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 }

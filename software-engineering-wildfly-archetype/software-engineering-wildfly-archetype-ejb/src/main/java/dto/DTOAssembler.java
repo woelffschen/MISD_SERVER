@@ -34,7 +34,7 @@ public class DTOAssembler {
 		result.setEventId(event.getEventId());
 		result.setComments(event.getComments());
 		result.setEventCity(event.getEventCity());
-		result.setEventDateTime(event.getEventDateTime());
+		result.setDateTime(event.getEventDateTime());
 		result.setEventId(event.getEventId());
 		result.setEventOwner(event.getEventOwner());
 		result.setEventPostalCode(event.getEventPostalCode());

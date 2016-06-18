@@ -3,17 +3,14 @@
 package entities;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
 public class User implements Serializable {
@@ -140,10 +137,12 @@ public class User implements Serializable {
 		return attendance;
 	}
 	
-	public Session getsSession() {
+	public Session getSession() {
 		return session;
-
-		
+	}
+	
+	public void setSession(Session session) {
+		this.session = session;
 	}
 	
 }

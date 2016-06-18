@@ -60,7 +60,7 @@ public class AttendanceInterface {
 
 	// bei Attendance (außer bei request) nur int status zurück
 	
-	public AttendanceResponse cancelAttendance(int sessionId, int eventId) {
+	public AttendanceResponse cancelAttendance(int sessionId, int eventId, String email) {
 		AttendanceResponse response = new AttendanceResponse();
 		try {
 			Session session = getSession(sessionId);

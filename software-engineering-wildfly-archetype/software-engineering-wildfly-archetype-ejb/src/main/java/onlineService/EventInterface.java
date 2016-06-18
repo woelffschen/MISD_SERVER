@@ -44,7 +44,7 @@ public class EventInterface {
 			return session;
 	}
 
-	public SingleEventResponse getEvent(int sessionId, int eventId) {
+	public SingleEventResponse getEvent(int eventId) {
 		SingleEventResponse response = new SingleEventResponse();
 
 		Event event = edao.findEventById(eventId);

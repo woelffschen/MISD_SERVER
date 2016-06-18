@@ -2,6 +2,7 @@ package entities;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,6 +14,7 @@ public class Session {
 	@Id
 	@GeneratedValue
 	private int sessionId;
+	
 	@OneToOne
 	private User user;
 
