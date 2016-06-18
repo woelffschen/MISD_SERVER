@@ -2,9 +2,6 @@
 
 package dao;
 
-import java.math.BigInteger;
-import java.util.Calendar;
-
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

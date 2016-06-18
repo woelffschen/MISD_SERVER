@@ -41,7 +41,7 @@ public class AttendanceInterface {
 	}
 
 	private Event getEvent(int eventId) throws NotAllowedException {
-		Event event = edao.findEventById(eventId);
+		Event event = this.edao.findEventById(eventId);
 		if (event == null)
 			throw new NotAllowedException("This action is not allowed!");
 		else
@@ -55,6 +55,8 @@ public class AttendanceInterface {
 		else
 			return user;
 	}
+	
+//	private Attendance getAttendance()
 
 	// bei Attendance (außer bei request) nur int status zurück
 	
@@ -65,6 +67,8 @@ public class AttendanceInterface {
 			Event event = getEvent(eventId);
 
 			this.adao.cancelAttendance(event, session.getUser());
+//			response.setStatus(event.get);
+			
 		} catch (NotAllowedException n) {
 			response.setReturnCode(n.getErrorCode());
 			response.setMessage(n.getMessage());

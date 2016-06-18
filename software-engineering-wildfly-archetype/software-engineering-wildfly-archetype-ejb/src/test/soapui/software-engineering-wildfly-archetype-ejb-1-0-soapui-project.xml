@@ -1,0 +1,1038 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="54dd3f94-d478-45bc-88a5-76c2af9f95f9" activeEnvironment="Default" name="software-engineering-wildfly-archetype-ejb-1.0" resourceRoot="" soapui-version="5.2.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="e0419f0f-1823-4618-9bd8-375cbe9bb83b" wsaVersion="NONE" name="EventInterfaceServiceSoapBinding" type="wsdl" bindingName="{http://onlineService/}EventInterfaceServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/software-engineering-wildfly-archetype-ejb-1.0.0/EventInterface?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/software-engineering-wildfly-archetype-ejb-1.0.0/EventInterface?wsdl"><con:part><con:url>http://localhost:8080/software-engineering-wildfly-archetype-ejb-1.0.0/EventInterface?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="EventInterfaceService" targetNamespace="http://onlineService/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://onlineService/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http">
+  <wsdl:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://onlineService/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="createEvent" type="tns:createEvent"/>
+      <xs:element name="createEventResponse" type="tns:createEventResponse"/>
+      <xs:element name="deleteEvent" type="tns:deleteEvent"/>
+      <xs:element name="deleteEventResponse" type="tns:deleteEventResponse"/>
+      <xs:element name="getEvent" type="tns:getEvent"/>
+      <xs:element name="getEventResponse" type="tns:getEventResponse"/>
+      <xs:element name="getEvents" type="tns:getEvents"/>
+      <xs:element name="getEventsByCity" type="tns:getEventsByCity"/>
+      <xs:element name="getEventsByCityResponse" type="tns:getEventsByCityResponse"/>
+      <xs:element name="getEventsByEmail" type="tns:getEventsByEmail"/>
+      <xs:element name="getEventsByEmailResponse" type="tns:getEventsByEmailResponse"/>
+      <xs:element name="getEventsResponse" type="tns:getEventsResponse"/>
+      <xs:complexType name="getEventsByEmail">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+          <xs:element name="arg1" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getEventsByEmailResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:eventFilterCityListResponse"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="eventFilterCityListResponse">
+        <xs:complexContent>
+          <xs:extension base="tns:returnCodeResponse">
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" minOccurs="0" name="eventList" nillable="true" type="tns:eventTO"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="returnCodeResponse">
+        <xs:complexContent>
+          <xs:extension base="tns:dataTransferObject">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="message" type="xs:string"/>
+              <xs:element name="returnCode" type="xs:int"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType abstract="true" name="dataTransferObject">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:complexType name="eventTO">
+        <xs:complexContent>
+          <xs:extension base="tns:dataTransferObject">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="comments" type="xs:string"/>
+              <xs:element minOccurs="0" name="eventCity" type="xs:string"/>
+              <xs:element name="eventDateTime" type="xs:int"/>
+              <xs:element minOccurs="0" name="eventOwner" type="xs:string"/>
+              <xs:element name="eventPostalCode" type="xs:int"/>
+              <xs:element name="fructose" type="xs:boolean"/>
+              <xs:element name="gender" type="xs:unsignedShort"/>
+              <xs:element name="gluten" type="xs:boolean"/>
+              <xs:element name="lactose" type="xs:boolean"/>
+              <xs:element name="maxAge" type="xs:int"/>
+              <xs:element name="menueId" type="xs:int"/>
+              <xs:element name="minAge" type="xs:int"/>
+              <xs:element minOccurs="0" name="name" type="xs:string"/>
+              <xs:element name="sorbit" type="xs:boolean"/>
+              <xs:element name="vega" type="xs:boolean"/>
+              <xs:element name="vegee" type="xs:boolean"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="deleteEvent">
+        <xs:sequence>
+          <xs:element name="arg0" type="xs:int"/>
+          <xs:element minOccurs="0" name="arg1" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="deleteEventResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:returnCodeResponse"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="createEvent">
+        <xs:sequence>
+          <xs:element name="arg0" type="xs:int"/>
+          <xs:element name="arg1" type="xs:int"/>
+          <xs:element name="arg2" type="xs:int"/>
+          <xs:element minOccurs="0" name="arg3" type="xs:string"/>
+          <xs:element name="arg4" type="xs:int"/>
+          <xs:element minOccurs="0" name="arg5" type="xs:string"/>
+          <xs:element minOccurs="0" name="arg6" type="xs:string"/>
+          <xs:element name="arg7" type="xs:unsignedShort"/>
+          <xs:element name="arg8" type="xs:int"/>
+          <xs:element minOccurs="0" name="arg9" type="xs:string"/>
+          <xs:element minOccurs="0" name="arg10" type="xs:string"/>
+          <xs:element name="arg11" type="xs:boolean"/>
+          <xs:element name="arg12" type="xs:boolean"/>
+          <xs:element name="arg13" type="xs:boolean"/>
+          <xs:element name="arg14" type="xs:boolean"/>
+          <xs:element name="arg15" type="xs:boolean"/>
+          <xs:element name="arg16" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="createEventResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:eventResponse"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="eventResponse">
+        <xs:complexContent>
+          <xs:extension base="tns:returnCodeResponse">
+            <xs:sequence>
+              <xs:element name="eventId" type="xs:int"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="getEventsByCity">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+          <xs:element name="arg1" type="xs:int"/>
+          <xs:element minOccurs="0" name="arg2" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getEventsByCityResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:eventFilterCityListResponse"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getEvent">
+        <xs:sequence>
+          <xs:element name="arg0" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getEventResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:event"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="event">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="comments" type="xs:string"/>
+          <xs:element minOccurs="0" name="eventCity" type="xs:string"/>
+          <xs:element name="eventDateTime" type="xs:int"/>
+          <xs:element minOccurs="0" name="eventOwner" type="xs:string"/>
+          <xs:element name="eventPostalCode" type="xs:int"/>
+          <xs:element minOccurs="0" name="eventStreet" type="xs:string"/>
+          <xs:element name="gender" type="xs:unsignedShort"/>
+          <xs:element name="maxAge" type="xs:int"/>
+          <xs:element minOccurs="0" name="menue" type="tns:menue"/>
+          <xs:element name="minAge" type="xs:int"/>
+          <xs:element name="takePlace" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="menue">
+        <xs:sequence>
+          <xs:element name="fructose" type="xs:boolean"/>
+          <xs:element name="gluten" type="xs:boolean"/>
+          <xs:element name="lactose" type="xs:boolean"/>
+          <xs:element minOccurs="0" name="name" type="xs:string"/>
+          <xs:element name="sorbit" type="xs:boolean"/>
+          <xs:element name="vegan" type="xs:boolean"/>
+          <xs:element name="vegetarian" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getEvents">
+        <xs:sequence>
+          <xs:element name="arg0" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getEventsResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:eventFilterCityListResponse"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="NotAllowedException" type="tns:NotAllowedException"/>
+      <xs:complexType name="NotAllowedException">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="errorCode" type="xs:int"/>
+          <xs:element minOccurs="0" name="message" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="deleteEventResponse">
+    <wsdl:part element="tns:deleteEventResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createEventResponse">
+    <wsdl:part element="tns:createEventResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getEventsResponse">
+    <wsdl:part element="tns:getEventsResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteEvent">
+    <wsdl:part element="tns:deleteEvent" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createEvent">
+    <wsdl:part element="tns:createEvent" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getEventResponse">
+    <wsdl:part element="tns:getEventResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getEvents">
+    <wsdl:part element="tns:getEvents" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getEventsByCityResponse">
+    <wsdl:part element="tns:getEventsByCityResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getEventsByEmail">
+    <wsdl:part element="tns:getEventsByEmail" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="NotAllowedException">
+    <wsdl:part element="tns:NotAllowedException" name="NotAllowedException"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getEventsByCity">
+    <wsdl:part element="tns:getEventsByCity" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getEventsByEmailResponse">
+    <wsdl:part element="tns:getEventsByEmailResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getEvent">
+    <wsdl:part element="tns:getEvent" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="EventInterface">
+    <wsdl:operation name="getEventsByEmail">
+      <wsdl:input message="tns:getEventsByEmail" name="getEventsByEmail"></wsdl:input>
+      <wsdl:output message="tns:getEventsByEmailResponse" name="getEventsByEmailResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteEvent">
+      <wsdl:input message="tns:deleteEvent" name="deleteEvent"></wsdl:input>
+      <wsdl:output message="tns:deleteEventResponse" name="deleteEventResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createEvent">
+      <wsdl:input message="tns:createEvent" name="createEvent"></wsdl:input>
+      <wsdl:output message="tns:createEventResponse" name="createEventResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getEventsByCity">
+      <wsdl:input message="tns:getEventsByCity" name="getEventsByCity"></wsdl:input>
+      <wsdl:output message="tns:getEventsByCityResponse" name="getEventsByCityResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getEvent">
+      <wsdl:input message="tns:getEvent" name="getEvent"></wsdl:input>
+      <wsdl:output message="tns:getEventResponse" name="getEventResponse"></wsdl:output>
+      <wsdl:fault message="tns:NotAllowedException" name="NotAllowedException"></wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getEvents">
+      <wsdl:input message="tns:getEvents" name="getEvents"></wsdl:input>
+      <wsdl:output message="tns:getEventsResponse" name="getEventsResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="EventInterfaceServiceSoapBinding" type="tns:EventInterface">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getEventsByEmail">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getEventsByEmail">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getEventsByEmailResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteEvent">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="deleteEvent">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="deleteEventResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createEvent">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="createEvent">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="createEventResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getEventsByCity">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getEventsByCity">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getEventsByCityResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getEvent">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getEvent">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getEventResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="NotAllowedException">
+        <soap:fault name="NotAllowedException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getEvents">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getEvents">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getEventsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="EventInterfaceService">
+    <wsdl:port binding="tns:EventInterfaceServiceSoapBinding" name="EventInterfacePort">
+      <soap:address location="http://localhost:8080/software-engineering-wildfly-archetype-ejb-1.0.0/EventInterface"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/software-engineering-wildfly-archetype-ejb-1.0.0/EventInterface</con:endpoint></con:endpoints><con:operation id="5d0db819-ec83-4cd1-be43-2c26c4831eea" isOneWay="false" action="" name="createEvent" bindingOperationName="createEvent" type="Request-Response" outputName="createEventResponse" inputName="createEvent" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="c3ddebf2-f08a-4361-b23e-171651ba3f53" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/software-engineering-wildfly-archetype-ejb-1.0.0/EventInterface</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:onl="http://onlineService/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <onl:createEvent>\r
+         <arg0>1</arg0>\r
+         <!--Optional:-->\r
+         <arg1>25</arg1>\r
+         <arg2>35</arg2>\r
+         <arg3>Straße</arg3>\r
+         <!--Optional:-->\r
+         <arg4>12345</arg4>\r
+         <arg5>Stadt</arg5>\r
+         <!--Optional:-->\r
+         <arg6>comments</arg6>\r
+         <!--Optional:-->\r
+         <arg7>114</arg7>\r
+         <arg8>25</arg8>\r
+         <!--Optional:-->\r
+         <arg9>Email2</arg9>\r
+         <!--Optional:-->\r
+         <arg10>Menue</arg10>\r
+         <!--Optional:-->\r
+         <arg11>false</arg11>\r
+         <arg12>true</arg12>\r
+         <arg13>false</arg13>\r
+         <arg14>true</arg14>\r
+         <arg15>false</arg15>\r
+         <arg16>true</arg16>\r\r
+      </onl:createEvent>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://onlineService/EventInterface/createEvent"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="df87778e-f606-4c18-8857-ad823c5c548d" isOneWay="false" action="" name="deleteEvent" bindingOperationName="deleteEvent" type="Request-Response" outputName="deleteEventResponse" inputName="deleteEvent" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="4930a028-83cd-458b-adaf-b84ee88baeed" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/software-engineering-wildfly-archetype-ejb-1.0.0/EventInterface</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:onl="http://onlineService/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <onl:deleteEvent>\r
+         <arg0>?</arg0>\r
+         <!--Optional:-->\r
+         <arg1>?</arg1>\r
+      </onl:deleteEvent>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://onlineService/EventInterface/deleteEvent"/></con:call></con:operation><con:operation id="75e14182-e7df-4f7f-970d-6cded6c740da" isOneWay="false" action="" name="getEventsByEmail" bindingOperationName="getEventsByEmail" type="Request-Response" outputName="getEventsByEmailResponse" inputName="getEventsByEmail" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="0cf39d53-bf78-4777-8d05-58d86eabebd8" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/software-engineering-wildfly-archetype-ejb-1.0.0/EventInterface</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:onl="http://onlineService/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <onl:getEventsByEmail>\r
+         <!--Optional:-->\r
+         <arg0>Email</arg0>\r
+         <arg1>1</arg1>\r
+      </onl:getEventsByEmail>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://onlineService/EventInterface/getEventsByEmail"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="60507ae1-4767-4375-be47-f050772b1290" isOneWay="false" action="" name="getEventsByCity" bindingOperationName="getEventsByCity" type="Request-Response" outputName="getEventsByCityResponse" inputName="getEventsByCity" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="2d88eefa-7f6d-48cd-a5b4-27594e0c77ec" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/software-engineering-wildfly-archetype-ejb-1.0.0/EventInterface</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:onl="http://onlineService/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <onl:getEventsByCity>\r
+         <!--Optional:-->\r
+         <arg0>Email</arg0>\r
+         <arg1>1</arg1>\r
+         <!--Optional:-->\r
+         <arg2>Nordhorn</arg2>\r
+      </onl:getEventsByCity>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://onlineService/EventInterface/getEventsByCity"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="e2560ae6-c3c8-480c-a976-e9a63e9a9115" isOneWay="false" action="" name="getEvent" bindingOperationName="getEvent" type="Request-Response" outputName="getEventResponse" inputName="getEvent" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="6417f0fb-ec57-4ce7-92d9-55a8c2b619c4" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/software-engineering-wildfly-archetype-ejb-1.0.0/EventInterface</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:onl="http://onlineService/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <onl:getEvent>\r
+         <arg0>?</arg0>\r
+      </onl:getEvent>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://onlineService/EventInterface/getEvent"/></con:call></con:operation><con:operation id="2cf00edf-510d-4073-bf13-8f369fceddc9" isOneWay="false" action="" name="getEvents" bindingOperationName="getEvents" type="Request-Response" outputName="getEventsResponse" inputName="getEvents" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="b6cb3062-58be-482a-8f4d-61fbd3bd6677" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/software-engineering-wildfly-archetype-ejb-1.0.0/EventInterface</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:onl="http://onlineService/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <onl:getEvents>\r
+         <arg0>1</arg0>\r
+      </onl:getEvents>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://onlineService/EventInterface/getEvents"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" id="2353b032-b52f-48e1-b454-44a511312da2" wsaVersion="NONE" name="AttendanceInterfaceServiceSoapBinding" type="wsdl" bindingName="{http://onlineService/}AttendanceInterfaceServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/software-engineering-wildfly-archetype-ejb-1.0.0/AttendanceInterface?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/software-engineering-wildfly-archetype-ejb-1.0.0/AttendanceInterface?wsdl"><con:part><con:url>http://localhost:8080/software-engineering-wildfly-archetype-ejb-1.0.0/AttendanceInterface?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="AttendanceInterfaceService" targetNamespace="http://onlineService/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://onlineService/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http">
+  <wsdl:types>
+    <xs:schema elementFormDefault="unqualified" targetNamespace="http://onlineService/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="cancelAttendance" type="tns:cancelAttendance"/>
+      <xs:element name="cancelAttendanceResponse" type="tns:cancelAttendanceResponse"/>
+      <xs:element name="confirmAttendance" type="tns:confirmAttendance"/>
+      <xs:element name="confirmAttendanceResponse" type="tns:confirmAttendanceResponse"/>
+      <xs:element name="rejectAttendance" type="tns:rejectAttendance"/>
+      <xs:element name="rejectAttendanceResponse" type="tns:rejectAttendanceResponse"/>
+      <xs:element name="requestAttendance" type="tns:requestAttendance"/>
+      <xs:element name="requestAttendanceResponse" type="tns:requestAttendanceResponse"/>
+      <xs:complexType name="cancelAttendance">
+        <xs:sequence>
+          <xs:element name="arg0" type="xs:int"/>
+          <xs:element name="arg1" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="cancelAttendanceResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:attendanceResponse"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="attendanceResponse">
+        <xs:complexContent>
+          <xs:extension base="tns:returnCodeResponse">
+            <xs:sequence>
+              <xs:element name="status" type="xs:int"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="returnCodeResponse">
+        <xs:complexContent>
+          <xs:extension base="tns:dataTransferObject">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="message" type="xs:string"/>
+              <xs:element name="returnCode" type="xs:int"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType abstract="true" name="dataTransferObject">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:complexType name="rejectAttendance">
+        <xs:sequence>
+          <xs:element name="arg0" type="xs:int"/>
+          <xs:element name="arg1" type="xs:int"/>
+          <xs:element minOccurs="0" name="arg2" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="rejectAttendanceResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:attendanceResponse"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="requestAttendance">
+        <xs:sequence>
+          <xs:element name="arg0" type="xs:int"/>
+          <xs:element name="arg1" type="xs:int"/>
+          <xs:element minOccurs="0" name="arg2" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="requestAttendanceResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:attendanceResponse"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="confirmAttendance">
+        <xs:sequence>
+          <xs:element name="arg0" type="xs:int"/>
+          <xs:element name="arg1" type="xs:int"/>
+          <xs:element minOccurs="0" name="arg2" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="confirmAttendanceResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:attendanceResponse"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="requestAttendanceResponse">
+    <wsdl:part element="tns:requestAttendanceResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cancelAttendance">
+    <wsdl:part element="tns:cancelAttendance" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="requestAttendance">
+    <wsdl:part element="tns:requestAttendance" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="confirmAttendanceResponse">
+    <wsdl:part element="tns:confirmAttendanceResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cancelAttendanceResponse">
+    <wsdl:part element="tns:cancelAttendanceResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="rejectAttendance">
+    <wsdl:part element="tns:rejectAttendance" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="rejectAttendanceResponse">
+    <wsdl:part element="tns:rejectAttendanceResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="confirmAttendance">
+    <wsdl:part element="tns:confirmAttendance" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="AttendanceInterface">
+    <wsdl:operation name="cancelAttendance">
+      <wsdl:input message="tns:cancelAttendance" name="cancelAttendance"></wsdl:input>
+      <wsdl:output message="tns:cancelAttendanceResponse" name="cancelAttendanceResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="rejectAttendance">
+      <wsdl:input message="tns:rejectAttendance" name="rejectAttendance"></wsdl:input>
+      <wsdl:output message="tns:rejectAttendanceResponse" name="rejectAttendanceResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="requestAttendance">
+      <wsdl:input message="tns:requestAttendance" name="requestAttendance"></wsdl:input>
+      <wsdl:output message="tns:requestAttendanceResponse" name="requestAttendanceResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="confirmAttendance">
+      <wsdl:input message="tns:confirmAttendance" name="confirmAttendance"></wsdl:input>
+      <wsdl:output message="tns:confirmAttendanceResponse" name="confirmAttendanceResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AttendanceInterfaceServiceSoapBinding" type="tns:AttendanceInterface">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="cancelAttendance">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="cancelAttendance">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cancelAttendanceResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="rejectAttendance">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="rejectAttendance">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="rejectAttendanceResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="requestAttendance">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="requestAttendance">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="requestAttendanceResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="confirmAttendance">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="confirmAttendance">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="confirmAttendanceResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AttendanceInterfaceService">
+    <wsdl:port binding="tns:AttendanceInterfaceServiceSoapBinding" name="AttendanceInterfacePort">
+      <soap:address location="http://localhost:8080/software-engineering-wildfly-archetype-ejb-1.0.0/AttendanceInterface"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/software-engineering-wildfly-archetype-ejb-1.0.0/AttendanceInterface</con:endpoint></con:endpoints><con:operation id="1b27f85d-75a4-455e-98be-03cd932169a8" isOneWay="false" action="" name="cancelAttendance" bindingOperationName="cancelAttendance" type="Request-Response" outputName="cancelAttendanceResponse" inputName="cancelAttendance" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="38d88e63-94c5-4b3b-9003-c6611962e435" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/software-engineering-wildfly-archetype-ejb-1.0.0/AttendanceInterface</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:onl="http://onlineService/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <onl:cancelAttendance>\r
+         <arg0>?</arg0>\r
+         <arg1>?</arg1>\r
+         <arg2>?</arg2>\r
+      </onl:cancelAttendance>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://onlineService/AttendanceInterface/cancelAttendance"/></con:call></con:operation><con:operation id="abad2593-6f65-4abb-b840-69079f8d2d8e" isOneWay="false" action="" name="confirmAttendance" bindingOperationName="confirmAttendance" type="Request-Response" outputName="confirmAttendanceResponse" inputName="confirmAttendance" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="3a233476-afab-4073-baa6-ee1878830b67" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/software-engineering-wildfly-archetype-ejb-1.0.0/AttendanceInterface</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:onl="http://onlineService/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <onl:confirmAttendance>\r
+         <arg0>?</arg0>\r
+         <arg1>?</arg1>\r
+         <arg2>?</arg2>\r
+         <arg3>?</arg3>\r
+      </onl:confirmAttendance>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://onlineService/AttendanceInterface/confirmAttendance"/><con:wsrmConfig version="1.2"/></con:call><con:call id="ba6e1731-55be-4ae5-a67d-1badbd4ee780" name="Request 2"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/software-engineering-wildfly-archetype-ejb-1.0.0/AttendanceInterface</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:onl="http://onlineService/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <onl:confirmAttendance>\r
+         <arg0>1</arg0>\r
+         <arg1>4</arg1>\r
+         <!--Optional:-->\r
+         <arg2>ZweiteEmail</arg2>\r
+      </onl:confirmAttendance>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://onlineService/AttendanceInterface/confirmAttendance"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="24fd5fb3-8d62-44b6-b9f6-6563cc838239" isOneWay="false" action="" name="rejectAttendance" bindingOperationName="rejectAttendance" type="Request-Response" outputName="rejectAttendanceResponse" inputName="rejectAttendance" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="9541476a-c345-4bf9-a49c-5612435adb0b" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/software-engineering-wildfly-archetype-ejb-1.0.0/AttendanceInterface</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:onl="http://onlineService/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <onl:rejectAttendance>\r
+         <arg0>?</arg0>\r
+         <arg1>?</arg1>\r
+         <arg2>?</arg2>\r
+      </onl:rejectAttendance>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://onlineService/AttendanceInterface/rejectAttendance"/></con:call></con:operation><con:operation id="dbc581dd-a28b-422f-aff2-63d8a3e6e9c6" isOneWay="false" action="" name="requestAttendance" bindingOperationName="requestAttendance" type="Request-Response" outputName="requestAttendanceResponse" inputName="requestAttendance" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="77b44b3e-bb59-4185-a581-029f7cdd7959" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/software-engineering-wildfly-archetype-ejb-1.0.0/AttendanceInterface</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:onl="http://onlineService/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <onl:requestAttendance>\r
+         <arg0>2</arg0>\r
+         <arg1>4</arg1>\r
+         <!--Optional:-->\r
+         <arg2>ZweiteEmail</arg2>\r
+      </onl:requestAttendance>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://onlineService/AttendanceInterface/requestAttendance"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" id="884b7bcd-aea8-4a69-8ed6-86fb10bb41a5" wsaVersion="NONE" name="UserInterfaceServiceSoapBinding" type="wsdl" bindingName="{http://onlineService/}UserInterfaceServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/software-engineering-wildfly-archetype-ejb-1.0.0/UserInterface?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/software-engineering-wildfly-archetype-ejb-1.0.0/UserInterface?wsdl"><con:part><con:url>http://localhost:8080/software-engineering-wildfly-archetype-ejb-1.0.0/UserInterface?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="UserInterfaceService" targetNamespace="http://onlineService/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://onlineService/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http">
+  <wsdl:types>
+    <xs:schema elementFormDefault="unqualified" targetNamespace="http://onlineService/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="deleteUser" type="tns:deleteUser"/>
+      <xs:element name="deleteUserResponse" type="tns:deleteUserResponse"/>
+      <xs:element name="getPrivateUserData" type="tns:getPrivateUserData"/>
+      <xs:element name="getPrivateUserDataResponse" type="tns:getPrivateUserDataResponse"/>
+      <xs:element name="getPublicData" type="tns:getPublicData"/>
+      <xs:element name="getPublicDataResponse" type="tns:getPublicDataResponse"/>
+      <xs:element name="getPublicUserData" type="tns:getPublicUserData"/>
+      <xs:element name="getPublicUserDataResponse" type="tns:getPublicUserDataResponse"/>
+      <xs:element name="loginUser" type="tns:loginUser"/>
+      <xs:element name="loginUserResponse" type="tns:loginUserResponse"/>
+      <xs:element name="logout" type="tns:logout"/>
+      <xs:element name="logoutResponse" type="tns:logoutResponse"/>
+      <xs:element name="registerUser" type="tns:registerUser"/>
+      <xs:element name="registerUserResponse" type="tns:registerUserResponse"/>
+      <xs:complexType name="deleteUser">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+          <xs:element name="arg1" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="deleteUserResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:returnCodeResponse"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="returnCodeResponse">
+        <xs:complexContent>
+          <xs:extension base="tns:dataTransferObject">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="message" type="xs:string"/>
+              <xs:element name="returnCode" type="xs:int"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType abstract="true" name="dataTransferObject">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:complexType name="registerUser">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+          <xs:element minOccurs="0" name="arg1" type="xs:string"/>
+          <xs:element minOccurs="0" name="arg2" type="xs:string"/>
+          <xs:element minOccurs="0" name="arg3" type="xs:string"/>
+          <xs:element name="arg4" type="xs:int"/>
+          <xs:element minOccurs="0" name="arg5" type="xs:string"/>
+          <xs:element name="arg6" type="xs:int"/>
+          <xs:element minOccurs="0" name="arg7" type="xs:string"/>
+          <xs:element name="arg8" type="xs:unsignedShort"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="registerUserResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:userResponse"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="userResponse">
+        <xs:complexContent>
+          <xs:extension base="tns:returnCodeResponse">
+            <xs:sequence>
+              <xs:element name="sessionId" type="xs:int"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="getPublicData">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getPublicDataResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:userTO"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="userTO">
+        <xs:complexContent>
+          <xs:extension base="tns:returnCodeResponse">
+            <xs:sequence>
+              <xs:element name="age" type="xs:int"/>
+              <xs:element minOccurs="0" name="city" type="xs:string"/>
+              <xs:element minOccurs="0" name="email" type="xs:string"/>
+              <xs:element minOccurs="0" name="firstname" type="xs:string"/>
+              <xs:element name="gender" type="xs:unsignedShort"/>
+              <xs:element minOccurs="0" name="lastname" type="xs:string"/>
+              <xs:element name="postalCode" type="xs:int"/>
+              <xs:element minOccurs="0" name="street" type="xs:string"/>
+              <xs:element minOccurs="0" name="telephoneNumber" type="xs:string"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="loginUser">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="loginUserResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:userResponse"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="logout">
+        <xs:sequence>
+          <xs:element name="arg0" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="logoutResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:returnCodeResponse"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getPrivateUserData">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+          <xs:element name="arg1" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getPrivateUserDataResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:privateUserResponse"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="privateUserResponse">
+        <xs:complexContent>
+          <xs:extension base="tns:returnCodeResponse">
+            <xs:sequence>
+              <xs:element name="age" type="xs:int"/>
+              <xs:element minOccurs="0" name="city" type="xs:string"/>
+              <xs:element minOccurs="0" name="comments" type="xs:string"/>
+              <xs:element minOccurs="0" name="email" type="xs:string"/>
+              <xs:element minOccurs="0" name="eventCity" type="xs:string"/>
+              <xs:element name="eventDateTime" type="xs:int"/>
+              <xs:element name="eventId" type="xs:int"/>
+              <xs:element minOccurs="0" name="eventOwner" type="xs:string"/>
+              <xs:element name="eventPostalCode" type="xs:int"/>
+              <xs:element minOccurs="0" name="eventStreet" type="xs:string"/>
+              <xs:element minOccurs="0" name="firstname" type="xs:string"/>
+              <xs:element name="gender" type="xs:unsignedShort"/>
+              <xs:element name="genderEvent" type="xs:unsignedShort"/>
+              <xs:element minOccurs="0" name="lastname" type="xs:string"/>
+              <xs:element name="maxAge" type="xs:int"/>
+              <xs:element name="menueId" type="xs:int"/>
+              <xs:element name="minAge" type="xs:int"/>
+              <xs:element name="takePlace" type="xs:boolean"/>
+              <xs:element minOccurs="0" name="telephoneNumber" type="xs:string"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="getPublicUserData">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+          <xs:element name="arg1" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getPublicUserDataResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:publicUserResponse"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="publicUserResponse">
+        <xs:complexContent>
+          <xs:extension base="tns:returnCodeResponse">
+            <xs:sequence>
+              <xs:element name="age" type="xs:int"/>
+              <xs:element minOccurs="0" name="city" type="xs:string"/>
+              <xs:element minOccurs="0" name="comments" type="xs:string"/>
+              <xs:element minOccurs="0" name="email" type="xs:string"/>
+              <xs:element minOccurs="0" name="eventCity" type="xs:string"/>
+              <xs:element name="eventDateTime" type="xs:int"/>
+              <xs:element name="eventId" type="xs:int"/>
+              <xs:element minOccurs="0" name="eventOwner" type="xs:string"/>
+              <xs:element name="eventPostalCode" type="xs:int"/>
+              <xs:element minOccurs="0" name="eventStreet" type="xs:string"/>
+              <xs:element minOccurs="0" name="firstname" type="xs:string"/>
+              <xs:element name="gender" type="xs:unsignedShort"/>
+              <xs:element name="genderEvent" type="xs:unsignedShort"/>
+              <xs:element minOccurs="0" name="lastname" type="xs:string"/>
+              <xs:element name="maxAge" type="xs:int"/>
+              <xs:element name="menueId" type="xs:int"/>
+              <xs:element name="minAge" type="xs:int"/>
+              <xs:element name="postalCode" type="xs:int"/>
+              <xs:element name="takePlace" type="xs:boolean"/>
+              <xs:element minOccurs="0" name="telephoneNumber" type="xs:string"/>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="deleteUserResponse">
+    <wsdl:part element="tns:deleteUserResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="registerUserResponse">
+    <wsdl:part element="tns:registerUserResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPublicUserDataResponse">
+    <wsdl:part element="tns:getPublicUserDataResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteUser">
+    <wsdl:part element="tns:deleteUser" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="registerUser">
+    <wsdl:part element="tns:registerUser" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPrivateUserDataResponse">
+    <wsdl:part element="tns:getPrivateUserDataResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPublicData">
+    <wsdl:part element="tns:getPublicData" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="loginUser">
+    <wsdl:part element="tns:loginUser" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="logout">
+    <wsdl:part element="tns:logout" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPublicDataResponse">
+    <wsdl:part element="tns:getPublicDataResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPublicUserData">
+    <wsdl:part element="tns:getPublicUserData" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="loginUserResponse">
+    <wsdl:part element="tns:loginUserResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="logoutResponse">
+    <wsdl:part element="tns:logoutResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getPrivateUserData">
+    <wsdl:part element="tns:getPrivateUserData" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="UserInterface">
+    <wsdl:operation name="deleteUser">
+      <wsdl:input message="tns:deleteUser" name="deleteUser"></wsdl:input>
+      <wsdl:output message="tns:deleteUserResponse" name="deleteUserResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="registerUser">
+      <wsdl:input message="tns:registerUser" name="registerUser"></wsdl:input>
+      <wsdl:output message="tns:registerUserResponse" name="registerUserResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPublicData">
+      <wsdl:input message="tns:getPublicData" name="getPublicData"></wsdl:input>
+      <wsdl:output message="tns:getPublicDataResponse" name="getPublicDataResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="loginUser">
+      <wsdl:input message="tns:loginUser" name="loginUser"></wsdl:input>
+      <wsdl:output message="tns:loginUserResponse" name="loginUserResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="logout">
+      <wsdl:input message="tns:logout" name="logout"></wsdl:input>
+      <wsdl:output message="tns:logoutResponse" name="logoutResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPrivateUserData">
+      <wsdl:input message="tns:getPrivateUserData" name="getPrivateUserData"></wsdl:input>
+      <wsdl:output message="tns:getPrivateUserDataResponse" name="getPrivateUserDataResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPublicUserData">
+      <wsdl:input message="tns:getPublicUserData" name="getPublicUserData"></wsdl:input>
+      <wsdl:output message="tns:getPublicUserDataResponse" name="getPublicUserDataResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="UserInterfaceServiceSoapBinding" type="tns:UserInterface">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="deleteUser">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="deleteUser">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="deleteUserResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="registerUser">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="registerUser">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="registerUserResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPublicData">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getPublicData">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPublicDataResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="loginUser">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="loginUser">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="loginUserResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="logout">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="logout">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="logoutResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPrivateUserData">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getPrivateUserData">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPrivateUserDataResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPublicUserData">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getPublicUserData">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getPublicUserDataResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="UserInterfaceService">
+    <wsdl:port binding="tns:UserInterfaceServiceSoapBinding" name="UserInterfacePort">
+      <soap:address location="http://localhost:8080/software-engineering-wildfly-archetype-ejb-1.0.0/UserInterface"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/software-engineering-wildfly-archetype-ejb-1.0.0/UserInterface</con:endpoint></con:endpoints><con:operation id="9ec48dc5-e77d-46c6-947d-17c289e0bd25" isOneWay="false" action="" name="deleteUser" bindingOperationName="deleteUser" type="Request-Response" outputName="deleteUserResponse" inputName="deleteUser" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="e2234b8f-a03e-41ba-8b3d-a99e629afbb8" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/software-engineering-wildfly-archetype-ejb-1.0.0/UserInterface</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:onl="http://onlineService/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <onl:deleteUser>\r
+         <!--Optional:-->\r
+         <arg0>?</arg0>\r
+         <arg1>?</arg1>\r
+      </onl:deleteUser>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://onlineService/UserInterface/deleteUser"/></con:call></con:operation><con:operation id="ecce52ad-9590-48fd-8a1e-973da597c6bf" isOneWay="false" action="" name="getPrivateUserData" bindingOperationName="getPrivateUserData" type="Request-Response" outputName="getPrivateUserDataResponse" inputName="getPrivateUserData" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="3437573f-638a-4a0d-8a5b-9811ff9cc1f4" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/software-engineering-wildfly-archetype-ejb-1.0.0/UserInterface</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:onl="http://onlineService/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <onl:getPrivateUserData>\r
+         <!--Optional:-->\r
+         <arg0>Email</arg0>\r
+         <arg1>3</arg1>\r
+      </onl:getPrivateUserData>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://onlineService/UserInterface/getPrivateUserData"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="03f93914-ab70-466b-90aa-f8b492d92355" isOneWay="false" action="" name="getPublicUserData" bindingOperationName="getPublicUserData" type="Request-Response" outputName="getPublicUserDataResponse" inputName="getPublicUserData" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="3af076f4-1076-45ae-b004-5729e87ccfef" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/software-engineering-wildfly-archetype-ejb-1.0.0/UserInterface</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:onl="http://onlineService/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <onl:getPublicUserData>\r
+         <!--Optional:-->\r
+         <arg0>Email</arg0>\r
+         <arg1>3</arg1>\r
+      </onl:getPublicUserData>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://onlineService/UserInterface/getPublicUserData"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="a2cfbfad-03e3-4251-83f4-23deb6f74779" isOneWay="false" action="" name="loginUser" bindingOperationName="loginUser" type="Request-Response" outputName="loginUserResponse" inputName="loginUser" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="46f3f685-9f71-4c1c-a8ed-65c39ab25558" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/software-engineering-wildfly-archetype-ejb-1.0.0/UserInterface</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:onl="http://onlineService/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <onl:loginUser>\r
+         <!--Optional:-->\r
+         <arg0>Email</arg0>\r
+      </onl:loginUser>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://onlineService/UserInterface/loginUser"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="63317d76-5602-421e-b57a-9aad31017a22" isOneWay="false" action="" name="logout" bindingOperationName="logout" type="Request-Response" outputName="logoutResponse" inputName="logout" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="4162396c-d12b-4c88-b489-9d8cd45708b3" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/software-engineering-wildfly-archetype-ejb-1.0.0/UserInterface</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:onl="http://onlineService/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <onl:logout>\r
+         <arg0>1</arg0>\r
+      </onl:logout>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://onlineService/UserInterface/logout"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="ee93221b-67ef-416c-bb74-36b117ce3097" isOneWay="false" action="" name="registerUser" bindingOperationName="registerUser" type="Request-Response" outputName="registerUserResponse" inputName="registerUser" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="c513553c-1258-4386-b8d2-9ef8114ce19a" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/software-engineering-wildfly-archetype-ejb-1.0.0/UserInterface</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:onl="http://onlineService/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <onl:registerUser>\r
+         <!--Optional:-->\r
+         <arg0>Email2</arg0>\r
+         <!--Optional:-->\r
+         <arg1>Nachname</arg1>\r
+         <!--Optional:-->\r
+         <arg2>Vorname</arg2>\r
+         <!--Optional:-->\r
+         <arg3>Straße</arg3>\r
+         <arg4>98765</arg4>\r
+         <!--Optional:-->\r
+         <arg5>Stadt</arg5>\r
+         <!--Optional:-->\r
+         <arg6>5555</arg6>\r
+         <!--Optional:-->\r
+         <arg7>025199999xy</arg7>\r
+         <arg8>114</arg8>\r
+      </onl:registerUser>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://onlineService/UserInterface/registerUser"/><con:wsrmConfig version="1.2"/></con:call><con:call id="d10f59aa-4e79-4cdf-b053-59a30c056823" name="Request 2"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/software-engineering-wildfly-archetype-ejb-1.0.0/UserInterface</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:onl="http://onlineService/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <onl:registerUser>\r
+         <!--Optional:-->\r
+         <arg0>ZweiteEmail</arg0>\r
+         <!--Optional:-->\r
+         <arg1>Nachname</arg1>\r
+         <!--Optional:-->\r
+         <arg2>Vorname</arg2>\r
+         <!--Optional:-->\r
+         <arg3>Straße</arg3>\r
+         <arg4>98765</arg4>\r
+         <!--Optional:-->\r
+         <arg5>Stadt</arg5>\r
+         <!--Optional:-->\r
+         <arg6>5555</arg6>\r
+         <!--Optional:-->\r
+         <arg7>025199999xy</arg7>\r
+         <arg8>114</arg8>\r
+      </onl:registerUser>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://onlineService/UserInterface/registerUser"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="93c8c95c-9f8f-443c-9463-ea54ddb2ba0c" isOneWay="false" action="" name="getPublicData" bindingOperationName="getPublicData" type="Request-Response" outputName="getPublicDataResponse" inputName="getPublicData" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="66c9c1be-066a-44f5-9530-550c9b124552" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/software-engineering-wildfly-archetype-ejb-1.0.0/UserInterface</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:onl="http://onlineService/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <onl:getPublicData>\r
+         <!--Optional:-->\r
+         <arg0>Email</arg0>\r
+      </onl:getPublicData>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://onlineService/UserInterface/getPublicData"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/></con:soapui-project>

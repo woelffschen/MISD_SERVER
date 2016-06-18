@@ -11,6 +11,13 @@
     <artifactId>software-engineering-wildfly-archetype-ejb</artifactId>
     <packaging>ejb</packaging>
 
+	<pluginRepositories>
+		<pluginRepository>
+			<id>smartbear-sweden-plugin-repository</id>
+			<url>http://www.soapui.org/repository/maven2/</url>
+		</pluginRepository>
+	</pluginRepositories>
+
 
     <dependencies>
 
@@ -71,6 +78,15 @@
                     <filterDeploymentDescriptor>true</filterDeploymentDescriptor>
                 </configuration>
             </plugin>
+            <plugin>
+				<groupId>com.smartbear.soapui</groupId>
+				<artifactId>soapui-maven-plugin</artifactId>
+				<version>5.2.1</version>
+				<configuration>
+					<projectFile>src/test/soapui/software-engineering-wildfly-archetype-ejb-1-0-soapui-project</projectFile>
+				</configuration>
+			</plugin>
+            
         </plugins>
     </build>
 
