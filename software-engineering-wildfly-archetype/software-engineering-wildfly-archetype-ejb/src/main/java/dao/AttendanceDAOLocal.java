@@ -2,6 +2,8 @@
 
 package dao;
 
+import java.util.List;
+
 import entities.Attendance;
 import entities.Event;
 import entities.User;
@@ -17,6 +19,6 @@ public interface AttendanceDAOLocal {
 
 	public int rejectAttendance(Event event, User user, User userAendern) throws NotAllowedException;
 
-	public Attendance findAttendanceById(int attendanceId);
+	public Attendance findAttendance(int eventId, String email);
 
 }

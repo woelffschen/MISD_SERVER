@@ -65,7 +65,6 @@ public class Attendance implements Serializable {
 	public int getAttendanceId() {
 		return attendanceId;
 	}
-
-
+	
 
 }

@@ -11,6 +11,7 @@ public class EventTO extends DataTransferObject {
 	private int minAge;
 	private int maxAge;
 	private char gender;
+	private String eventStreet;
 	private int eventPostalCode;
 	private String eventCity;
 	private String eventOwner;
@@ -27,7 +28,7 @@ public class EventTO extends DataTransferObject {
 	public EventTO() {
 	};
 
-	public EventTO(int eventId, int menueId, int minAge, int maxAge, char gender, int eventPostalCode, String eventCity,
+	public EventTO(int eventId, int menueId, int minAge, int maxAge, char gender, String eventStreet, int eventPostalCode, String eventCity,
 			String eventOwner, String comments, int dateTime, String name, boolean lactose, boolean gluten,
 			boolean fructose, boolean sorbit, boolean vega, boolean vegee) {
 		super();
@@ -36,6 +37,7 @@ public class EventTO extends DataTransferObject {
 		this.minAge = minAge;
 		this.maxAge = maxAge;
 		this.gender = gender;
+		this.eventStreet = eventStreet;
 		this.eventPostalCode = eventPostalCode;
 		this.eventCity = eventCity;
 		this.eventOwner = eventOwner;
@@ -50,31 +52,6 @@ public class EventTO extends DataTransferObject {
 		this.vegee = vegee;
 	}
 
-	// public EventTO(int eventId, int menueId, int min, int max, char g, String
-	// street, int plz, String city,
-	// String com, int dt, String eO, String n, boolean l, boolean gl, boolean
-	// f, boolean s, boolean ve, boolean veg) {
-	//
-	// this.eventId = eventId;
-	// this.menueId = menueId;
-	// minAge = min;
-	// maxAge = max;
-	// gender = g;
-	// eventPostalCode = plz;
-	// eventCity = city;
-	// dateTime = dt;
-	// comments = com;
-	// eventOwner = eO;
-	// setName(n);
-	// setLactose(l);
-	// setGluten(gl);
-	// setFructose(f);
-	// setSorbit(s);
-	// setVega(ve);
-	// setVegee(veg);
-	//
-	//
-	// }
 
 	public int getMenueId() {
 		return menueId;
@@ -108,6 +85,14 @@ public class EventTO extends DataTransferObject {
 		this.gender = gender;
 	}
 
+	public String getEventStreet() {
+		return eventStreet;
+	}
+
+	public void setEventStreet(String eventStreet) {
+		this.eventStreet = eventStreet;
+	}
+	
 	public int getEventPostalCode() {
 		return eventPostalCode;
 	}

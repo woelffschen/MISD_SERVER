@@ -6,6 +6,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
 
+import dao.AttendanceDAOLocal;
 import dao.EventDAOLocal;
 import dao.UserDAOLocal;
 import dto.DTOAssembler;
@@ -14,6 +15,7 @@ import dto.PublicUserResponse;
 import dto.ReturnCodeResponse;
 import dto.UserResponse;
 import dto.UserTO;
+import entities.Attendance;
 import entities.Event;
 import entities.Session;
 import entities.User;
@@ -27,6 +29,9 @@ public class UserInterface {
 
 	@EJB
 	private EventDAOLocal edao;
+	
+	@EJB
+	private AttendanceDAOLocal adao;
 
 	@EJB
 	private DTOAssembler dtoAssembler;
@@ -62,7 +67,7 @@ public class UserInterface {
 		else
 			return user;
 	}
-
+	
 	private User getNullEmail(String email) throws NotAllowedException {
 		User user = udao.findUserByEmail(email);
 		if (user != null)
@@ -130,9 +135,12 @@ public class UserInterface {
 		try {
 			User user = getUser(email);
 			Event event = getEvent(eventId);
+			Attendance attendance = adao.findAttendance(eventId, email);;
 			if (user != null) {
 				udao.findUserById(email);
 				edao.findEventById(eventId);
+				attendance.getStatus();
+				response.setAttendanceStatus(attendance.getStatus());
 				response.setLastname(user.getLastname());
 				response.setFirstname(user.getFirstname());
 				response.setPostalCode(user.getPostalCode());

@@ -11,7 +11,6 @@ import dao.EventDAOLocal;
 import dao.UserDAOLocal;
 import dto.AttendanceResponse;
 import dto.DTOAssembler;
-import entities.Attendance;
 import entities.Event;
 import entities.Session;
 import entities.User;

@@ -38,6 +38,7 @@ public class DTOAssembler {
 		result.setEventId(event.getEventId());
 		result.setEventOwner(event.getEventOwner());
 		result.setEventPostalCode(event.getEventPostalCode());
+		result.setEventStreet(event.getEventStreet());
 		result.setGender(event.getGender());
 		result.setFructose(event.getMenue().getFructose());
 		result.setGluten(event.getMenue().getGluten());

@@ -2,8 +2,12 @@
 
 package dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ejb.Local;
 import javax.ejb.Stateless;
+import javax.naming.spi.DirStateFactory.Result;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -108,9 +112,16 @@ public class AttendanceDAO implements AttendanceDAOLocal {
 			throw new NotAllowedException("Nur der Besitzer darf Teilnehmer bestätigen.");
 		}
 	}
-
+	
 	@Override
-	public Attendance findAttendanceById(int attendanceId) {
-		return em.find(Attendance.class, attendanceId);
+	public Attendance findAttendance(int eventId, String email) {
+		List<Attendance> result = new ArrayList<Attendance>();
+		Event event = em.find(Event.class, eventId);
+		User user = em.find(User.class, email);
+		result = em.createQuery("SELECT a FROM Attendance a WHERE a.event LIKE :event AND a.user LIKE :user",
+				Attendance.class).setParameter("event", event).setParameter("user", user).getResultList();
+	
+		return result.get(0);
 	}
+	
 }

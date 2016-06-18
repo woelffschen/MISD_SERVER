@@ -4,6 +4,7 @@ public class PublicUserResponse extends ReturnCodeResponse {
 
 	private static final long serialVersionUID = -5754928488884226775L;
 
+	private int attendanceStatus;
 	private String lastname;
 	private String firstname;
 	private String city;
@@ -29,6 +30,15 @@ public class PublicUserResponse extends ReturnCodeResponse {
 	};
 
 
+	public void setAttendanceStatus(int attendanceStatus) {
+		this.attendanceStatus = attendanceStatus;
+
+	}
+	
+	public int getAttendanceStatus() {
+		return attendanceStatus;
+	}
+	
 
 	public void setLastname(String l) {
 		lastname = l;
