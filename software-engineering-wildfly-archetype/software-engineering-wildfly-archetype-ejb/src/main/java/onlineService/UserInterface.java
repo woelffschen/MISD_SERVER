@@ -135,12 +135,9 @@ public class UserInterface {
 		try {
 			User user = getUser(email);
 			Event event = getEvent(eventId);
-			Attendance attendance = adao.findAttendance(eventId, email);;
-			if (user != null) {
-				udao.findUserById(email);
-				edao.findEventById(eventId);
-				attendance.getStatus();
-				response.setAttendanceStatus(attendance.getStatus());
+			Attendance attendance = adao.findAttendance(eventId, email);
+			
+			if(user !=null && event != null) {
 				response.setLastname(user.getLastname());
 				response.setFirstname(user.getFirstname());
 				response.setPostalCode(user.getPostalCode());
@@ -153,12 +150,22 @@ public class UserInterface {
 				response.setEventOwner(event.getEventOwner());
 				response.setEventPostalCode(event.getEventPostalCode());
 				response.setEventStreet(event.getEventStreet());
-				response.setGender(event.getGender());
+				response.setGenderEvent(event.getGender());
 				response.setMaxAge(event.getMaxAge());
 				response.setMenueId(event.getMenue().getMenueId());
 				response.setMinAge(event.getMinAge());
 				response.setTakePlace(event.getTakePlace());
-				return response;
+			}else{
+				// Kann nicht passieren, weil oben wenn der User/Event nicht exisitert die NotAllowedEx.. geworfen wird
+			}
+			
+			if (attendance != null) {
+				response.setAttendanceStatus(attendance.getStatus());
+			}else {
+				// Attendance-Datensatz existiert (noch) nicht in der DB
+				// Deshalb explizit den Status -1 setzen
+				// teste? also wir? Ja, kÃ¶nnen wir
+				response.setAttendanceStatus(-1);
 			}
 
 		} catch (NotAllowedException n) {
@@ -167,6 +174,7 @@ public class UserInterface {
 		}
 		return response;
 	}
+
 
 	public PrivateUserResponse getPrivateUserData(String email, int eventId) {
 		PrivateUserResponse response = new PrivateUserResponse();
@@ -187,7 +195,7 @@ public class UserInterface {
 				response.setEventOwner(event.getEventOwner());
 				response.setEventPostalCode(event.getEventPostalCode());
 				response.setEventStreet(event.getEventStreet());
-				response.setGender(event.getGender());
+				response.setGenderEvent(event.getGender());
 				response.setMaxAge(event.getMaxAge());
 				response.setMenueId(event.getMenue().getMenueId());
 				response.setMinAge(event.getMinAge());

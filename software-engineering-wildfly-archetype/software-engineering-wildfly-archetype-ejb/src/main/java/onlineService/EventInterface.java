@@ -91,8 +91,9 @@ public class EventInterface {
 	public ReturnCodeResponse deleteEvent(int eventId, String email) {
 		ReturnCodeResponse response = new ReturnCodeResponse();
 		Event event = this.edao.findEventById(eventId);
-		if (event != null && email == event.getEventOwner()) {
-			edao.deleteEvent(eventId, email);
+		if (event != null) {
+//			if (event != null && email == event.getEventOwner()) {
+			edao.deleteEvent(eventId);
 		}
 		return response;
 	}

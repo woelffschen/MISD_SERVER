@@ -2,12 +2,8 @@
 
 package dao;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.ejb.Local;
 import javax.ejb.Stateless;
-import javax.naming.spi.DirStateFactory.Result;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -26,7 +22,7 @@ public class AttendanceDAO implements AttendanceDAOLocal {
 	// EventParticipant
 	@Override
 	public int cancelAttendance(Event event, User user) throws NotAllowedException {
-		if (event.getEventOwner().equals(user.getEmail())) {
+		if (!event.getEventOwner().equals(user.getEmail())) {
 			Event e = this.em.find(Event.class, event.getEventId());
 			Attendance attendance = null;
 
@@ -55,15 +51,21 @@ public class AttendanceDAO implements AttendanceDAOLocal {
 		if (!event.getEventOwner().equals(user.getEmail())) {
 			Event e = this.em.find(Event.class, event.getEventId());
 			User u = this.em.find(User.class, user.getEmail());
-
-			Attendance a = new Attendance(e, u);
+			
+			/*
+			 * ÄNDERUNG nur am Aufruf
+			 */
+			Attendance a = new Attendance();
+			a.setUser(u);
+			a.setEvent(e);
 			a.setStatus(3);
-			em.persist(a);
+			this.em.persist(a);
 			return a.getStatus();
 		}
 
-		throw new NotAllowedException("Nur der Besitzer darf Teilnehmer bestätigen.");
+		throw new NotAllowedException("Sie dürfen bei Ihrem eigenen Event keine Anfrage stellen.");
 	}
+
 
 	@Override
 	public int confirmAttendance(Event event, User user, User userAendern) throws NotAllowedException {
@@ -85,7 +87,7 @@ public class AttendanceDAO implements AttendanceDAOLocal {
 				throw new NotAllowedException("Sie sind kein Teilnehmer des Events.");
 			}
 		} else {
-			throw new NotAllowedException("Nur der Besitzer darf Teilnehmer bestätigen.");
+			throw new NotAllowedException("Nur der Event Veranstalter darf Teilnehmer bestätigen.");
 		}
 	}
 
@@ -109,19 +111,26 @@ public class AttendanceDAO implements AttendanceDAOLocal {
 				throw new NotAllowedException("Sie sind kein Teilnehmer des Events.");
 			}
 		} else {
-			throw new NotAllowedException("Nur der Besitzer darf Teilnehmer bestätigen.");
+			throw new NotAllowedException("Nur der Event Veranstalter darf Teilnehmer ablehnen.");
 		}
 	}
 	
 	@Override
 	public Attendance findAttendance(int eventId, String email) {
-		List<Attendance> result = new ArrayList<Attendance>();
 		Event event = em.find(Event.class, eventId);
 		User user = em.find(User.class, email);
-		result = em.createQuery("SELECT a FROM Attendance a WHERE a.event LIKE :event AND a.user LIKE :user",
-				Attendance.class).setParameter("event", event).setParameter("user", user).getResultList();
-	
-		return result.get(0);
+
+		Attendance result = null;
+
+		try {
+			result = em.createQuery("SELECT a FROM Attendance a WHERE a.event LIKE :event AND a.user LIKE :user",
+					Attendance.class).setParameter("event", event).setParameter("user", user).getSingleResult();
+		} catch (Exception e) {
+			// Ignore
+		}
+
+		return result;
 	}
+
 	
 }

@@ -1,5 +1,7 @@
-// created by Sylvia & Daniel
-
+/** 
+ * @author Sylvia & Daniel
+ * Java Doc written by Sylvia
+*/
 package onlineService;
 
 import javax.ejb.EJB;
@@ -15,22 +17,48 @@ import entities.Event;
 import entities.Session;
 import entities.User;
 
+/**
+ * The AttendanceInterface is a stateless webservice and responsible for handling
+ * EventOwner and Participants.
+*/
 @WebService
 @Stateless
 public class AttendanceInterface {
 
+/**
+ * The AttendanceDAOLocal is the interface, which handles the communication
+ * with the database through the Attendance entity. 
+ */
 	@EJB
 	private AttendanceDAOLocal adao;
 
+/**
+ * The EventDAOLOcal is the interface, which handles the communication
+ * with the database through the Event entity. 
+ */
 	@EJB
 	private EventDAOLocal edao;
 
+/**
+ * The UserDAOLocal is the interface, which handles the communication
+ * with the database through the User entity.
+ */
 	@EJB
 	private UserDAOLocal udao;
 
+/**
+ * The DTOAssembler creates data transfer objects for the communication
+ * with the client.
+ */
 	@EJB
 	private DTOAssembler dtoa;
 
+/**
+ * An instrumentel class to find the correct session.
+ * @param sessionId of the logged user
+ * @return session object of logged user
+ * @throws NoSessionException
+ */
 	private Session getSession(int sessionId) throws NoSessionException {
 		Session session = udao.findSessionById(sessionId);
 		if (session == null)
@@ -39,6 +67,12 @@ public class AttendanceInterface {
 			return session;
 	}
 
+/**
+ * An instrumentel class to find the correct event.
+ * @param eventId of the requested event.
+ * @return 
+ * @throws NotAllowedException
+ */
 	private Event getEvent(int eventId) throws NotAllowedException {
 		Event event = this.edao.findEventById(eventId);
 		if (event == null)
@@ -66,7 +100,7 @@ public class AttendanceInterface {
 			Event event = getEvent(eventId);
 
 			this.adao.cancelAttendance(event, session.getUser());
-//			response.setStatus(event.get);
+			response.setStatus(1);
 			
 		} catch (NotAllowedException n) {
 			response.setReturnCode(n.getErrorCode());

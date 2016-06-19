@@ -16,7 +16,7 @@ public interface EventDAOLocal {
 			String eventOwner, String name, boolean lactose, boolean gluten, boolean fructose, boolean sorbit,
 			boolean vega, boolean vegee);
 
-	public void deleteEvent(int eventId, String email);
+	public void deleteEvent(int eventId);
 
 	public List<Event> getAll();
 
