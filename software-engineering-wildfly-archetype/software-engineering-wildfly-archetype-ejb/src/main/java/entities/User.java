@@ -1,4 +1,6 @@
-// @Author Sylvia & Daniel
+/** 
+ * @author Sylvia & Daniel
+*/
 
 package entities;
 
@@ -10,14 +12,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	
 	@Column(nullable = false)
 	String lastname;
 	@Column(nullable = false)
@@ -39,7 +39,6 @@ public class User implements Serializable {
 	String email;
 	@OneToOne
 	Session session;
-	
 
 	@OneToMany(mappedBy = "user")
 	private Set<Attendance> attendance;
@@ -47,8 +46,8 @@ public class User implements Serializable {
 	public User() {
 	};
 
-	public User(String email, String lastname, String firstname, String street, int postalCode, String city,
-			int age, char gender, String telephoneNumber) {
+	public User(String email, String lastname, String firstname, String street, int postalCode, String city, int age,
+			char gender, String telephoneNumber) {
 		super();
 		this.lastname = lastname;
 		this.firstname = firstname;
@@ -68,7 +67,7 @@ public class User implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
@@ -136,13 +135,13 @@ public class User implements Serializable {
 	public Set<Attendance> getAttendance() {
 		return attendance;
 	}
-	
+
 	public Session getSession() {
 		return session;
 	}
-	
+
 	public void setSession(Session session) {
 		this.session = session;
 	}
-	
+
 }

@@ -1,4 +1,6 @@
-// @Author Sylvia & Daniel
+/** 
+ * @author Sylvia & Daniel
+*/
 
 package dao;
 
@@ -46,15 +48,12 @@ public class AttendanceDAO implements AttendanceDAOLocal {
 		throw new NotAllowedException("Nur ein Teilnehmer darf seine Anmeldung stornieren.");
 	}
 
+	// EventParticipant
 	@Override
 	public int requestAttendance(Event event, User user) throws NotAllowedException {
 		if (!event.getEventOwner().equals(user.getEmail())) {
 			Event e = this.em.find(Event.class, event.getEventId());
 			User u = this.em.find(User.class, user.getEmail());
-			
-			/*
-			 * ÄNDERUNG nur am Aufruf
-			 */
 			Attendance a = new Attendance();
 			a.setUser(u);
 			a.setEvent(e);
@@ -62,11 +61,10 @@ public class AttendanceDAO implements AttendanceDAOLocal {
 			this.em.persist(a);
 			return a.getStatus();
 		}
-
 		throw new NotAllowedException("Sie dürfen bei Ihrem eigenen Event keine Anfrage stellen.");
 	}
 
-
+	// EventOwner
 	@Override
 	public int confirmAttendance(Event event, User user, User userAendern) throws NotAllowedException {
 		Event e = em.find(Event.class, event.getEventId());
@@ -91,6 +89,7 @@ public class AttendanceDAO implements AttendanceDAOLocal {
 		}
 	}
 
+	// EventOwner
 	@Override
 	public int rejectAttendance(Event event, User user, User userAendern) throws NotAllowedException {
 		Event e = em.find(Event.class, event.getEventId());
@@ -114,14 +113,12 @@ public class AttendanceDAO implements AttendanceDAOLocal {
 			throw new NotAllowedException("Nur der Event Veranstalter darf Teilnehmer ablehnen.");
 		}
 	}
-	
+
 	@Override
 	public Attendance findAttendance(int eventId, String email) {
 		Event event = em.find(Event.class, eventId);
 		User user = em.find(User.class, email);
-
 		Attendance result = null;
-
 		try {
 			result = em.createQuery("SELECT a FROM Attendance a WHERE a.event LIKE :event AND a.user LIKE :user",
 					Attendance.class).setParameter("event", event).setParameter("user", user).getSingleResult();
@@ -132,5 +129,4 @@ public class AttendanceDAO implements AttendanceDAOLocal {
 		return result;
 	}
 
-	
 }

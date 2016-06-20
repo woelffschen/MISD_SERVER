@@ -1,3 +1,7 @@
+/** 
+ * @author Sylvia & Daniel
+*/
+
 package dto;
 
 public class SingleEventResponse extends ReturnCodeResponse {
@@ -14,5 +18,4 @@ public class SingleEventResponse extends ReturnCodeResponse {
 		this.event = event;
 	}
 
-		
 }

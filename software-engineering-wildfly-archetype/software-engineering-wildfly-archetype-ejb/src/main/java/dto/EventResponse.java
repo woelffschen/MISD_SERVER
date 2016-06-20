@@ -1,3 +1,7 @@
+/** 
+ * @author Sylvia & Daniel
+*/
+
 package dto;
 
 public class EventResponse extends ReturnCodeResponse {
@@ -13,7 +17,5 @@ public class EventResponse extends ReturnCodeResponse {
 	public void setEventId(int eventId) {
 		this.eventId = eventId;
 	}
-	
-	
-		
+
 }

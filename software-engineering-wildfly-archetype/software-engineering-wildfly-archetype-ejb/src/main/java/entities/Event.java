@@ -1,9 +1,10 @@
-// @Author Sylvia & Daniel
+/** 
+ * @author Sylvia & Daniel
+*/
 
 package entities;
 
 import java.io.Serializable;
-//import java.util.Set;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -12,7 +13,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-//import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -23,10 +23,10 @@ public class Event implements Serializable {
 	@Id
 	@GeneratedValue
 	int eventId;
-	
+
 	@OneToOne(fetch = FetchType.EAGER)
 	Menue menue;
-	
+
 	@Column(nullable = false)
 	int minAge;
 	@Column(nullable = false)
@@ -47,20 +47,15 @@ public class Event implements Serializable {
 	int dateTime;
 	@Column(nullable = false)
 	String eventOwner;
-	
 
-	
 	@OneToMany(mappedBy = "event")
 	private Set<Attendance> attendance;
 
 	public Event() {
 	};
 
-	public Event(int min, int max, String street, int plz, String city, 
-			String com, char g, int d, String eo) {
+	public Event(int min, int max, String street, int plz, String city, String com, char g, int d, String eo) {
 
-		// mit Transaktion
-		//menueId = m;
 		minAge = min;
 		maxAge = max;
 		eventStreet = street;
@@ -70,10 +65,9 @@ public class Event implements Serializable {
 		gender = g;
 		dateTime = d;
 		eventOwner = eo;
-		takePlace = true;		
+		takePlace = true;
 	}
 
-	
 	public Menue getMenue() {
 		return menue;
 	}
@@ -126,7 +120,6 @@ public class Event implements Serializable {
 		return eventCity;
 	}
 
-	
 	public int getEventDateTime() {
 		return dateTime;
 	}
@@ -142,7 +135,7 @@ public class Event implements Serializable {
 	public String getComments() {
 		return comments;
 	}
-	
+
 	public void setEventOwner(String eO) {
 		eventOwner = eO;
 	}
@@ -166,13 +159,9 @@ public class Event implements Serializable {
 	public boolean getTakePlace() {
 		return takePlace;
 	}
-	
+
 	public Set<Attendance> getAttendanceList() {
 		return this.attendance;
 	}
-//
-//	public void setAttendanceList(Set<Attendance> attendanceList) {
-//		this.attendanceList = attendanceList;
-//	}
 
 }

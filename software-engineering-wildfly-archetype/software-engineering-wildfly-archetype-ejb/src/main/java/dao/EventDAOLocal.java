@@ -1,4 +1,6 @@
-// @Author Sylvia & Daniel
+/** 
+ * @author Sylvia & Daniel
+*/
 
 package dao;
 

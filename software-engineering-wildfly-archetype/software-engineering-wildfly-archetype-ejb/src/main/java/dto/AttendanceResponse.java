@@ -1,4 +1,6 @@
-// created by Sylvia & Daniel
+/** 
+ * @author Sylvia & Daniel
+*/
 
 package dto;
 
@@ -10,8 +12,6 @@ public class AttendanceResponse extends ReturnCodeResponse {
 
 	public AttendanceResponse() {
 	};
-	
-	
 
 	public int getStatus() {
 		return status;

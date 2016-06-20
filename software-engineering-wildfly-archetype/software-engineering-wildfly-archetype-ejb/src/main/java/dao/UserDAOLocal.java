@@ -1,9 +1,8 @@
-// @Author Sylvia & Daniel
+/** 
+ * @author Sylvia & Daniel
+*/
 
 package dao;
-
-import java.math.BigInteger;
-import java.util.Calendar;
 
 import javax.ejb.Local;
 

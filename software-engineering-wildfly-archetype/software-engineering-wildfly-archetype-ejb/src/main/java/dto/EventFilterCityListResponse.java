@@ -1,3 +1,7 @@
+/** 
+ * @author Sylvia & Daniel
+*/
+
 package dto;
 
 public class EventFilterCityListResponse extends ReturnCodeResponse {

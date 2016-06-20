@@ -1,8 +1,9 @@
-// @Author Sylvia & Daniel
+/** 
+ * @author Sylvia & Daniel
+*/
 
 package dto;
 
-import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 public class AttendanceTO extends DataTransferObject {

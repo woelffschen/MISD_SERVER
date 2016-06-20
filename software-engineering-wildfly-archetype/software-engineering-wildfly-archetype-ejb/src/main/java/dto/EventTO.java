@@ -1,4 +1,6 @@
-// @Author Sylvia & Daniel
+/** 
+ * @author Sylvia & Daniel
+*/
 
 package dto;
 
@@ -28,9 +30,9 @@ public class EventTO extends DataTransferObject {
 	public EventTO() {
 	};
 
-	public EventTO(int eventId, int menueId, int minAge, int maxAge, char gender, String eventStreet, int eventPostalCode, String eventCity,
-			String eventOwner, String comments, int dateTime, String name, boolean lactose, boolean gluten,
-			boolean fructose, boolean sorbit, boolean vega, boolean vegee) {
+	public EventTO(int eventId, int menueId, int minAge, int maxAge, char gender, String eventStreet,
+			int eventPostalCode, String eventCity, String eventOwner, String comments, int dateTime, String name,
+			boolean lactose, boolean gluten, boolean fructose, boolean sorbit, boolean vega, boolean vegee) {
 		super();
 		this.eventId = eventId;
 		this.menueId = menueId;
@@ -51,7 +53,6 @@ public class EventTO extends DataTransferObject {
 		this.vega = vega;
 		this.vegee = vegee;
 	}
-
 
 	public int getMenueId() {
 		return menueId;
@@ -92,7 +93,7 @@ public class EventTO extends DataTransferObject {
 	public void setEventStreet(String eventStreet) {
 		this.eventStreet = eventStreet;
 	}
-	
+
 	public int getEventPostalCode() {
 		return eventPostalCode;
 	}

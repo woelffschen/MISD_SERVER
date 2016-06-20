@@ -1,3 +1,7 @@
+/** 
+ * @author Sylvia & Daniel
+*/
+
 package onlineService;
 
 public class InvalidLoginException extends ServiceException {

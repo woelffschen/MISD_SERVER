@@ -1,4 +1,6 @@
-// created by Sylvia & Daniel
+/** 
+ * @author Sylvia & Daniel
+*/
 
 package dto;
 

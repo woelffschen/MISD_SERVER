@@ -1,3 +1,7 @@
+/** 
+ * @author Sylvia & Daniel
+*/
+
 package onlineService;
 
 public class EventOwnerException extends ServiceException {

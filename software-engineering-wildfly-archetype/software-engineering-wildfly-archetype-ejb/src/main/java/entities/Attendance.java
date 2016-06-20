@@ -1,4 +1,6 @@
-// @Author Sylvia & Daniel
+/** 
+ * @author Sylvia & Daniel
+*/
 
 package entities;
 
@@ -19,14 +21,13 @@ public class Attendance implements Serializable {
 	@Id
 	@GeneratedValue
 	int attendanceId;
-	
+
 	@ManyToOne
 	Event event;
-	
+
 	@ManyToOne
 	User user;
 
-	
 	@Column(nullable = true)
 	int status;
 
@@ -65,6 +66,5 @@ public class Attendance implements Serializable {
 	public int getAttendanceId() {
 		return attendanceId;
 	}
-	
 
 }

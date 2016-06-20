@@ -1,8 +1,8 @@
-// @Author Sylvia & Daniel
+/** 
+ * @author Sylvia & Daniel
+*/
 
 package dao;
-
-import java.util.List;
 
 import entities.Attendance;
 import entities.Event;

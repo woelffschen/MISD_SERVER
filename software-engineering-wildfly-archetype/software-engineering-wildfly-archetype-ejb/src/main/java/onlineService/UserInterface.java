@@ -1,5 +1,7 @@
-// created by Daniel & Sylvia
-
+/** 
+ * @author Sylvia & Daniel
+ * Java Doc written by Sylvia
+*/
 package onlineService;
 
 import javax.ejb.EJB;
@@ -20,22 +22,50 @@ import entities.Event;
 import entities.Session;
 import entities.User;
 
+/**
+ * The UserInterface is a stateless webservice and responsible for handling user
+ * and user data
+ */
 @WebService
 @Stateless
 public class UserInterface {
 
-	@EJB
-	private UserDAOLocal udao;
-
-	@EJB
-	private EventDAOLocal edao;
-	
+	/**
+	 * The AttendanceDAOLocal is the interface, which handles the communication
+	 * with the database through the Attendance entity
+	 */
 	@EJB
 	private AttendanceDAOLocal adao;
 
+	/**
+	 * The EventDAOLOcal is the interface, which handles the communication with
+	 * the database through the Event entity.
+	 */
 	@EJB
-	private DTOAssembler dtoAssembler;
+	private EventDAOLocal edao;
 
+	/**
+	 * The UserDAOLocal is the interface, which handles the communication with
+	 * the database through the User entity
+	 */
+	@EJB
+	private UserDAOLocal udao;
+
+	/**
+	 * The DTOAssembler creates data transfer objects for the communication with
+	 * the client
+	 */
+	@EJB
+	private DTOAssembler assembler;
+
+	/**
+	 * An instrumentel class to find the correct event
+	 * 
+	 * @param eventId
+	 *            of the requested event
+	 * @return event object of requested event
+	 * @throws NotAllowedException
+	 */
 	private Event getEvent(int eventId) throws NotAllowedException {
 		Event event = edao.findEventById(eventId);
 		if (event == null)
@@ -44,6 +74,14 @@ public class UserInterface {
 			return event;
 	}
 
+	/**
+	 * An instrumentel class to find the correct session
+	 * 
+	 * @param sessionId
+	 *            of the logged user
+	 * @return session object of logged user
+	 * @throws NoSessionException
+	 */
 	private Session getSession(int sessionId) throws NoSessionException {
 		Session session = udao.findSessionById(sessionId);
 		if (session == null)
@@ -52,6 +90,14 @@ public class UserInterface {
 			return session;
 	}
 
+	/**
+	 * An instrumental class to find the correct user
+	 * 
+	 * @param email
+	 *            of the requested user
+	 * @return user object of requested user
+	 * @throws NotAllowedException
+	 */
 	private User getUser(String email) throws NotAllowedException {
 		User user = udao.findUserById(email);
 		if (user == null)
@@ -60,6 +106,14 @@ public class UserInterface {
 			return user;
 	}
 
+	/**
+	 * An instrumental class to find the correct user
+	 * 
+	 * @param email
+	 *            of the requested user
+	 * @return user object of requested user
+	 * @throws NotAllowedException
+	 */
 	private User getEmail(String email) throws NotAllowedException {
 		User user = udao.findUserByEmail(email);
 		if (user == null)
@@ -67,29 +121,39 @@ public class UserInterface {
 		else
 			return user;
 	}
-	
-	private User getNullEmail(String email) throws NotAllowedException {
-		User user = udao.findUserByEmail(email);
-		if (user != null)
-			throw new NotAllowedException("Diese Aktion ist nicht erlaubt!");
-		else
-			return user;
-	}
 
-	// funktioniert
+	/**
+	 * registers a new user and logs him in
+	 * 
+	 * @param email
+	 *            of the user
+	 * @param lastname
+	 *            of the user
+	 * @param firstname
+	 *            of the user
+	 * @param street
+	 *            of the user
+	 * @param postalCode
+	 *            of the user
+	 * @param city
+	 *            of the user
+	 * @param age
+	 *            birthday of the user in unix time
+	 * @param telephoneNumber
+	 *            of the user
+	 * @param gender
+	 *            of the user
+	 * @return NotAllowedException or returnCode 0 and sessionId
+	 */
 	public UserResponse registerUser(String email, String lastname, String firstname, String street, int postalCode,
 			String city, int age, String telephoneNumber, char gender) {
 		UserResponse response = new UserResponse();
 		try {
-			// if (getEmail(email) == null) {
 			User user = udao.registerUser(email, lastname, firstname, street, postalCode, city, age, gender,
 					telephoneNumber);
-			// if (getNullEmail(email) != null) {
 			int sessionId = udao.loginUser(user);
 			getEmail(email);
 			response.setSessionId(sessionId);
-			// }
-			// }
 		} catch (NotAllowedException n) {
 			response.setReturnCode(n.getErrorCode());
 			response.setMessage(n.getMessage());
@@ -97,8 +161,13 @@ public class UserInterface {
 		return response;
 	}
 
-	// funktioniert, User kann sich aber mehrfach einloggen, Fehler noch nicht
-	// gefunden
+	/**
+	 * logs an user in
+	 * 
+	 * @param email
+	 *            of the user
+	 * @return NotAllowedException or returnCode 0 and sessionId
+	 */
 	public UserResponse loginUser(String email) {
 		UserResponse response = new UserResponse();
 		try {
@@ -114,6 +183,13 @@ public class UserInterface {
 		return response;
 	}
 
+	/**
+	 * logs an user out
+	 * 
+	 * @param email
+	 *            of the user
+	 * @return NoSessionException or returnCode 0
+	 */
 	public ReturnCodeResponse logout(int sessionId) {
 		ReturnCodeResponse response = new ReturnCodeResponse();
 
@@ -130,14 +206,23 @@ public class UserInterface {
 
 	}
 
+	/**
+	 * gets the public data of an attendance and the belonging event data
+	 * 
+	 * @param email
+	 *            of the event attendance which should be shown
+	 * @param eventId
+	 *            of the requested event
+	 * @return NotAllowedException or returnCode 0 and requested data
+	 */
 	public PublicUserResponse getPublicUserData(String email, int eventId) {
 		PublicUserResponse response = new PublicUserResponse();
 		try {
 			User user = getUser(email);
 			Event event = getEvent(eventId);
 			Attendance attendance = adao.findAttendance(eventId, email);
-			
-			if(user !=null && event != null) {
+
+			if (user != null && event != null) {
 				response.setLastname(user.getLastname());
 				response.setFirstname(user.getFirstname());
 				response.setPostalCode(user.getPostalCode());
@@ -155,16 +240,14 @@ public class UserInterface {
 				response.setMenueId(event.getMenue().getMenueId());
 				response.setMinAge(event.getMinAge());
 				response.setTakePlace(event.getTakePlace());
-			}else{
-				// Kann nicht passieren, weil oben wenn der User/Event nicht exisitert die NotAllowedEx.. geworfen wird
+			} else {
+				// not possible, because if there is no user and belonging
+				// event, a NotAllowedException will be thrown
 			}
-			
+
 			if (attendance != null) {
 				response.setAttendanceStatus(attendance.getStatus());
-			}else {
-				// Attendance-Datensatz existiert (noch) nicht in der DB
-				// Deshalb explizit den Status -1 setzen
-				// teste? also wir? Ja, kÃ¶nnen wir
+			} else {
 				response.setAttendanceStatus(-1);
 			}
 
@@ -175,7 +258,15 @@ public class UserInterface {
 		return response;
 	}
 
-
+	/**
+	 * gets the private data of an attendance and the belonging event data
+	 * 
+	 * @param email
+	 *            of the event attendance which should be shown
+	 * @param eventId
+	 *            of the requested event
+	 * @return NotAllowedException or returnCode 0 and requested data
+	 */
 	public PrivateUserResponse getPrivateUserData(String email, int eventId) {
 		PrivateUserResponse response = new PrivateUserResponse();
 		try {
@@ -211,6 +302,13 @@ public class UserInterface {
 		return response;
 	}
 
+	/**
+	 * gets the public data of an user
+	 * 
+	 * @param email
+	 *            of the user which should be shown
+	 * @return NotAllowedException or returnCode 0 and requested user data
+	 */
 	public UserTO getPublicData(String email) {
 		UserTO response = new UserTO();
 		try {
@@ -234,6 +332,15 @@ public class UserInterface {
 		return response;
 	}
 
+	/**
+	 * deletes an user
+	 * 
+	 * @param email
+	 *            of the user to delete
+	 * @param sessionId
+	 *            of the user to delete
+	 * @return NotAllowedException or NoSessionException or returnCode 0
+	 */
 	public ReturnCodeResponse deleteUser(String email, int sessionId) {
 		ReturnCodeResponse response = new ReturnCodeResponse();
 		try {

@@ -1,3 +1,7 @@
+/** 
+ * @author Sylvia & Daniel
+*/
+
 package dto;
 
 public class PublicUserResponse extends ReturnCodeResponse {
@@ -29,16 +33,14 @@ public class PublicUserResponse extends ReturnCodeResponse {
 	public PublicUserResponse() {
 	};
 
-
 	public void setAttendanceStatus(int attendanceStatus) {
 		this.attendanceStatus = attendanceStatus;
 
 	}
-	
+
 	public int getAttendanceStatus() {
 		return attendanceStatus;
 	}
-	
 
 	public void setLastname(String l) {
 		lastname = l;

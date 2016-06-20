@@ -1,4 +1,6 @@
-// created by Sylvia & Daniel
+/** 
+ * @author Sylvia & Daniel
+*/
 
 package dto;
 
@@ -26,10 +28,8 @@ public class PrivateUserResponse extends ReturnCodeResponse {
 	private String telephonNumber;
 	private String email;
 
-	
 	public PrivateUserResponse() {
 	};
-
 
 	public void setLastname(String l) {
 		lastname = l;

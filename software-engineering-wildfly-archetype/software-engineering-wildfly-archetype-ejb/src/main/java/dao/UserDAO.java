@@ -1,4 +1,6 @@
-// @Author Sylvia & Daniel
+/** 
+ * @author Sylvia & Daniel
+*/
 
 package dao;
 
@@ -52,7 +54,7 @@ public class UserDAO implements UserDAOLocal {
 	public User findUserById(String email) {
 		return em.find(User.class, email);
 	}
-	
+
 	@Override
 	public User findUserByEmail(String email) {
 		return em.find(User.class, email);

@@ -1,4 +1,6 @@
-// @Author Sylvia & Daniel
+/** 
+ * @author Sylvia & Daniel
+*/
 
 package entities;
 
@@ -35,7 +37,8 @@ public class Menue implements Serializable {
 	@Column(nullable = false)
 	boolean vegetarian;
 
-	public Menue() {};
+	public Menue() {
+	};
 
 	public Menue(String name, boolean lactose, boolean gluten, boolean fructose, boolean sorbit, boolean vega,
 			boolean vegee) {
@@ -137,6 +140,5 @@ public class Menue implements Serializable {
 	public boolean getVegetarian() {
 		return vegetarian;
 	}
-
 
 }

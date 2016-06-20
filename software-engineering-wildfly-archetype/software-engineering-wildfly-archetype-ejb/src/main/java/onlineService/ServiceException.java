@@ -1,3 +1,7 @@
+/** 
+ * @author Sylvia & Daniel
+*/
+
 package onlineService;
 
 import java.io.Serializable;

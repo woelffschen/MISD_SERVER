@@ -1,8 +1,8 @@
-// @Author Sylvia & Daniel
+/** 
+ * @author Sylvia & Daniel
+*/
 
 package dto;
-
-import java.math.BigInteger;
 
 public class UserTO extends ReturnCodeResponse {
 
@@ -17,12 +17,11 @@ public class UserTO extends ReturnCodeResponse {
 	private int age;
 	private char gender;
 	private String telephoneNumber;
-	
+
 	public UserTO() {
 	};
 
-	public UserTO(String email, String ln, String fn, String str, int plz, String c, int a, char g,
-			String tel) {
+	public UserTO(String email, String ln, String fn, String str, int plz, String c, int a, char g, String tel) {
 
 		super();
 		this.email = email;
@@ -35,8 +34,6 @@ public class UserTO extends ReturnCodeResponse {
 		gender = g;
 		telephoneNumber = tel;
 	}
-	
-
 
 	public void setEmail(String email) {
 		this.email = email;
@@ -111,19 +108,5 @@ public class UserTO extends ReturnCodeResponse {
 	public String getTelephoneNumber() {
 		return telephoneNumber;
 	}
-
-	// public User getPublicUserData() {
-	// return user.getUserId();
-	// return lastname;
-	// return firstname;
-	// return city;
-	// return age;
-	// return gender;
-	// return telephoneNumber;
-	// return alcDrinks;
-	// return userPic;
-	//
-	// }
-	// strg shift c alles aus oder einkommentieren
 
 }

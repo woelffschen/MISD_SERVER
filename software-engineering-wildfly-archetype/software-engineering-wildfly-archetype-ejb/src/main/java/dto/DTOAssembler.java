@@ -1,4 +1,6 @@
-// @Author Sylvia & Daniel
+/** 
+ * @author Sylvia & Daniel
+*/
 
 package dto;
 
@@ -8,20 +10,13 @@ import javax.ejb.Stateless;
 
 import entities.Attendance;
 import entities.Event;
-//import entities.Menue;
 import entities.User;
-
-/**
- * This stateless session bean provides operations for generating data transfer
- * objects from internal entity objects (Customer and Account).
- */
 
 @Stateless
 public class DTOAssembler {
 
 	public AttendanceTO makeDTO(Attendance attendance, Event event, User user) {
 		AttendanceTO dto = new AttendanceTO();
-		//dto.setAttendanceId(attendance.GET);
 		dto.setEventId(event.getEventId());
 		dto.setEmail(user.getEmail());
 		dto.setStatus(attendance.getStatus());
@@ -30,7 +25,7 @@ public class DTOAssembler {
 
 	public EventTO makeDTO(Event event) {
 		EventTO result = new EventTO();
-		
+
 		result.setEventId(event.getEventId());
 		result.setComments(event.getComments());
 		result.setEventCity(event.getEventCity());
@@ -50,17 +45,17 @@ public class DTOAssembler {
 		result.setSorbit(event.getMenue().getSorbit());
 		result.setVega(event.getMenue().getVegan());
 		result.setVegee(event.getMenue().getVegetarian());
-			
-		
+
 		return result;
 	}
+
 	public EventTO[] makeDTOs(List<Event> events) {
 		EventTO[] result = new EventTO[events.size()];
-		
-		for(int i = 0; i < events.size(); i++) {
+
+		for (int i = 0; i < events.size(); i++) {
 			result[i] = makeDTO(events.get(i));
 		}
-		
+
 		return result;
 	}
 
@@ -79,5 +74,4 @@ public class DTOAssembler {
 
 	}
 
-	
 }

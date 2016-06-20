@@ -1,4 +1,6 @@
-// @ Author Sylvia & Daniel
+/** 
+ * @author Sylvia & Daniel
+*/
 
 package dao;
 
@@ -41,15 +43,10 @@ public class EventDAO implements EventDAOLocal {
 
 	@Override
 	public void deleteEvent(int eventId) {
-//		em.find(Event.class, eventId);
-//		Event event = findEventById(eventId);
 		Event event = em.find(Event.class, eventId);
-//		User user = em.find(User.class, email);
-//		if (event.getEventOwner() == user.getEmail()); {
-			event.setTakePlace(false);
-			em.merge(event);
-		}
-//	}
+		event.setTakePlace(false);
+		em.merge(event);
+	}
 
 	@Override
 	public List<Event> filterCity(String email, String city) {
@@ -73,7 +70,7 @@ public class EventDAO implements EventDAOLocal {
 		List<Event> result = new ArrayList<Event>();
 
 		for (Attendance a : u.getAttendance()) {
-			if(a.getStatus() != 4) {
+			if (a.getStatus() != 4) {
 				result.add(a.getEvent());
 			}
 		}
@@ -96,11 +93,6 @@ public class EventDAO implements EventDAOLocal {
 	public User findUserByEmail(String email) {
 		return em.find(User.class, email);
 	}
-
-	// @Override
-	// public int getMenueId(Menue menue) {
-	// return menue.getMenueId();
-	// }
 
 	@Override
 	public int getEventId(Event event) {
